@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'landing-home',
+    redirectTo: 'cliente-home',
     pathMatch: 'full'
   },
 
@@ -49,6 +49,20 @@ const routes: Routes = [
     loadChildren: () => import('./recuperar-password/recuperar-password.module').then( m => m.RecuperarPasswordPageModule)
 
   },
+  {
+    path: 'cliente-home',
+    loadChildren: () => import('./cliente-home/cliente-home.module').then( m => m.ClienteHomePageModule)
+  },
+  // {
+  //   path: 'reservas',
+  //   loadChildren: () => import('./reservas/reservas.module').then( m => m.ReservasPageModule)
+  // },
+  // {
+  //   path: 'cliente-misdatos',
+  //   loadChildren: () => import('./cliente-misdatos/cliente-misdatos.module').then( m => m.ClienteMisdatosPageModule)
+  // },
+
+
 
 
 

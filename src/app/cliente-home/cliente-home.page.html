@@ -1,0 +1,26 @@
+<ion-header [translucent]="false">
+  <ion-toolbar>
+    <ion-title>
+      Home Cliente
+    </ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment value="misdatos" (ionChange)="segmentChanged($event)">
+      <ion-segment-button  value="misdatos">
+        <ion-icon name="person"></ion-icon>
+      </ion-segment-button>
+      <!-- <ion-segment-button value="Mis datos">
+        <ion-icon name="person"></ion-icon>
+      </ion-segment-button> -->
+      <ion-segment-button value="reservas">
+        <ion-icon name="car-outline"></ion-icon>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Aquí se desplegara todos los Component que se declararon como children en
+  HomePageModule -->
+  <ion-router-outlet></ion-router-outlet>
+</ion-content>
