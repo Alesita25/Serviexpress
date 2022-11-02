@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class ClienteHomePage {
 
   constructor(private router: Router) {
-    this.router.navigate(['cliente-home/misdatos'])
+    this.router.navigate(['cliente-home/cliente-misdatos'])
   }
   segmentChanged($event){
     console.log($event.detail.value);

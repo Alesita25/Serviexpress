@@ -11,7 +11,7 @@ const routes: Routes = [
     component: ClienteHomePage,
     children:[
       {
-        path:'misdatos',
+        path:'cliente-misdatos',
         component: ClienteMisdatosComponent
       },
       {

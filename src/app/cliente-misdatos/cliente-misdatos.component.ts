@@ -9,14 +9,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ClienteMisdatosComponent {
 
-  data: any;
+  recibir: any;
 
   constructor(private activeroute: ActivatedRoute, private router: Router) {
 
     this.activeroute.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state){
-        this.data = this.router.getCurrentNavigation().extras.state.user;
-        console.log(this.data)
+        this.recibir = this.router.getCurrentNavigation().extras.state.user;
+        console.log(this.recibir)
       } else(this.router.navigate(["/login-cliente"]))
     });
   }
