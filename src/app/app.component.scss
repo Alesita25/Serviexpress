@@ -1,0 +1,30 @@
+
+:host {
+  font-family: var(--fonts-roboto);
+  font: 1rem var(--fonts-weight-regular);
+  color: var(--colors-gris-oscuro);
+
+
+.menu{
+    text-transform: capitalize;
+    font: 2.5vh var(--fonts-weight-regular);
+    color: var(--colors-gris-oscuro);
+}
+
+.ios .tituloMenu {
+     text-transform: capitalize;
+     width: 100%;
+     font: 4vh var(--fonts-weight-regular);
+     color: var(--colors-gris-oscuro);
+     text-align: center;
+   }
+
+.md .tituloMenu {
+    text-transform: capitalize;
+    width: 100%;
+    font: 4vh var(--fonts-weight-regular);
+    color: var(--colors-gris-oscuro);
+    text-align: center;
+  }
+
+}

@@ -1,0 +1,79 @@
+<ion-app>
+  <ion-menu side="end" menuId="first" contentId="content1" swipe-gesture=true>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title class="tituloMenu">{{user}}</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="menu">
+      <!--Menú hamburgursa, dependiendo del nombre muestra las opciones, con ngif y el user que viene desde components.ts -->
+      <ion-menu-toggle auto-hide="true">
+      <ion-item routerDirection="forward" *ngIf="user=='invitado'">
+        <ion-icon name="power-outline" slot="start"></ion-icon>
+        <label class="">Iniciar Sesión</label>
+      </ion-item>
+      <hr  *ngIf="user=='invitado'">
+
+      <ion-item routerDirection="forward" *ngIf="user=='Seba' || user=='Alejandra' || user=='invitado'" (click)="homePage()">
+        <ion-icon name="home-outline" slot="start"></ion-icon>
+        <label class="menu">Home</label>
+      </ion-item>
+      <hr *ngIf="user=='Seba' || user=='Alejandra' || user=='invitado'">
+
+      <ion-item routerDirection="forward" *ngIf="user=='Seba' || user=='Alejandra'">
+        <ion-icon name="person-circle-outline" slot="start"></ion-icon>
+        <label class="menu">Tus Datos</label>
+      </ion-item>
+      <hr *ngIf="user=='Seba' || user=='Alejandra'">
+
+      <ion-item routerDirection="forward" *ngIf="user=='Seba'">
+        <ion-icon name="car-outline" slot="start"></ion-icon>
+        <label class="menu">Solicitar Repuesto</label>
+      </ion-item>
+      <hr *ngIf="user=='Seba'">
+
+      <ion-item routerDirection="forward" *ngIf="user=='Seba'">
+        <ion-icon name="calendar-outline" slot="start"></ion-icon>
+        <label class="menu">Modificar Hora Cliente</label>
+      </ion-item>
+      <hr *ngIf="user=='Seba'">
+
+      <ion-item routerDirection="forward" *ngIf="user=='Alejandra'">
+        <ion-icon name="calendar-outline" slot="start"></ion-icon>
+        <label class="menu">Agendar Hora</label>
+      </ion-item>
+      <hr *ngIf="user=='Alejandra'">
+
+      <ion-item routerDirection="forward" *ngIf="user=='Seba'">
+        <ion-icon name="bag-outline" slot="start"></ion-icon>
+        <label class="menu">Bandeja de Trabajo</label>
+      </ion-item>
+      <hr  *ngIf="user=='Seba'">
+
+      <ion-item routerDirection="forward" *ngIf="user=='Alejandra' || user=='invitado'">
+        <ion-icon name="call-outline" slot="start"></ion-icon>
+        <label class="menu">Contacto</label>
+      </ion-item>
+      <hr  *ngIf="user=='Alejandra' || user=='invitado'">
+
+      <ion-item routerDirection="forward" *ngIf="user=='Alejandra' || user=='invitado'">
+        <ion-icon name="car-outline" slot="start"></ion-icon>
+        <label class="menu">Servicios</label>
+      </ion-item>
+      <hr  *ngIf="user=='Alejandra' || user=='invitado'">
+
+      <ion-item routerDirection="forward" *ngIf="user=='Alejandra' || user=='invitado'">
+        <ion-icon name="location-outline" slot="start"></ion-icon>
+        <label class="menu">Sucursales</label>
+      </ion-item>
+      <hr  *ngIf="user=='Alejandra' || user=='invitado'">
+
+      <ion-item routerDirection="forward" *ngIf="user=='Seba' || user=='Alejandra'">
+        <ion-icon name="power-outline" slot="start"></ion-icon>
+        <label routerLink="/landing-home" class="menu">Cerrar Sesión</label>
+      </ion-item>
+    </ion-menu-toggle>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="content1"></ion-router-outlet>
+</ion-app>

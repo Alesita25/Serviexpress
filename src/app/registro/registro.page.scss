@@ -1,0 +1,44 @@
+//CSS REGISTRO
+ion-header{
+    position: absolute;
+}
+ion-toolbar{
+    --ion-background-color: transparent;
+    --opacity: 0;
+}
+
+ion-content{
+    --ion-background-color:#ffffff;  
+    width: calc(100% + 20px);
+    margin-top: 0px;
+}
+.ion-content::part(scroll) {
+    padding-right: 0px;
+  }
+
+.login-express{
+    margin-top: 0px;
+}
+
+.olvidar_password{
+    text-align: right;
+    ion-button{
+        font-size: 14px;
+    }
+}
+
+.btn-express{
+    text-align: center;
+    padding-top: 10px;
+}
+
+ion-card{
+    --ion-background-color: transparent;
+    box-shadow: none !important;
+    margin-top: 1px;
+}
+
+ion-label {
+    font-size: 8px;
+}
+

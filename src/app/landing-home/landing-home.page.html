@@ -1,0 +1,33 @@
+<ion-header class="home_page ion-no-border translucent">
+  <ion-toolbar >
+    <figure>
+      <ion-img class="imgLogo" src="../../assets/images/logo-ServiExpress.png"></ion-img>
+    </figure>
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen class="home_page ion-no-border">
+  <ion-grid class=" ion-no-border cion-no-padding">
+    <ion-row >
+      <ion-col size="6">
+        <ion-item class="ion-no-padding " lines="none">
+          <ion-card>
+            <ion-img (click)="loginCli()" src="assets/images/usuario.png"></ion-img>
+          <ion-card-header  (click)="loginCli()" #LoginCli>
+            <ion-card-title class="tituloCard">Login Cliente</ion-card-title>
+          </ion-card-header>
+          </ion-card>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6" >
+        <ion-item class="ion-no-padding" lines="none">
+          <ion-card>
+            <ion-img (click)="loginEm()" src="assets/images/empleado.png"></ion-img>
+            <ion-card-header  (click)="loginEm()" #LoginEm>
+              <ion-card-title class="tituloCard">Login Empleado</ion-card-title>
+            </ion-card-header>
+          </ion-card>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,40 @@
+<ion-header class="home_page">
+  <ion-toolbar >
+    <figure>
+      <img class="imgLogo" src="../../assets/images/logo-ServiExpress.png">
+    </figure>
+    <ion-buttons slot="end">
+      <ion-menu-button class="menu"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen class="home_page">
+  <div>
+    <section slot="fixed">
+      <h3 class="title">!bienvenido!</h3>
+      <h1 class="subttitle">{{this.user}}</h1>
+    </section>
+  </div>
+  <div>
+    <ion-card>
+      <ion-card-header  (click)="bandejaT()" #bandejaTrabajo>
+        <ion-card-title class="tituloCard">Bandeja de Trabajo</ion-card-title>
+      </ion-card-header>
+    </ion-card>
+    <ion-card>
+      <ion-card-header  (click)="solRep()" #repuestoEmp>
+        <ion-card-title class="tituloCard">Solicitar Repuestos</ion-card-title>
+      </ion-card-header>
+    </ion-card>
+    <ion-card>
+      <ion-card-header  (click)="ingresaVehiculo()" #ingresaVehiculo1>
+        <ion-card-title class="tituloCard">Ingresar Vehículo</ion-card-title>
+      </ion-card-header>
+    </ion-card>
+    <ion-card>
+      <ion-card-header  (click)="modificaCliente()" #modificaCliente1>
+        <ion-card-title class="tituloCard">Modificar Cliente</ion-card-title>
+      </ion-card-header>
+    </ion-card>
+  </div>
+</ion-content>

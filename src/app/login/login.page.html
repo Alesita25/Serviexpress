@@ -1,0 +1,40 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <!-- <ion-title>Login</ion-title>-->
+  </ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-back-button defaulthref="login" text=""></ion-back-button>
+  </ion-buttons>
+</ion-header>
+
+<ion-content>
+  <form  #form="ngForm"> 
+      <ion-card class="ion-no-margin">
+        <ion-img routerLink="/landing-home" src="assets/images/head.png"></ion-img>
+        <ion-card-content>
+          <div class="login-express">
+            <ion-item lines="full" (click)="presentToast1()">
+              <ion-label position="floating">Email 
+                <ion-icon  name="help-circle-outline"></ion-icon>
+              </ion-label>
+              <ion-input minlength="3" type="email" name="email" [(ngModel)]="interpolacion.email" required></ion-input>
+            </ion-item>
+            <ion-item lines="full">
+              <ion-label position="floating">Password</ion-label>
+              <ion-input minlength="4" type="password" name="password" [(ngModel)]="interpolacion.password" required></ion-input>
+            </ion-item>
+          </div>
+          <div class="olvidar_password">
+            <ion-button fill="clear" class="ion-no-padding" (click)="enviardatos()">¿Olvidaste tu contraseña?</ion-button>
+          </div>
+          <div class="btn-express">
+            <ion-button routerLink="/empleado-home" shape="round" [disabled]="form.invalid" color="dark" expand="block" fill="solid">INGRESAR</ion-button>
+            <ion-button routerLink="/landing-home" shape="round" color="dark" expand="block" fill="solid">Volver</ion-button>
+          </div>
+          <div class="registrate">
+            <ion-button routerLink="/registro" fill="clear" class="ion-no-padding">¿No tienes cuenta?<br> Regístrate aquí!</ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+  </form>
+</ion-content>

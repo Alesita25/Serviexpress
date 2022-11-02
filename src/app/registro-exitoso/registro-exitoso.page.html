@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Registro Exitoso!</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-img src="assets/images/head.png"></ion-img>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>¡Bienvenido/a!</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <!-- <ion-item lines="none"> -->
+        <ion-label>{{data.usuario}} gracias por registrarte en nuestro sitio. Recuerda que tu 
+        usuario es el Email:  {{data.email}} </ion-label>
+        <br>
+        
+        <!-- </ion-item> -->
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-button expand="full" shape="round"  type="submit" [routerLink] ="['/login-cliente']" >Iniciar Sesión</ion-button>
+  <br>
+  <ion-button expand="full" shape="round" type="submit" [routerLink] ="['/landing-home']" >Volver</ion-button>
+
+</ion-content>
