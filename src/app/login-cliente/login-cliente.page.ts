@@ -28,7 +28,7 @@ export class LoginClientePage implements OnInit {
         user: this.user
       }
     };
-    this.router.navigate(['/home'], NavigationExtras);
+    this.router.navigate(['/cliente-home'], NavigationExtras);
   }
   volver() {
     let NavigationExtras: NavigationExtras = {
