@@ -17,8 +17,8 @@ export class ClienteModificarReservaPage implements OnInit {
     this.activedroute.queryParams.subscribe(param =>{
       if(this.router.getCurrentNavigation().extras.state){
         this.idReserva = this.router.getCurrentNavigation().extras.state.idEnviado;
-        this.servicioReserva = this.router.getCurrentNavigation().extras.state.tituloEnviado;
-        this.fechaReserva = this.router.getCurrentNavigation().extras.state.textoEnviado;
+        this.servicioReserva = this.router.getCurrentNavigation().extras.state.servicioEnviado;
+        this.fechaReserva = this.router.getCurrentNavigation().extras.state.fechaEnviado;
       }
     })
   }
@@ -26,7 +26,7 @@ export class ClienteModificarReservaPage implements OnInit {
   editar(){
     this.dbservice.updateReserva(this.idReserva, this.servicioReserva,this.fechaReserva);
     this.dbservice.presentToast("Reserva Modificada");
-    this.router.navigate(['/cliente-home']);
+    this.router.navigate(['cliente-home']);
   }
 
   ngOnInit() {

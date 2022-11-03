@@ -53,7 +53,7 @@ export class ClienteMisdatosPage  {
       }
     }
     this.servicioBD.presentToast("Aqui");
-    this.router.navigate(['/cliente-modificarReserva'],navigationextras);
+    this.router.navigate(['cliente-home/cliente-modificarReserva'],navigationextras);
 
   }
 

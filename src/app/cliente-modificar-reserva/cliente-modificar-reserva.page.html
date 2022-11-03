@@ -1,9 +1,34 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>cliente-modificarReserva</ion-title>
+  <ion-toolbar >
+    <figure>
+      <img class="imgLogo" src="../../assets/images/logo-ServiExpress.png"> 
+      
+    </figure>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <div class="ion-padding-vertical">
+    <ion-card class="ion-text-center">
+      <ion-card-title>
+        <ion-label>
+          <h1>Modificar Reserva</h1>
+        </ion-label>
+      </ion-card-title>
 
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="floating">Servicio</ion-label>
+          <ion-input type="text" [(ngModel)]="servicioReserva"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Fecha visita</ion-label>
+          <ion-input type="text" [(ngModel)]="fechaReserva"></ion-input>
+        </ion-item>
+      </ion-card-content>
+      <ion-button shape="block" (click)="editar()">Guardar Cambios</ion-button>
+    </ion-card>
+
+  </div>
 </ion-content>
