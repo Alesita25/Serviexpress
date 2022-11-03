@@ -3,11 +3,11 @@ import { Router } from '@angular/router';
 import { DbserviceService } from 'src/app/service/dbservice.service';
 
 @Component({
-  selector: 'app-reservas',
-  templateUrl: './reservas.component.html',
-  styleUrls: ['./reservas.component.scss'],
+  selector: 'app-reserva',
+  templateUrl: './reserva.page.html',
+  styleUrls: ['./reserva.page.scss'],
 })
-export class ReservasComponent implements OnInit {
+export class ReservaPage implements OnInit {
 
   servicio = "";
   fecha = "";
@@ -17,10 +17,11 @@ export class ReservasComponent implements OnInit {
   guardar() {
     this.dbservice.addReserva(this.servicio,this.fecha);
     this.dbservice.presentToast("Reserva ingresada correctamente");
-    this.router.navigate(['/home']);
+    this.router.navigate(['/cliente-home']);
   }
 
   ngOnInit() {
   }
 
 }
+

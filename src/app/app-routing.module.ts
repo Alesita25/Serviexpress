@@ -60,6 +60,14 @@ const routes: Routes = [
     path: 'cliente-modificar-reserva',
     loadChildren: () => import('./cliente-modificar-reserva/cliente-modificar-reserva.module').then( m => m.ClienteModificarReservaPageModule)
   },
+  {
+    path: 'reserva',
+    loadChildren: () => import('./reserva/reserva.module').then( m => m.ReservaPageModule)
+  },
+  {
+    path: 'cliente-misdatos',
+    loadChildren: () => import('./cliente-misdatos/cliente-misdatos.module').then( m => m.ClienteMisdatosPageModule)
+  },
 
 
 ];
