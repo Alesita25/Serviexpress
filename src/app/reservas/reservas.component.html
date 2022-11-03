@@ -8,11 +8,28 @@
 </ion-header>
 
 <ion-content>
-  <div>
-    <section>
-      <h1 class="title">Agenda tu visita</h1>
-      
-    </section>
+  <div class="ion-padding-vertical">
+    <ion-card class="ion-text-center">
+      <ion-card-title>
+        <ion-label>
+          <h1>Agenda tu visita!</h1>
+        </ion-label>
+      </ion-card-title>
+  
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="floating">Servicio</ion-label>
+          <ion-input type="text" [(ngModel)]="servicio"></ion-input>
+        </ion-item>
+  
+        <ion-item>
+          <ion-label position="stacked">Fecha Visita</ion-label>
+          <ion-input type="text" [(ngModel)]="fecha"></ion-input>
+        </ion-item>
+      </ion-card-content>
+      <ion-button shape="block" (click)="guardar()">Generar Reserva</ion-button>
+    </ion-card>
+  
   </div>
- 
+  
   </ion-content>

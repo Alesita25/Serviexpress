@@ -56,7 +56,11 @@ const routes: Routes = [
   {
     path: '**',
     loadChildren: () => import('./not-found/not-found.module').then( m => m.NotFoundPageModule)
+  },  {
+    path: 'cliente-modificar-reserva',
+    loadChildren: () => import('./cliente-modificar-reserva/cliente-modificar-reserva.module').then( m => m.ClienteModificarReservaPageModule)
   },
+
 
 ];
 

@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ClienteHomePage } from './cliente-home.page';
 import {ReservasComponent} from '../reservas/reservas.component';
 import {ClienteMisdatosComponent} from '../cliente-misdatos/cliente-misdatos.component';
+import { ClienteModificarReservaPage } from '../cliente-modificar-reserva/cliente-modificar-reserva.page';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
       {
         path:'reservas',
         component: ReservasComponent
+      },
+      {
+        path:'cliente-modificarReserva',
+        component: ClienteModificarReservaPage
       },
     
     ]

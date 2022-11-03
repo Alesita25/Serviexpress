@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { DbserviceService } from 'src/app/service/dbservice.service';
 
 @Component({
   selector: 'app-reservas',
@@ -7,8 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReservasComponent implements OnInit {
 
-  constructor() { }
+  servicio = "";
+  fecha = "";
 
-  ngOnInit() {}
+  constructor(private dbservice: DbserviceService, private router: Router) { }
+
+  guardar() {
+    this.dbservice.addReserva(this.servicio,this.fecha);
+    this.dbservice.presentToast("Reserva ingresada correctamente");
+    this.router.navigate(['/home']);
+  }
+
+  ngOnInit() {
+  }
 
 }
