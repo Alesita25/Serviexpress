@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { IngresoGuard } from './ingreso.guard';
+import { SiningresoGuard } from './siningreso.guard';
 
 const routes: Routes = [
   {
@@ -19,7 +21,8 @@ const routes: Routes = [
 
   {
     path: 'login-cliente',
-    loadChildren: () => import('./login-cliente/login-cliente.module').then( m => m.LoginClientePageModule)
+    loadChildren: () => import('./login-cliente/login-cliente.module').then( m => m.LoginClientePageModule),
+    canActivate: [SiningresoGuard]
   },
   
   {
@@ -28,21 +31,25 @@ const routes: Routes = [
   },
   {
     path: 'registro',
-    loadChildren: () => import('./registro/registro.module').then( m => m.RegistroPageModule)
+    loadChildren: () => import('./registro/registro.module').then( m => m.RegistroPageModule),
+    canActivate: [SiningresoGuard]
 
   },
   {
     path: 'registro-cliente',
-    loadChildren: () => import('./registro-cliente/registro-cliente.module').then( m => m.RegistroClientePageModule)
+    loadChildren: () => import('./registro-cliente/registro-cliente.module').then( m => m.RegistroClientePageModule),
+    canActivate: [SiningresoGuard]
   },
   {
     path: 'registro-exitoso',
-    loadChildren: () => import('./registro-exitoso/registro-exitoso.module').then( m => m.RegistroExitosoPageModule)
+    loadChildren: () => import('./registro-exitoso/registro-exitoso.module').then( m => m.RegistroExitosoPageModule),
+    canActivate: [SiningresoGuard]
 
   },
   {
     path: 'landing-home',
-    loadChildren: () => import('./landing-home/landing-home.module').then( m => m.LandingHomePageModule)
+    loadChildren: () => import('./landing-home/landing-home.module').then( m => m.LandingHomePageModule),
+    canActivate: [IngresoGuard]
   },
   {
     path: 'recuperar-password',
@@ -51,7 +58,8 @@ const routes: Routes = [
   },
   {
     path: 'cliente-home',
-    loadChildren: () => import('./cliente-home/cliente-home.module').then( m => m.ClienteHomePageModule)
+    loadChildren: () => import('./cliente-home/cliente-home.module').then( m => m.ClienteHomePageModule),
+    canActivate: [IngresoGuard]
   },
   {
     path: '**',
