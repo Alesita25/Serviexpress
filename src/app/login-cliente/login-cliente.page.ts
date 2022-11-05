@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { NgControlStatusGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, NgControlStatusGroup, Validators } from '@angular/forms';
 import { Router, NavigationExtras } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
-
+// import { ApirestService } from '../apirest.service';
 
 
 @Component({
@@ -10,14 +10,24 @@ import { LoadingController } from '@ionic/angular';
   templateUrl: './login-cliente.page.html',
   styleUrls: ['./login-cliente.page.scss'],
 })
+ 
 export class LoginClientePage implements OnInit {
 
-  user={
-    usuario:"",
-    password:""
-  }
+  formularioLogin: FormGroup;
 
-  constructor(private router:Router, private loadingCtrl: LoadingController) { }
+  // user={
+  //   usuario:"",
+  //   password:""
+  // }
+
+  constructor(private router:Router, private loadingCtrl: LoadingController, public fb:FormBuilder) { 
+
+    this.formularioLogin = this.fb.group({
+      'email': new FormControl("",Validators.required),
+      'password': new FormControl("",Validators.required),
+      
+    })
+  }
 
   ngOnInit() {
   }
@@ -26,9 +36,12 @@ export class LoginClientePage implements OnInit {
 
     let NavigationExtras: NavigationExtras = {
       state: {
-        user: this.user
       }
     };
+    this.formularioLogin = this.fb.group({
+      'nombre': new FormControl("",Validators.required),
+
+    })
     this.router.navigate(['cliente-home/cliente-misdatos'], NavigationExtras);
   }
   volver() {
@@ -50,5 +63,19 @@ export class LoginClientePage implements OnInit {
 
      loading.present();
   }
-}  
+  // createPost(){
+  //   var post={
+  //     title: 'titulo prueba',
+  //     body: 'algun cuerpo del post',
+  //     userId: 1
+  //   }
+  //   this.api.createPost(post).subscribe((success)=>{
+  //     console.log(success);
+  //   },error=>{
+  //     console.log(error);
+  //   });
+  }
+
+
+  
 

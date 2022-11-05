@@ -42,7 +42,8 @@ const routes: Routes = [
   },
   {
     path: 'registro-exitoso',
-    loadChildren: () => import('./registro-exitoso/registro-exitoso.module').then( m => m.RegistroExitosoPageModule)
+    loadChildren: () => import('./registro-exitoso/registro-exitoso.module').then( m => m.RegistroExitosoPageModule),
+    canActivate: [SiningresoGuard]
 
   },
   {
