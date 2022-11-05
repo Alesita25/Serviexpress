@@ -27,6 +27,17 @@
           <ion-input type="text" [(ngModel)]="fecha"></ion-input>
         </ion-item>
       </ion-card-content>
+
+      <ionic-fab vertical="button" horizontal="center" slot="fixed">
+        <ion-fab-button (click)="takePicture()">
+          <ion-icon name="camera"></ion-icon>
+        </ion-fab-button>
+      </ionic-fab>
+      
+
+      <ion-button shape="block" (click)="takePicture()">
+        Take Snap
+      </ion-button>
       <ion-button shape="block" (click)="guardar()">Generar Reserva</ion-button>
     </ion-card>
   
