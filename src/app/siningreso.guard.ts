@@ -11,6 +11,7 @@ export class SiningresoGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       console.log('SiningresoGuard#canActivate called');
     return false;
+
   }
   
 }

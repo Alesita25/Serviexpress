@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { ClienteHomePage } from './cliente-home.page';
-import {ReservasComponent} from '../reservas/reservas.component';
-import {ClienteMisdatosComponent} from '../cliente-misdatos/cliente-misdatos.component';
+import {ReservaPage} from '../reserva/reserva.page';
+import {ClienteMisdatosPage} from '../cliente-misdatos/cliente-misdatos.page';
+import { ClienteModificarReservaPage } from '../cliente-modificar-reserva/cliente-modificar-reserva.page';
 
 const routes: Routes = [
   {
@@ -12,11 +13,15 @@ const routes: Routes = [
     children:[
       {
         path:'cliente-misdatos',
-        component: ClienteMisdatosComponent
+        component: ClienteMisdatosPage
       },
       {
-        path:'reservas',
-        component: ReservasComponent
+        path:'reserva',
+        component: ReservaPage
+      },
+      {
+        path:'cliente-modificarReserva',
+        component: ClienteModificarReservaPage
       },
     
     ]
