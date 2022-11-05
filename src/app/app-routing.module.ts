@@ -22,7 +22,7 @@ const routes: Routes = [
   {
     path: 'login-cliente',
     loadChildren: () => import('./login-cliente/login-cliente.module').then( m => m.LoginClientePageModule),
-    canActivate: [SiningresoGuard]
+    // canActivate: [IngresoGuard]
   },
   
   {
@@ -50,7 +50,7 @@ const routes: Routes = [
   {
     path: 'landing-home',
     loadChildren: () => import('./landing-home/landing-home.module').then( m => m.LandingHomePageModule),
-    canActivate: [IngresoGuard]
+    // canActivate: [IngresoGuard]
   },
   {
     path: 'recuperar-password',
@@ -60,7 +60,7 @@ const routes: Routes = [
   {
     path: 'cliente-home',
     loadChildren: () => import('./cliente-home/cliente-home.module').then( m => m.ClienteHomePageModule),
-    canActivate: [IngresoGuard]
+    // canActivate: [IngresoGuard]
   },
   {
     path: '**',

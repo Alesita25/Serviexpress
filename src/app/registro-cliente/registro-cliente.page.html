@@ -8,7 +8,7 @@
 
   <ion-img src="assets/images/head.png"></ion-img>
   
-  <form  #form="ngForm" > 
+  <form [formGroup]="formularioRegistro" (keyup.enter)="guardar()"> 
     
     <ion-grid>
       <ion-row justify-content-center>
@@ -19,15 +19,15 @@
           <div padding>
             <ion-item>
               <ion-label position="floating">Rut</ion-label>
-              <ion-input  name="rut" type="text" placeholder="178601803" ngModel required maxlength="12" minlength="9"></ion-input>
+              <ion-input formControlname="rut" type="text" placeholder="178601803" maxlength="12" minlength="9"></ion-input>
             </ion-item>
             <ion-item>
               <ion-label position="floating">Nombre</ion-label>
-              <ion-input  name="name" type="text" placeholder="Juan" ngModel required maxlength="60" minlength="2" [(ngModel)]="user.usuario"></ion-input>
+              <ion-input  formControlname="nombre" type="text" placeholder="Juan"  maxlength="60" minlength="2" [(ngModel)]="user.usuario"></ion-input>
             </ion-item>
             <ion-item>
               <ion-label position="floating">Apellido</ion-label>
-              <ion-input  name="apellido" type="text" placeholder="Perez" ngModel required maxlength="60" minlength="2"></ion-input>
+              <ion-input  formControlname="apellido" type="text" placeholder="Perez"  maxlength="60" minlength="2"></ion-input>
             </ion-item>
             <ion-item>
               <ion-label position="floating">Fecha nacimiento</ion-label>
@@ -35,31 +35,31 @@
             </ion-item>
             <ion-item>
               <ion-label position="floating">Email</ion-label>
-              <ion-input name="email" type="email" placeholder="jperez@gmail.com" ngModel required [(ngModel)]="user.email"></ion-input>
+              <ion-input formControlname="email" type="email" placeholder="jperez@gmail.com" ngModel required [(ngModel)]="user.email"></ion-input>
             </ion-item>
             <ion-item>
               <ion-label position="floating">Dirección Particular</ion-label>
-              <ion-input  name="direccionParticular" type="text" placeholder="" ngModel required maxlength="60" minlength="2"></ion-input>
+              <ion-input formControlname="direccionParticular" type="text" placeholder="" ngModel required maxlength="60" minlength="2"></ion-input>
             </ion-item>
             <ion-item>
               <ion-label position="floating">Dirección Comercial</ion-label>
-              <ion-input  name="direccionComercial" type="text" placeholder="" ngModel required maxlength="60" minlength="2"></ion-input>
+              <ion-input  formControlname="direccionComercial" type="text" placeholder="" ngModel required maxlength="60" minlength="2"></ion-input>
             </ion-item>
             <ion-item>
               <ion-label position="floating">Celular</ion-label>
-              <ion-input  name="celular" type="number" placeholder="" ngModel required maxlength="60" minlength="2"></ion-input>
+              <ion-input  formControlname="celular" type="number" placeholder="" maxlength="60" minlength="2"></ion-input>
             </ion-item>
             <ion-item>
               <ion-label position="floating">Teléfono Comercial</ion-label>
-              <ion-input  name="telefonoComercial" type="number" placeholder="" ngModel required maxlength="60" minlength="2"></ion-input>
+              <ion-input  formControlname="telefonoComercial" type="number" placeholder="" maxlength="60" minlength="2"></ion-input>
             </ion-item>
             <ion-item>
               <ion-label position="floating">Contraseña</ion-label>
-              <ion-input name="password" type="password" placeholder="Contraseña" ngModel required></ion-input>
+              <ion-input formControlname="password" type="password" placeholder="Contraseña"></ion-input>
             </ion-item>
             <ion-item>
               <ion-label position="floating">Confirmar Contraseña</ion-label>
-              <ion-input name="confirm" type="password" placeholder="Password again" ngModel required></ion-input>
+              <ion-input formControlname="confirm" type="password" placeholder="Password again"></ion-input>
             </ion-item>
           </div>
          
