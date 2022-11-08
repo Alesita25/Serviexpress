@@ -77,6 +77,12 @@ const routes: Routes = [
     loadChildren: () => import('./cliente-misdatos/cliente-misdatos.module').then( m => m.ClienteMisdatosPageModule)
   },
 
+  {
+    path: 'consultapost',
+    loadChildren: () => import('./consultapost/consultapost.module').then( m => m.ConsultapostPageModule)
+  },
+
+
 
 ];
 

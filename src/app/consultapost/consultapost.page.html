@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Consulta Post</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card lines="full" class="ion-no-margin" >
+      <ion-list>
+        <ion-item>
+          <ion-label>Selecciona un post</ion-label>
+          <ion-select interface="action-sheet" placeholder="Select one" (ionChange)="getItem($event)" >
+            <ion-select-option *ngFor="let posts of posts" value={{posts.id}}>{{posts.id}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+  </ion-card>
+  <ion-card *ngIf="opcion>0">
+        <ion-card-header>
+          <ion-card-subtitle>ID {{post?.id}}</ion-card-subtitle>
+          <ion-card-title>Title {{post?.title}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          Body {{post?.body}}
+        </ion-card-content>
+  </ion-card>
+</ion-content>
+

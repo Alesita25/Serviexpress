@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ClienteHomePage } from './cliente-home.page';
 import {ReservaPage} from '../reserva/reserva.page';
 import {ClienteMisdatosPage} from '../cliente-misdatos/cliente-misdatos.page';
-import { ClienteModificarReservaPage } from '../cliente-modificar-reserva/cliente-modificar-reserva.page';
+import {ConsultapostPage} from '../consultapost/consultapost.page';
 
 const routes: Routes = [
   {
@@ -20,9 +20,10 @@ const routes: Routes = [
         component: ReservaPage
       },
       {
-        path:'cliente-modificarReserva',
-        component: ClienteModificarReservaPage
+        path:'consultaPost',
+        component: ConsultapostPage
       },
+      
     
     ]
   }

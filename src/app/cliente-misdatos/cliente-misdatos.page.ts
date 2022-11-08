@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { DbserviceService } from '../service/dbservice.service';
+import { FotosService } from '../service/fotos.service';
 
 @Component({
   selector: 'app-cliente-misdatos',
@@ -17,7 +18,7 @@ export class ClienteMisdatosPage  {
   ]
 
   constructor(private router: Router, private servicioBD: DbserviceService) {}
-
+  
   ngOnInit(){
     //this.servicioBD.presentAlert("1");
     this.servicioBD.dbState().subscribe((res) =>{
@@ -61,5 +62,6 @@ export class ClienteMisdatosPage  {
     this.servicioBD.deleteReserva(item.id);
     this.servicioBD.presentToast("Reserva Eliminada");
   }
+
 
 }
