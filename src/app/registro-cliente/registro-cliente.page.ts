@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 
 import { Router, NavigationExtras } from '@angular/router';
 
-import { LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-registro-cliente',
@@ -20,7 +20,8 @@ export class RegistroClientePage implements OnInit {
   //   email:""
   // }
 
-  constructor(private router:Router,private loadingCtrl: LoadingController, public fb:FormBuilder) {
+  constructor(private router:Router,private loadingCtrl: LoadingController, public fb:FormBuilder, public alertController: AlertController ) {
+
     this.formularioRegistro = this.formularioRegistro = this.fb.group({
       'rut': new FormControl("", Validators.required),
       'nombre': new FormControl("", Validators.required),
@@ -38,23 +39,41 @@ export class RegistroClientePage implements OnInit {
   ngOnInit() {
   }
 
-  // ingresar(){
-  //   let navigationExtras:NavigationExtras ={
-  //     state:{
-  //       user:this.user,
-  //     }
-  //   };
-  //   this.router.navigate(['/registro-exitoso'],navigationExtras);
-  // }
+   async guardar(){
+    var f = this.formularioRegistro.value;
+    if (this.formularioRegistro.invalid){
+      const alert = await this.alertController.create({
+        header: 'Datos incompletos',
+        message: 'Todos los campos son requeridos',
+        buttons: ['Aceptar']
+      });
+      await alert.present();
+
+    }
+
+    var usuario = {
+      email: f.email,
+      password: f.password
+    }
+
+    localStorage.setItem('usuario',JSON.stringify(usuario));
+
+  
+    let navigationExtras:NavigationExtras ={
+      state:{
+      }
+    };
+    this.router.navigate(['/registro-exitoso'],navigationExtras);
+  }
 
 
-  // async showLoading() {
-  //   const loading = await this.loadingCtrl.create({
-  //     message: 'Loading...',
-  //     duration: 800,
-  //     spinner: 'circles',
-  //   });
+  async showLoading() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Loading...',
+      duration: 800,
+      spinner: 'circles',
+    });
 
-  //   loading.present();
-  // }
+    loading.present();
+  }
 }

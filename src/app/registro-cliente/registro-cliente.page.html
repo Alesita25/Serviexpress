@@ -8,7 +8,7 @@
 
   <ion-img src="assets/images/head.png"></ion-img>
   
-  <form [formGroup]="formularioRegistro" (keyup.enter)="guardar()"> 
+  <div [formGroup]="formularioRegistro" (keyup.enter)="guardar()"> 
     
     <ion-grid>
       <ion-row justify-content-center>
@@ -19,56 +19,56 @@
           <div padding>
             <ion-item>
               <ion-label position="floating">Rut</ion-label>
-              <ion-input formControlname="rut" type="text" placeholder="178601803" maxlength="12" minlength="9"></ion-input>
+              <ion-input formControlname="rut"></ion-input>
             </ion-item>
             <ion-item>
               <ion-label position="floating">Nombre</ion-label>
-              <ion-input  formControlname="nombre" type="text" placeholder="Juan"  maxlength="60" minlength="2" [(ngModel)]="user.usuario"></ion-input>
+              <ion-input  formControlname="nombre"></ion-input>
             </ion-item>
             <ion-item>
               <ion-label position="floating">Apellido</ion-label>
-              <ion-input  formControlname="apellido" type="text" placeholder="Perez"  maxlength="60" minlength="2"></ion-input>
+              <ion-input  formControlname="apellido" ></ion-input>
             </ion-item>
             <ion-item>
               <ion-label position="floating">Fecha nacimiento</ion-label>
-              <ion-input  name="fechaNacimiento" type="date" placeholder="" ngModel required maxlength="60" minlength="2"></ion-input>
+              <ion-input  name="fechaNacimiento"></ion-input>
             </ion-item>
             <ion-item>
               <ion-label position="floating">Email</ion-label>
-              <ion-input formControlname="email" type="email" placeholder="jperez@gmail.com" ngModel required [(ngModel)]="user.email"></ion-input>
+              <ion-input formControlname="email" ></ion-input>
             </ion-item>
             <ion-item>
               <ion-label position="floating">Dirección Particular</ion-label>
-              <ion-input formControlname="direccionParticular" type="text" placeholder="" ngModel required maxlength="60" minlength="2"></ion-input>
+              <ion-input formControlname="direccionParticular" ></ion-input>
             </ion-item>
             <ion-item>
               <ion-label position="floating">Dirección Comercial</ion-label>
-              <ion-input  formControlname="direccionComercial" type="text" placeholder="" ngModel required maxlength="60" minlength="2"></ion-input>
+              <ion-input  formControlname="direccionComercial" ></ion-input>
             </ion-item>
             <ion-item>
               <ion-label position="floating">Celular</ion-label>
-              <ion-input  formControlname="celular" type="number" placeholder="" maxlength="60" minlength="2"></ion-input>
+              <ion-input  formControlname="celular" ></ion-input>
             </ion-item>
             <ion-item>
               <ion-label position="floating">Teléfono Comercial</ion-label>
-              <ion-input  formControlname="telefonoComercial" type="number" placeholder="" maxlength="60" minlength="2"></ion-input>
+              <ion-input  formControlname="telefonoComercial"></ion-input>
             </ion-item>
             <ion-item>
               <ion-label position="floating">Contraseña</ion-label>
-              <ion-input formControlname="password" type="password" placeholder="Contraseña"></ion-input>
+              <ion-input formControlname="password" ></ion-input>
             </ion-item>
             <ion-item>
               <ion-label position="floating">Confirmar Contraseña</ion-label>
-              <ion-input formControlname="confirm" type="password" placeholder="Password again"></ion-input>
+              <ion-input formControlname="confirm"></ion-input>
             </ion-item>
           </div>
          
         </ion-col>
       </ion-row>
     </ion-grid>
-  </form>
+  </div>
 
-  <ion-button expand="full" shape="round" type="submit" [disabled]="form.invalid" (click)="showLoading();ingresar()" >Registrarme</ion-button>
+  <ion-button expand="full" shape="round" type="submit" [disabled]="form.invalid" (click)="showLoading();guardar()" >Registrarme</ion-button>
   <br>
   <ion-button  expand="full" shape="round" type="submit" [routerLink] ="['/login-cliente']" >Volver</ion-button>
 </ion-content>

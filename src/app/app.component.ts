@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 
 
@@ -13,7 +14,7 @@ export class AppComponent {
   navigate : any;
   user = 'Alejandra';
   //librería para enrutar páginas
-  constructor(private route: Router) { }
+  constructor(private route: Router, private formBuilder: FormBuilder) { }
 
   //indicar nombre de metodo que llamará a la página
   homePage() {

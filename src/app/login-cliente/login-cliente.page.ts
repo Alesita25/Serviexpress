@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgControlStatusGroup, Validators } from '@angular/forms';
 import { Router, NavigationExtras } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 // import { ApirestService } from '../apirest.service';
 
 
@@ -20,7 +20,7 @@ export class LoginClientePage implements OnInit {
   //   password:""
   // }
 
-  constructor(private router:Router, private loadingCtrl: LoadingController, public fb:FormBuilder) { 
+  constructor(private router:Router, private loadingCtrl: LoadingController, public fb:FormBuilder, public alertController: AlertController) { 
 
     this.formularioLogin = this.fb.group({
       'email': new FormControl("",Validators.required),
@@ -29,17 +29,34 @@ export class LoginClientePage implements OnInit {
     })
   }
 
-  ngOnInit() {
+  ngOnInit() { 
   }
 
-  ingresar() { 
+  async ingreso() { 
+
+    var f = this.formularioLogin.value;
+
+    var usuario = JSON.parse(localStorage.getItem('usuario'));
+
+    if(usuario.email ==f.email && usuario.password == f.password){
+      console.log('Ingreso');
+      localStorage.setItem('ingreso','true');
+    }else{
+      const alert = await this.alertController.create({
+      header: 'Datos incorrectos',
+      message: 'Los datos que ingresaste no son correctos',
+      buttons: ['Aceptar']
+    });
+    await alert.present(); 
+      
+  }
 
     let NavigationExtras: NavigationExtras = {
       state: {
       }
     };
     this.formularioLogin = this.fb.group({
-      'nombre': new FormControl("",Validators.required),
+      'email': new FormControl("",Validators.required),
 
     })
     this.router.navigate(['cliente-home/cliente-misdatos'], NavigationExtras);

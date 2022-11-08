@@ -5,19 +5,19 @@
 </ion-header>
 
 <ion-content>
-  <form [FormGroup]="FormularioLogin">
+  <div [FormGroup]="FormularioLogin">
     <ion-card>
       <ion-card-content>
         <ion-item lines="full">
           <ion-label position="floating">Email
             <ion-icon ios="ios-information-circle" md="md-information-circle"></ion-icon>
           </ion-label>
-          <ion-input formControlName="email" maxlength="100" type="email"></ion-input>
+          <ion-input formControlName="email"></ion-input>
         </ion-item>
         <ion-item lines="full">
     
           <ion-label position="floating">Password</ion-label>
-          <ion-input formControlName="password" type="password" minlength= "8" maxlength="30"></ion-input>
+          <ion-input formControlName="password"></ion-input>
         </ion-item>
 
 
@@ -25,7 +25,7 @@
           <ion-row>
             <ion-col>
               <ion-button size="medium" (click)="showLoading();volver()">Volver</ion-button>
-              <ion-button size="medium" (click)="showLoading();ingresar()">Ingresar</ion-button>
+              <ion-button size="medium" (click)="showLoading();ingreso()">Ingresar</ion-button>
               <div class="registro">
                 <ion-button routerLink="/registro-cliente" fill="clear" class="ion-no-padding"> ¡Regístrate aquí!</ion-button>
               </div>
@@ -35,6 +35,6 @@
 
       </ion-card-content>
     </ion-card>
-  </form>
+  </div>
   
 </ion-content>
