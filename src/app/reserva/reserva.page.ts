@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DbserviceService } from 'src/app/service/dbservice.service';
 import { CamaraService } from 'src/app/service/camara.service';
+
 @Component({
   selector: 'app-reserva',
   templateUrl: './reserva.page.html',
@@ -21,8 +22,7 @@ export class ReservaPage implements OnInit {
   }
 
   takePicture(){
-    this.camara.takePicture;
-    this.dbservice.presentToast("Ingreso correcto");
+    this.camara.addNewGallery();
   }
 
   ngOnInit() {
