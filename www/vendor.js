@@ -1612,7 +1612,7 @@ class ValueAccessor {
 
   writeValue(value) {
     /**
-     * TODO for Ionic 6:
+     * TODO FW-2646
      * Change `value == null ? '' : value;`
      * to `value`. This was a fix for IE9, but IE9
      * is no longer supported; however, this change
@@ -1676,14 +1676,8 @@ class ValueAccessor {
       this.statusChanges = ngControl.statusChanges.subscribe(() => setIonicClasses(this.el));
     }
     /**
-     * TODO Remove this in favor of https://github.com/angular/angular/issues/10887
-     * whenever it is implemented. Currently, Ionic's form status classes
-     * do not react to changes when developers manually call
-     * Angular form control methods such as markAsTouched.
-     * This results in Ionic's form status classes being out
-     * of sync with the ng form status classes.
-     * This patches the methods to manually sync
-     * the classes until this feature is implemented in Angular.
+     * TODO FW-2787: Remove this in favor of https://github.com/angular/angular/issues/10887
+     * whenever it is implemented.
      */
 
 
@@ -2756,6 +2750,7 @@ IonButton.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵ�
     download: "download",
     expand: "expand",
     fill: "fill",
+    form: "form",
     href: "href",
     mode: "mode",
     rel: "rel",
@@ -2781,7 +2776,7 @@ IonButton.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵ�
 });
 IonButton = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([ProxyCmp({
   defineCustomElementFn: undefined,
-  inputs: ['buttonType', 'color', 'disabled', 'download', 'expand', 'fill', 'href', 'mode', 'rel', 'routerAnimation', 'routerDirection', 'shape', 'size', 'strong', 'target', 'type']
+  inputs: ['buttonType', 'color', 'disabled', 'download', 'expand', 'fill', 'form', 'href', 'mode', 'rel', 'routerAnimation', 'routerDirection', 'shape', 'size', 'strong', 'target', 'type']
 })], IonButton);
 
 (function () {
@@ -2791,7 +2786,7 @@ IonButton = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([ProxyCmp({
       selector: 'ion-button',
       changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_2__.ChangeDetectionStrategy.OnPush,
       template: '<ng-content></ng-content>',
-      inputs: ['buttonType', 'color', 'disabled', 'download', 'expand', 'fill', 'href', 'mode', 'rel', 'routerAnimation', 'routerDirection', 'shape', 'size', 'strong', 'target', 'type']
+      inputs: ['buttonType', 'color', 'disabled', 'download', 'expand', 'fill', 'form', 'href', 'mode', 'rel', 'routerAnimation', 'routerDirection', 'shape', 'size', 'strong', 'target', 'type']
     }]
   }], function () {
     return [{
@@ -3495,6 +3490,7 @@ IonDatetime.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_2__["�
     showDefaultTimeLabel: "showDefaultTimeLabel",
     showDefaultTitle: "showDefaultTitle",
     size: "size",
+    titleSelectedDatesFormatter: "titleSelectedDatesFormatter",
     value: "value",
     yearValues: "yearValues"
   },
@@ -3512,7 +3508,7 @@ IonDatetime.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_2__["�
 });
 IonDatetime = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([ProxyCmp({
   defineCustomElementFn: undefined,
-  inputs: ['cancelText', 'clearText', 'color', 'dayValues', 'disabled', 'doneText', 'firstDayOfWeek', 'hourCycle', 'hourValues', 'isDateEnabled', 'locale', 'max', 'min', 'minuteValues', 'mode', 'monthValues', 'multiple', 'name', 'preferWheel', 'presentation', 'readonly', 'showClearButton', 'showDefaultButtons', 'showDefaultTimeLabel', 'showDefaultTitle', 'size', 'value', 'yearValues'],
+  inputs: ['cancelText', 'clearText', 'color', 'dayValues', 'disabled', 'doneText', 'firstDayOfWeek', 'hourCycle', 'hourValues', 'isDateEnabled', 'locale', 'max', 'min', 'minuteValues', 'mode', 'monthValues', 'multiple', 'name', 'preferWheel', 'presentation', 'readonly', 'showClearButton', 'showDefaultButtons', 'showDefaultTimeLabel', 'showDefaultTitle', 'size', 'titleSelectedDatesFormatter', 'value', 'yearValues'],
   methods: ['confirm', 'reset', 'cancel']
 })], IonDatetime);
 
@@ -3523,7 +3519,7 @@ IonDatetime = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([ProxyCmp({
       selector: 'ion-datetime',
       changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_2__.ChangeDetectionStrategy.OnPush,
       template: '<ng-content></ng-content>',
-      inputs: ['cancelText', 'clearText', 'color', 'dayValues', 'disabled', 'doneText', 'firstDayOfWeek', 'hourCycle', 'hourValues', 'isDateEnabled', 'locale', 'max', 'min', 'minuteValues', 'mode', 'monthValues', 'multiple', 'name', 'preferWheel', 'presentation', 'readonly', 'showClearButton', 'showDefaultButtons', 'showDefaultTimeLabel', 'showDefaultTitle', 'size', 'value', 'yearValues']
+      inputs: ['cancelText', 'clearText', 'color', 'dayValues', 'disabled', 'doneText', 'firstDayOfWeek', 'hourCycle', 'hourValues', 'isDateEnabled', 'locale', 'max', 'min', 'minuteValues', 'mode', 'monthValues', 'multiple', 'name', 'preferWheel', 'presentation', 'readonly', 'showClearButton', 'showDefaultButtons', 'showDefaultTimeLabel', 'showDefaultTitle', 'size', 'titleSelectedDatesFormatter', 'value', 'yearValues']
     }]
   }], function () {
     return [{
@@ -7318,7 +7314,6 @@ const toSegments = path => {
 
 const destroyView = view => {
   if (view) {
-    // TODO lifecycle event
     view.ref.destroy();
     view.unlistenEvents();
   }
@@ -8290,24 +8285,14 @@ const getAnimation = (direction, animated, animationDirection) => {
 };
 
 const DEFAULT_DIRECTION = 'auto';
-const DEFAULT_ANIMATED = undefined;
-/**
- * An `Injector` that's part of the environment injector hierarchy, which exists outside of the
- * component tree.
- *
- * @developerPreview
- */
-
-class EnvironmentInjector {} // eslint-disable-next-line @angular-eslint/directive-class-suffix
-
+const DEFAULT_ANIMATED = undefined; // eslint-disable-next-line @angular-eslint/directive-class-suffix
 
 class IonRouterOutlet {
-  constructor(parentContexts, location, name, tabs, config, navCtrl, environmentInjector, componentFactoryResolver, commonLocation, elementRef, router, zone, activatedRoute, parentOutlet) {
+  constructor(parentContexts, location, name, tabs, config, navCtrl, componentFactoryResolver, commonLocation, elementRef, router, zone, activatedRoute, parentOutlet) {
     this.parentContexts = parentContexts;
     this.location = location;
     this.config = config;
     this.navCtrl = navCtrl;
-    this.environmentInjector = environmentInjector;
     this.componentFactoryResolver = componentFactoryResolver;
     this.parentOutlet = parentOutlet;
     this.activated = null;
@@ -8461,6 +8446,8 @@ class IonRouterOutlet {
   }
 
   activateWith(activatedRoute, resolverOrInjector) {
+    var _a;
+
     if (this.isActivated) {
       throw new Error('Cannot activate an already activated outlet');
     }
@@ -8483,20 +8470,17 @@ class IonRouterOutlet {
 
       this.updateActivatedRouteProxy(cmpRef.instance, activatedRoute);
     } else {
-      const snapshot = activatedRoute._futureSnapshot; // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-
-      const component = snapshot.routeConfig.component;
+      const snapshot = activatedRoute._futureSnapshot;
       /**
-       * Angular 14 introduces a new `loadComponent` property to the route config,
-       * that assigns the component to load to the `component` property of
-       * the route snapshot. We can check for the presence of this property
-       * to determine if the route is using standalone components.
-       *
-       * TODO: FW-1631: Remove this check when supporting standalone components
+       * Angular 14 introduces a new `loadComponent` property to the route config.
+       * This function will assign a `component` property to the route snapshot.
+       * We check for the presence of this property to determine if the route is
+       * using standalone components.
        */
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 
-      if (component == null && snapshot.component) {
-        console.warn('[Ionic Warning]: Standalone components are not currently supported with ion-router-outlet. You can track this feature request at https://github.com/ionic-team/ionic-framework/issues/25404');
+      if (snapshot.routeConfig.component == null && this.environmentInjector == null) {
+        console.warn('[Ionic Warning]: You must supply an environmentInjector to use standalone components with routing:\n\n' + 'In your component class, add:\n\n' + `   import { EnvironmentInjector } from '@angular/core';\n` + '   constructor(public environmentInjector: EnvironmentInjector) {}\n' + '\n' + 'In your router outlet template, add:\n\n' + '   <ion-router-outlet [environmentInjector]="environmentInjector"></ion-router-outlet>\n\n' + 'Alternatively, if you are routing within ion-tabs:\n\n' + '   <ion-tabs [environmentInjector]="environmentInjector"></ion-tabs>');
         return;
       }
 
@@ -8511,7 +8495,9 @@ class IonRouterOutlet {
        * Fallback to the class-level provider when the resolver is not set.
        */
 
-      resolverOrInjector = resolverOrInjector || this.componentFactoryResolver;
+      resolverOrInjector = resolverOrInjector || this.componentFactoryResolver; // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
+      const component = (_a = snapshot.routeConfig.component) !== null && _a !== void 0 ? _a : snapshot.component;
 
       if (resolverOrInjector && isComponentFactoryResolver(resolverOrInjector)) {
         // Backwards compatibility for Angular 13 and lower
@@ -8556,8 +8542,18 @@ class IonRouterOutlet {
     }
 
     this.activatedView = enteringView;
+    /**
+     * The top outlet is set prior to the entering view's transition completing,
+     * so that when we have nested outlets (e.g. ion-tabs inside an ion-router-outlet),
+     * the tabs outlet will be assigned as the top outlet when a view inside tabs is
+     * activated.
+     *
+     * In this scenario, activeWith is called for both the tabs and the root router outlet.
+     * To avoid a race condition, we assign the top outlet synchronously.
+     */
+
+    this.navCtrl.setTopOutlet(this);
     this.stackCtrl.setActive(enteringView).then(data => {
-      this.navCtrl.setTopOutlet(this);
       this.activateEvents.emit(cmpRef.instance);
       this.stackEvents.emit(data);
     });
@@ -8673,7 +8669,7 @@ class IonRouterOutlet {
 
 
 IonRouterOutlet.ɵfac = function IonRouterOutlet_Factory(t) {
-  return new (t || IonRouterOutlet)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_8__.ChildrenOutletContexts), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_2__.ViewContainerRef), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinjectAttribute"]('name'), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinjectAttribute"]('tabs'), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](Config), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](NavController), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](EnvironmentInjector, 8), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_2__.ComponentFactoryResolver, 8), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_common__WEBPACK_IMPORTED_MODULE_7__.Location), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_2__.ElementRef), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_8__.Router), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_2__.NgZone), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_8__.ActivatedRoute), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](IonRouterOutlet, 12));
+  return new (t || IonRouterOutlet)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_8__.ChildrenOutletContexts), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_2__.ViewContainerRef), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinjectAttribute"]('name'), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinjectAttribute"]('tabs'), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](Config), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](NavController), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_2__.ComponentFactoryResolver, 8), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_common__WEBPACK_IMPORTED_MODULE_7__.Location), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_2__.ElementRef), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_8__.Router), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_2__.NgZone), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_8__.ActivatedRoute), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](IonRouterOutlet, 12));
 };
 /** @nocollapse */
 
@@ -8684,7 +8680,9 @@ IonRouterOutlet.ɵdir = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_2_
   inputs: {
     animated: "animated",
     animation: "animation",
-    swipeGesture: "swipeGesture"
+    mode: "mode",
+    swipeGesture: "swipeGesture",
+    environmentInjector: "environmentInjector"
   },
   outputs: {
     stackEvents: "stackEvents",
@@ -8701,7 +8699,7 @@ IonRouterOutlet.ɵdir = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_2_
       selector: 'ion-router-outlet',
       exportAs: 'outlet',
       // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-      inputs: ['animated', 'animation', 'swipeGesture']
+      inputs: ['animated', 'animation', 'mode', 'swipeGesture']
     }]
   }], function () {
     return [{
@@ -8727,11 +8725,6 @@ IonRouterOutlet.ɵdir = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_2_
     }, {
       type: NavController
     }, {
-      type: EnvironmentInjector,
-      decorators: [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_2__.Optional
-      }]
-    }, {
       type: _angular_core__WEBPACK_IMPORTED_MODULE_2__.ComponentFactoryResolver,
       decorators: [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_2__.Optional
@@ -8755,6 +8748,9 @@ IonRouterOutlet.ɵdir = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_2_
       }]
     }];
   }, {
+    environmentInjector: [{
+      type: _angular_core__WEBPACK_IMPORTED_MODULE_2__.Input
+    }],
     stackEvents: [{
       type: _angular_core__WEBPACK_IMPORTED_MODULE_2__.Output
     }],
@@ -8933,14 +8929,17 @@ IonTabs.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵd
       });
     }
   },
+  inputs: {
+    environmentInjector: "environmentInjector"
+  },
   outputs: {
     ionTabsWillChange: "ionTabsWillChange",
     ionTabsDidChange: "ionTabsDidChange"
   },
   ngContentSelectors: _c3,
   decls: 5,
-  vars: 0,
-  consts: [[1, "tabs-inner"], ["tabs", "true", 3, "stackEvents"], ["outlet", ""]],
+  vars: 1,
+  consts: [[1, "tabs-inner"], ["tabs", "true", 3, "environmentInjector", "stackEvents"], ["outlet", ""]],
   template: function IonTabs_Template(rf, ctx) {
     if (rf & 1) {
       _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵprojectionDef"](_c2);
@@ -8951,6 +8950,11 @@ IonTabs.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵd
       });
       _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]()();
       _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵprojection"](4, 1);
+    }
+
+    if (rf & 2) {
+      _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](2);
+      _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("environmentInjector", ctx.environmentInjector);
     }
   },
   dependencies: [IonRouterOutlet],
@@ -8964,7 +8968,12 @@ IonTabs.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵd
       selector: 'ion-tabs',
       template: ` <ng-content select="[slot=top]"></ng-content>
     <div class="tabs-inner">
-      <ion-router-outlet #outlet tabs="true" (stackEvents)="onPageSelected($event)"></ion-router-outlet>
+      <ion-router-outlet
+        #outlet
+        tabs="true"
+        [environmentInjector]="environmentInjector"
+        (stackEvents)="onPageSelected($event)"
+      ></ion-router-outlet>
     </div>
     <ng-content></ng-content>`,
       styles: [`
@@ -9010,6 +9019,9 @@ IonTabs.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵd
       args: [IonTabBar, {
         static: false
       }]
+    }],
+    environmentInjector: [{
+      type: _angular_core__WEBPACK_IMPORTED_MODULE_2__.Input
     }],
     ionTabsWillChange: [{
       type: _angular_core__WEBPACK_IMPORTED_MODULE_2__.Output
@@ -9781,7 +9793,7 @@ let IonPopover = class IonPopover {
     this.z = z;
     this.isCmpOpen = false;
     this.el = r.nativeElement;
-    this.el.addEventListener('willPresent', () => {
+    this.el.addEventListener('ionMount', () => {
       this.isCmpOpen = true;
       c.detectChanges();
     });
@@ -9895,7 +9907,6 @@ class OverlayBaseController {
 
 
   create(opts) {
-    // TODO: next major release opts is not optional
     return this.ctrl.create(opts || {});
   }
   /**
@@ -10175,6 +10186,15 @@ PickerController.ɵprov = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_
     return [];
   }, null);
 })();
+/**
+ * An `Injector` that's part of the environment injector hierarchy, which exists outside of the
+ * component tree.
+ *
+ * @developerPreview
+ */
+
+
+class EnvironmentInjector {}
 
 class ModalController extends OverlayBaseController {
   constructor(angularDelegate, resolver, injector, // TODO: FW-1641: Migrate to Angular's version once Angular 13 is dropped
@@ -10640,9 +10660,9 @@ IonicModule.ɵinj = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_2__["�
 
 /***/ }),
 
-/***/ 2597:
+/***/ 8211:
 /*!*****************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/animation-36c1d77d.js ***!
+  !*** ./node_modules/@ionic/core/dist/esm/animation-6a1a2a1d.js ***!
   \*****************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -10650,10 +10670,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "c": () => (/* binding */ createAnimation)
 /* harmony export */ });
-/* harmony import */ var _helpers_4d272360_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helpers-4d272360.js */ 9158);
+/* harmony import */ var _helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helpers-3b390e48.js */ 9234);
+/* harmony import */ var _index_33ffec25_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index-33ffec25.js */ 2286);
 /*!
  * (C) Ionic http://ionicframework.com - MIT License
  */
+
 
 let animationPrefix;
 /**
@@ -10771,11 +10793,14 @@ const generateKeyframeName = keyframeRules => {
 };
 
 const getStyleContainer = element => {
-  const rootNode = element.getRootNode();
+  // getRootNode is not always available in SSR environments.
+  const rootNode = element.getRootNode !== undefined ? element.getRootNode() : element;
   return rootNode.head || rootNode;
 };
 
 const createKeyframeStylesheet = (keyframeName, keyframeRules, element) => {
+  var _a;
+
   const styleContainer = getStyleContainer(element);
   const keyframePrefix = getAnimationPrefix(element);
   const existingStylesheet = styleContainer.querySelector('#' + keyframeName);
@@ -10784,7 +10809,7 @@ const createKeyframeStylesheet = (keyframeName, keyframeRules, element) => {
     return existingStylesheet;
   }
 
-  const stylesheet = (element.ownerDocument || document).createElement('style');
+  const stylesheet = ((_a = element.ownerDocument) !== null && _a !== void 0 ? _a : document).createElement('style');
   stylesheet.id = keyframeName;
   stylesheet.textContent = `@${keyframePrefix}keyframes ${keyframeName} { ${keyframeRules} } @${keyframePrefix}keyframes ${keyframeName}-alt { ${keyframeRules} }`;
   styleContainer.appendChild(stylesheet);
@@ -10846,7 +10871,7 @@ const createAnimation = animationId => {
   const _afterAddReadFunctions = [];
   const _afterAddWriteFunctions = [];
   const webAnimations = [];
-  const supportsAnimationEffect = typeof AnimationEffect === 'function' || typeof window.AnimationEffect === 'function';
+  const supportsAnimationEffect = typeof AnimationEffect === 'function' || _index_33ffec25_js__WEBPACK_IMPORTED_MODULE_1__.w !== undefined && typeof _index_33ffec25_js__WEBPACK_IMPORTED_MODULE_1__.w.AnimationEffect === 'function';
   const supportsWebAnimations = typeof Element === 'function' && typeof Element.prototype.animate === 'function' && supportsAnimationEffect;
   const ANIMATION_END_FALLBACK_PADDING_MS = 100;
 
@@ -10929,7 +10954,7 @@ const createAnimation = animationId => {
       webAnimations.length = 0;
     } else {
       const elementsArray = elements.slice();
-      (0,_helpers_4d272360_js__WEBPACK_IMPORTED_MODULE_0__.r)(() => {
+      (0,_helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_0__.r)(() => {
         elementsArray.forEach(element => {
           removeStyleProperty(element, 'animation-name');
           removeStyleProperty(element, 'animation-duration');
@@ -11359,7 +11384,7 @@ const createAnimation = animationId => {
           setStyleProperty(element, 'animation-name', `${stylesheet.id}-alt`);
         }
 
-        (0,_helpers_4d272360_js__WEBPACK_IMPORTED_MODULE_0__.r)(() => {
+        (0,_helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_0__.r)(() => {
           setStyleProperty(element, 'animation-name', stylesheet.id || null);
         });
       }
@@ -11439,7 +11464,7 @@ const createAnimation = animationId => {
   };
 
   const updateCSSAnimation = (toggleAnimationName = true, step) => {
-    (0,_helpers_4d272360_js__WEBPACK_IMPORTED_MODULE_0__.r)(() => {
+    (0,_helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_0__.r)(() => {
       elements.forEach(element => {
         setStyleProperty(element, 'animation-name', keyframeName || null);
         setStyleProperty(element, 'animation-duration', `${getDuration()}ms`);
@@ -11454,7 +11479,7 @@ const createAnimation = animationId => {
           setStyleProperty(element, 'animation-name', `${keyframeName}-alt`);
         }
 
-        (0,_helpers_4d272360_js__WEBPACK_IMPORTED_MODULE_0__.r)(() => {
+        (0,_helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_0__.r)(() => {
           setStyleProperty(element, 'animation-name', keyframeName || null);
         });
       });
@@ -11591,7 +11616,7 @@ const createAnimation = animationId => {
 
   const playCSSAnimations = () => {
     clearCSSAnimationsTimeout();
-    (0,_helpers_4d272360_js__WEBPACK_IMPORTED_MODULE_0__.r)(() => {
+    (0,_helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_0__.r)(() => {
       elements.forEach(element => {
         if (_keyframes.length > 0) {
           setStyleProperty(element, 'animation-play-state', 'running');
@@ -11628,13 +11653,11 @@ const createAnimation = animationId => {
          * may be flickering if a new
          * animation is started on the same
          * element too quickly
-         *
-         * TODO: Is there a cleaner way to do this?
          */
 
-        (0,_helpers_4d272360_js__WEBPACK_IMPORTED_MODULE_0__.r)(() => {
+        (0,_helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_0__.r)(() => {
           clearCSSAnimationPlayState();
-          (0,_helpers_4d272360_js__WEBPACK_IMPORTED_MODULE_0__.r)(animationFinish);
+          (0,_helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_0__.r)(animationFinish);
         });
       });
     }
@@ -11810,9 +11833,9 @@ const createAnimation = animationId => {
 
 /***/ }),
 
-/***/ 8367:
+/***/ 6958:
 /*!*******************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/app-globals-9cd5ddd1.js ***!
+  !*** ./node_modules/@ionic/core/dist/esm/app-globals-275fb4c9.js ***!
   \*******************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -11820,19 +11843,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "g": () => (/* binding */ globalScripts)
 /* harmony export */ });
-/* harmony import */ var _ionic_global_04e268e7_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ionic-global-04e268e7.js */ 2107);
+/* harmony import */ var _ionic_global_c95cf239_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ionic-global-c95cf239.js */ 8607);
 /*!
  * (C) Ionic http://ionicframework.com - MIT License
  */
 
-const globalScripts = _ionic_global_04e268e7_js__WEBPACK_IMPORTED_MODULE_0__.i;
+const globalScripts = _ionic_global_c95cf239_js__WEBPACK_IMPORTED_MODULE_0__.i;
 
 
 /***/ }),
 
-/***/ 1077:
+/***/ 1463:
 /*!********************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/cubic-bezier-c313947a.js ***!
+  !*** ./node_modules/@ionic/core/dist/esm/cubic-bezier-e78d1307.js ***!
   \********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -11848,7 +11871,6 @@ __webpack_require__.r(__webpack_exports__);
  * Based on:
  * https://stackoverflow.com/questions/7348009/y-coordinate-for-a-given-x-cubic-bezier
  * https://math.stackexchange.com/questions/26846/is-there-an-explicit-form-for-cubic-b%C3%A9zier-curves
- * TODO: Reduce rounding error
  */
 
 /**
@@ -11939,9 +11961,9 @@ const solveCubicEquation = (a, b, c, d) => {
 
 /***/ }),
 
-/***/ 607:
+/***/ 6379:
 /*!**************************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/gesture-controller-17e82006.js ***!
+  !*** ./node_modules/@ionic/core/dist/esm/gesture-controller-17060b7c.js ***!
   \**************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -11965,7 +11987,9 @@ class GestureController {
 
 
   createGesture(config) {
-    return new GestureDelegate(this, this.newID(), config.name, config.priority || 0, !!config.disableScroll);
+    var _a;
+
+    return new GestureDelegate(this, this.newID(), config.name, (_a = config.priority) !== null && _a !== void 0 ? _a : 0, !!config.disableScroll);
   }
   /**
    * Creates a blocker that will block any other gesture events from firing. Set in the ion-gesture component.
@@ -12216,7 +12240,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "blockHardwareBackButton": () => (/* binding */ blockHardwareBackButton),
 /* harmony export */   "startHardwareBackButton": () => (/* binding */ startHardwareBackButton)
 /* harmony export */ });
-/* harmony import */ var C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
+/* harmony import */ var C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
 
 
 /*!
@@ -12263,7 +12287,7 @@ const startHardwareBackButton = () => {
     doc.dispatchEvent(ev);
 
     const executeAction = /*#__PURE__*/function () {
-      var _ref = (0,C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (handlerRegister) {
+      var _ref = (0,C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (handlerRegister) {
         try {
           if (handlerRegister === null || handlerRegister === void 0 ? void 0 : handlerRegister.handler) {
             const result = handlerRegister.handler(processHandlers);
@@ -12311,9 +12335,9 @@ const MENU_BACK_BUTTON_PRIORITY = 99; // 1 less than overlay priority since menu
 
 /***/ }),
 
-/***/ 9158:
+/***/ 9234:
 /*!***************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/helpers-4d272360.js ***!
+  !*** ./node_modules/@ionic/core/dist/esm/helpers-3b390e48.js ***!
   \***************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -12413,6 +12437,7 @@ const transitionEnd = (el, expectedDuration = 0, callback) => {
 
 const componentOnReady = (el, callback) => {
   if (el.componentOnReady) {
+    // eslint-disable-next-line custom-rules/no-component-on-ready-method
     el.componentOnReady().then(resolvedEl => callback(resolvedEl));
   } else {
     raf(() => callback(el));
@@ -12457,10 +12482,18 @@ const ariaAttributes = ['role', 'aria-activedescendant', 'aria-atomic', 'aria-au
  * Returns an array of aria attributes that should be copied from
  * the shadow host element to a target within the light DOM.
  * @param el The element that the attributes should be copied from.
+ * @param ignoreList The list of aria-attributes to ignore reflecting and removing from the host.
+ * Use this in instances where we manually specify aria attributes on the `<Host>` element.
  */
 
-const inheritAriaAttributes = el => {
-  return inheritAttributes(el, ariaAttributes);
+const inheritAriaAttributes = (el, ignoreList) => {
+  let attributesToInherit = ariaAttributes;
+
+  if (ignoreList && ignoreList.length > 0) {
+    attributesToInherit = attributesToInherit.filter(attr => !ignoreList.includes(attr));
+  }
+
+  return inheritAttributes(el, attributesToInherit);
 };
 
 const addEventListener = (el, eventName, callback, opts) => {
@@ -12778,9 +12811,497 @@ const shallowEqualStringMap = (map1, map2) => {
 
 /***/ }),
 
-/***/ 4895:
+/***/ 6277:
 /*!*************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/index-1a99aeb7.js ***!
+  !*** ./node_modules/@ionic/core/dist/esm/index-2dc81358.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "m": () => (/* binding */ menuController)
+/* harmony export */ });
+/* harmony import */ var C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
+/* harmony import */ var _hardware_back_button_490df115_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./hardware-back-button-490df115.js */ 159);
+/* harmony import */ var _helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers-3b390e48.js */ 9234);
+/* harmony import */ var _ionic_global_c95cf239_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ionic-global-c95cf239.js */ 8607);
+/* harmony import */ var _animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./animation-6a1a2a1d.js */ 8211);
+
+
+/*!
+ * (C) Ionic http://ionicframework.com - MIT License
+ */
+
+
+
+
+/**
+ * baseAnimation
+ * Base class which is extended by the various types. Each
+ * type will provide their own animations for open and close
+ * and registers itself with Menu.
+ */
+
+const baseAnimation = isIos => {
+  // https://material.io/guidelines/motion/movement.html#movement-movement-in-out-of-screen-bounds
+  // https://material.io/guidelines/motion/duration-easing.html#duration-easing-natural-easing-curves
+
+  /**
+   * "Apply the sharp curve to items temporarily leaving the screen that may return
+   * from the same exit point. When they return, use the deceleration curve. On mobile,
+   * this transition typically occurs over 300ms" -- MD Motion Guide
+   */
+  return (0,_animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_4__.c)().duration(isIos ? 400 : 300);
+};
+/**
+ * Menu Overlay Type
+ * The menu slides over the content. The content
+ * itself, which is under the menu, does not move.
+ */
+
+
+const menuOverlayAnimation = menu => {
+  let closedX;
+  let openedX;
+  const width = menu.width + 8;
+  const menuAnimation = (0,_animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_4__.c)();
+  const backdropAnimation = (0,_animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_4__.c)();
+
+  if (menu.isEndSide) {
+    // right side
+    closedX = width + 'px';
+    openedX = '0px';
+  } else {
+    // left side
+    closedX = -width + 'px';
+    openedX = '0px';
+  }
+
+  menuAnimation.addElement(menu.menuInnerEl).fromTo('transform', `translateX(${closedX})`, `translateX(${openedX})`);
+  const mode = (0,_ionic_global_c95cf239_js__WEBPACK_IMPORTED_MODULE_3__.b)(menu);
+  const isIos = mode === 'ios';
+  const opacity = isIos ? 0.2 : 0.25;
+  backdropAnimation.addElement(menu.backdropEl).fromTo('opacity', 0.01, opacity);
+  return baseAnimation(isIos).addAnimation([menuAnimation, backdropAnimation]);
+};
+/**
+ * Menu Push Type
+ * The content slides over to reveal the menu underneath.
+ * The menu itself also slides over to reveal its bad self.
+ */
+
+
+const menuPushAnimation = menu => {
+  let contentOpenedX;
+  let menuClosedX;
+  const mode = (0,_ionic_global_c95cf239_js__WEBPACK_IMPORTED_MODULE_3__.b)(menu);
+  const width = menu.width;
+
+  if (menu.isEndSide) {
+    contentOpenedX = -width + 'px';
+    menuClosedX = width + 'px';
+  } else {
+    contentOpenedX = width + 'px';
+    menuClosedX = -width + 'px';
+  }
+
+  const menuAnimation = (0,_animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_4__.c)().addElement(menu.menuInnerEl).fromTo('transform', `translateX(${menuClosedX})`, 'translateX(0px)');
+  const contentAnimation = (0,_animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_4__.c)().addElement(menu.contentEl).fromTo('transform', 'translateX(0px)', `translateX(${contentOpenedX})`);
+  const backdropAnimation = (0,_animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_4__.c)().addElement(menu.backdropEl).fromTo('opacity', 0.01, 0.32);
+  return baseAnimation(mode === 'ios').addAnimation([menuAnimation, contentAnimation, backdropAnimation]);
+};
+/**
+ * Menu Reveal Type
+ * The content slides over to reveal the menu underneath.
+ * The menu itself, which is under the content, does not move.
+ */
+
+
+const menuRevealAnimation = menu => {
+  const mode = (0,_ionic_global_c95cf239_js__WEBPACK_IMPORTED_MODULE_3__.b)(menu);
+  const openedX = menu.width * (menu.isEndSide ? -1 : 1) + 'px';
+  const contentOpen = (0,_animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_4__.c)().addElement(menu.contentEl) // REVIEW
+  .fromTo('transform', 'translateX(0px)', `translateX(${openedX})`);
+  return baseAnimation(mode === 'ios').addAnimation(contentOpen);
+};
+
+const createMenuController = () => {
+  const menuAnimations = new Map();
+  const menus = [];
+
+  const open = /*#__PURE__*/function () {
+    var _ref = (0,C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (menu) {
+      const menuEl = yield get(menu);
+
+      if (menuEl) {
+        return menuEl.open();
+      }
+
+      return false;
+    });
+
+    return function open(_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+
+  const close = /*#__PURE__*/function () {
+    var _ref2 = (0,C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (menu) {
+      const menuEl = yield menu !== undefined ? get(menu) : getOpen();
+
+      if (menuEl !== undefined) {
+        return menuEl.close();
+      }
+
+      return false;
+    });
+
+    return function close(_x2) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+
+  const toggle = /*#__PURE__*/function () {
+    var _ref3 = (0,C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (menu) {
+      const menuEl = yield get(menu);
+
+      if (menuEl) {
+        return menuEl.toggle();
+      }
+
+      return false;
+    });
+
+    return function toggle(_x3) {
+      return _ref3.apply(this, arguments);
+    };
+  }();
+
+  const enable = /*#__PURE__*/function () {
+    var _ref4 = (0,C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (shouldEnable, menu) {
+      const menuEl = yield get(menu);
+
+      if (menuEl) {
+        menuEl.disabled = !shouldEnable;
+      }
+
+      return menuEl;
+    });
+
+    return function enable(_x4, _x5) {
+      return _ref4.apply(this, arguments);
+    };
+  }();
+
+  const swipeGesture = /*#__PURE__*/function () {
+    var _ref5 = (0,C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (shouldEnable, menu) {
+      const menuEl = yield get(menu);
+
+      if (menuEl) {
+        menuEl.swipeGesture = shouldEnable;
+      }
+
+      return menuEl;
+    });
+
+    return function swipeGesture(_x6, _x7) {
+      return _ref5.apply(this, arguments);
+    };
+  }();
+
+  const isOpen = /*#__PURE__*/function () {
+    var _ref6 = (0,C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (menu) {
+      if (menu != null) {
+        const menuEl = yield get(menu); // eslint-disable-next-line @typescript-eslint/prefer-optional-chain
+
+        return menuEl !== undefined && menuEl.isOpen();
+      } else {
+        const menuEl = yield getOpen();
+        return menuEl !== undefined;
+      }
+    });
+
+    return function isOpen(_x8) {
+      return _ref6.apply(this, arguments);
+    };
+  }();
+
+  const isEnabled = /*#__PURE__*/function () {
+    var _ref7 = (0,C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (menu) {
+      const menuEl = yield get(menu);
+
+      if (menuEl) {
+        return !menuEl.disabled;
+      }
+
+      return false;
+    });
+
+    return function isEnabled(_x9) {
+      return _ref7.apply(this, arguments);
+    };
+  }();
+
+  const get = /*#__PURE__*/function () {
+    var _ref8 = (0,C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (menu) {
+      yield waitUntilReady();
+
+      if (menu === 'start' || menu === 'end') {
+        // there could be more than one menu on the same side
+        // so first try to get the enabled one
+        const menuRef = find(m => m.side === menu && !m.disabled);
+
+        if (menuRef) {
+          return menuRef;
+        } // didn't find a menu side that is enabled
+        // so try to get the first menu side found
+
+
+        return find(m => m.side === menu);
+      } else if (menu != null) {
+        // the menuId was not left or right
+        // so try to get the menu by its "id"
+        return find(m => m.menuId === menu);
+      } // return the first enabled menu
+
+
+      const menuEl = find(m => !m.disabled);
+
+      if (menuEl) {
+        return menuEl;
+      } // get the first menu in the array, if one exists
+
+
+      return menus.length > 0 ? menus[0].el : undefined;
+    });
+
+    return function get(_x10) {
+      return _ref8.apply(this, arguments);
+    };
+  }();
+  /**
+   * Get the instance of the opened menu. Returns `null` if a menu is not found.
+   */
+
+
+  const getOpen = /*#__PURE__*/function () {
+    var _ref9 = (0,C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      yield waitUntilReady();
+      return _getOpenSync();
+    });
+
+    return function getOpen() {
+      return _ref9.apply(this, arguments);
+    };
+  }();
+  /**
+   * Get all menu instances.
+   */
+
+
+  const getMenus = /*#__PURE__*/function () {
+    var _ref10 = (0,C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      yield waitUntilReady();
+      return getMenusSync();
+    });
+
+    return function getMenus() {
+      return _ref10.apply(this, arguments);
+    };
+  }();
+  /**
+   * Get whether or not a menu is animating. Returns `true` if any
+   * menu is currently animating.
+   */
+
+
+  const isAnimating = /*#__PURE__*/function () {
+    var _ref11 = (0,C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      yield waitUntilReady();
+      return isAnimatingSync();
+    });
+
+    return function isAnimating() {
+      return _ref11.apply(this, arguments);
+    };
+  }();
+
+  const registerAnimation = (name, animation) => {
+    menuAnimations.set(name, animation);
+  };
+
+  const _register = menu => {
+    if (menus.indexOf(menu) < 0) {
+      if (!menu.disabled) {
+        _setActiveMenu(menu);
+      }
+
+      menus.push(menu);
+    }
+  };
+
+  const _unregister = menu => {
+    const index = menus.indexOf(menu);
+
+    if (index > -1) {
+      menus.splice(index, 1);
+    }
+  };
+
+  const _setActiveMenu = menu => {
+    // if this menu should be enabled
+    // then find all the other menus on this same side
+    // and automatically disable other same side menus
+    const side = menu.side;
+    menus.filter(m => m.side === side && m !== menu).forEach(m => m.disabled = true);
+  };
+
+  const _setOpen = /*#__PURE__*/function () {
+    var _ref12 = (0,C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (menu, shouldOpen, animated) {
+      if (isAnimatingSync()) {
+        return false;
+      }
+
+      if (shouldOpen) {
+        const openedMenu = yield getOpen();
+
+        if (openedMenu && menu.el !== openedMenu) {
+          yield openedMenu.setOpen(false, false);
+        }
+      }
+
+      return menu._setOpen(shouldOpen, animated);
+    });
+
+    return function _setOpen(_x11, _x12, _x13) {
+      return _ref12.apply(this, arguments);
+    };
+  }();
+
+  const _createAnimation = (type, menuCmp) => {
+    const animationBuilder = menuAnimations.get(type);
+
+    if (!animationBuilder) {
+      throw new Error('animation not registered');
+    }
+
+    const animation = animationBuilder(menuCmp);
+    return animation;
+  };
+
+  const _getOpenSync = () => {
+    return find(m => m._isOpen);
+  };
+
+  const getMenusSync = () => {
+    return menus.map(menu => menu.el);
+  };
+
+  const isAnimatingSync = () => {
+    return menus.some(menu => menu.isAnimating);
+  };
+
+  const find = predicate => {
+    const instance = menus.find(predicate);
+
+    if (instance !== undefined) {
+      return instance.el;
+    }
+
+    return undefined;
+  };
+
+  const waitUntilReady = () => {
+    return Promise.all(Array.from(document.querySelectorAll('ion-menu')).map(menu => new Promise(resolve => (0,_helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_2__.c)(menu, resolve))));
+  };
+
+  registerAnimation('reveal', menuRevealAnimation);
+  registerAnimation('push', menuPushAnimation);
+  registerAnimation('overlay', menuOverlayAnimation);
+
+  if (typeof document !== 'undefined') {
+    document.addEventListener('ionBackButton', ev => {
+      const openMenu = _getOpenSync();
+
+      if (openMenu) {
+        ev.detail.register(_hardware_back_button_490df115_js__WEBPACK_IMPORTED_MODULE_1__.MENU_BACK_BUTTON_PRIORITY, () => {
+          return openMenu.close();
+        });
+      }
+    });
+  }
+
+  return {
+    registerAnimation,
+    get,
+    getMenus,
+    getOpen,
+    isEnabled,
+    swipeGesture,
+    isAnimating,
+    isOpen,
+    enable,
+    toggle,
+    close,
+    open,
+    _getOpenSync,
+    _createAnimation,
+    _register,
+    _unregister,
+    _setOpen,
+    _setActiveMenu
+  };
+};
+
+const menuController = /*@__PURE__*/createMenuController();
+
+
+/***/ }),
+
+/***/ 2286:
+/*!*************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/esm/index-33ffec25.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "w": () => (/* binding */ win)
+/* harmony export */ });
+/*!
+ * (C) Ionic http://ionicframework.com - MIT License
+ */
+
+/**
+ * When accessing the window, it is important
+ * to account for SSR applications where the
+ * window is not available. Code that accesses
+ * window when it is not available will crash.
+ * Even checking if `window === undefined` will cause
+ * apps to crash in SSR.
+ *
+ * Use win below to access an SSR-safe version
+ * of the window.
+ *
+ * Example 1:
+ * Before:
+ * if (window.innerWidth > 768) { ... }
+ *
+ * After:
+ * import { win } from 'path/to/this/file';
+ * if (win?.innerWidth > 768) { ... }
+ *
+ * Note: Code inside of this if-block will
+ * not run in an SSR environment.
+ */
+const win = typeof window !== 'undefined' ? window : undefined;
+
+
+/***/ }),
+
+/***/ 1559:
+/*!*************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/esm/index-8e692445.js ***!
   \*************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -12805,7 +13326,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "s": () => (/* binding */ setPlatformHelpers),
 /* harmony export */   "w": () => (/* binding */ win)
 /* harmony export */ });
-/* harmony import */ var C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
+/* harmony import */ var C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
 
 
 /*!
@@ -12867,7 +13388,7 @@ const hostListenerProxy = (hostRef, methodName) => ev => {
   try {
     {
       if (hostRef.$flags$ & 256
-      /* isListenReady */
+      /* HOST_FLAGS.isListenReady */
       ) {
         // instance is ready, let's call it's member method for this event
         hostRef.$lazyInstance$[methodName](ev);
@@ -12882,20 +13403,20 @@ const hostListenerProxy = (hostRef, methodName) => ev => {
 
 const getHostListenerTarget = (elm, flags) => {
   if (flags & 4
-  /* TargetDocument */
+  /* LISTENER_FLAGS.TargetDocument */
   ) return doc;
   if (flags & 8
-  /* TargetWindow */
+  /* LISTENER_FLAGS.TargetWindow */
   ) return win;
   if (flags & 16
-  /* TargetBody */
+  /* LISTENER_FLAGS.TargetBody */
   ) return doc.body;
   return elm;
 }; // prettier-ignore
 
 
 const hostListenerOpts = flags => (flags & 2
-/* Capture */
+/* LISTENER_FLAGS.Capture */
 ) !== 0;
 
 const CONTENT_REF_ID = 'r';
@@ -12924,7 +13445,7 @@ const uniqueTime = (key, measureText) => {
   }
 };
 
-const rootAppliedStyles = new WeakMap();
+const rootAppliedStyles = /*@__PURE__*/new WeakMap();
 
 const registerStyle = (scopeId, cssText, allowCS) => {
   let style = styles.get(scopeId);
@@ -12950,7 +13471,7 @@ const addStyle = (styleContainerNode, cmpMeta, mode, hostElm) => {
   // so the fallback is to always use the document for the root node in those cases
 
   styleContainerNode = styleContainerNode.nodeType === 11
-  /* DocumentFragment */
+  /* NODE_TYPE.DocumentFragment */
   ? styleContainerNode : doc;
 
   if (style) {
@@ -12995,7 +13516,7 @@ const attachStyles = hostRef => {
   const scopeId = addStyle(elm.shadowRoot ? elm.shadowRoot : elm.getRootNode(), cmpMeta, hostRef.$modeName$);
 
   if (flags & 10
-  /* needsScopedEncapsulation */
+  /* CMP_FLAGS.needsScopedEncapsulation */
   ) {
     // only required when we're NOT using native shadow dom (slot)
     // or this browser doesn't support native shadow dom
@@ -13008,7 +13529,7 @@ const attachStyles = hostRef => {
     elm.classList.add(scopeId + '-h');
 
     if (flags & 2
-    /* scopedCssEncapsulation */
+    /* CMP_FLAGS.scopedCssEncapsulation */
     ) {
       elm.classList.add(scopeId + '-s');
     }
@@ -13018,7 +13539,7 @@ const attachStyles = hostRef => {
 };
 
 const getScopeId = (cmp, mode) => 'sc-' + (mode && cmp.$flags$ & 32
-/* hasMode */
+/* CMP_FLAGS.hasMode */
 ? cmp.$tagName$ + '-' + mode : cmp.$tagName$);
 
 const convertScopedToShadow = css => css.replace(/\/\*!@([^\/]+)\*\/[^\{]+\{/g, '$1{'); // Private
@@ -13332,7 +13853,7 @@ const setAccessor = (elm, memberName, oldValue, newValue, isSvg, flags) => {
           }
         }
       } else if ((!isProp || flags & 4
-      /* isHost */
+      /* VNODE_FLAGS.isHost */
       || isSvg) && !isComplex) {
         newValue = newValue === true ? '' : newValue;
 
@@ -13355,7 +13876,7 @@ const updateElement = (oldVnode, newVnode, isSvgMode, memberName) => {
   // then we want to be adding attrs/props to the shadow root's "host" element
   // if it's not a shadow root, then we add attrs/props to the same element
   const elm = newVnode.$elm$.nodeType === 11
-  /* DocumentFragment */
+  /* NODE_TYPE.DocumentFragment */
   && newVnode.$elm$.host ? newVnode.$elm$.host : newVnode.$elm$;
   const oldVnodeAttrs = oldVnode && oldVnode.$attrs$ || EMPTY_OBJ;
   const newVnodeAttrs = newVnode.$attrs$ || EMPTY_OBJ;
@@ -13372,6 +13893,17 @@ const updateElement = (oldVnode, newVnode, isSvgMode, memberName) => {
     setAccessor(elm, memberName, oldVnodeAttrs[memberName], newVnodeAttrs[memberName], isSvgMode, newVnode.$flags$);
   }
 };
+/**
+ * Create a DOM Node corresponding to one of the children of a given VNode.
+ *
+ * @param oldParentVNode the parent VNode from the previous render
+ * @param newParentVNode the parent VNode from the current render
+ * @param childIndex the index of the VNode, in the _new_ parent node's
+ * children, for which we will create a new DOM node
+ * @param parentElm the parent DOM node which our new node will be a child of
+ * @returns the newly created node
+ */
+
 
 const createElm = (oldParentVNode, newParentVNode, childIndex, parentElm) => {
   // tslint:disable-next-line: prefer-const
@@ -13393,10 +13925,10 @@ const createElm = (oldParentVNode, newParentVNode, childIndex, parentElm) => {
 
       newVNode.$flags$ |= newVNode.$children$ ? // slot element has fallback content
       2
-      /* isSlotFallback */
+      /* VNODE_FLAGS.isSlotFallback */
       : // slot element does not have fallback content
       1
-      /* isSlotReference */
+      /* VNODE_FLAGS.isSlotReference */
       ;
     }
   }
@@ -13405,7 +13937,7 @@ const createElm = (oldParentVNode, newParentVNode, childIndex, parentElm) => {
     // create text node
     elm = newVNode.$elm$ = doc.createTextNode(newVNode.$text$);
   } else if (newVNode.$flags$ & 1
-  /* isSlotReference */
+  /* VNODE_FLAGS.isSlotReference */
   ) {
     // create a slot reference node
     elm = newVNode.$elm$ = doc.createTextNode('');
@@ -13416,7 +13948,7 @@ const createElm = (oldParentVNode, newParentVNode, childIndex, parentElm) => {
 
 
     elm = newVNode.$elm$ = doc.createElementNS(isSvgMode ? SVG_NS : HTML_NS, newVNode.$flags$ & 2
-    /* isSlotFallback */
+    /* VNODE_FLAGS.isSlotFallback */
     ? 'slot-fb' : newVNode.$tag$);
 
     if (isSvgMode && newVNode.$tag$ === 'foreignObject') {
@@ -13461,9 +13993,9 @@ const createElm = (oldParentVNode, newParentVNode, childIndex, parentElm) => {
     elm['s-hn'] = hostTagName;
 
     if (newVNode.$flags$ & (2
-    /* isSlotFallback */
+    /* VNODE_FLAGS.isSlotFallback */
     | 1
-    /* isSlotReference */
+    /* VNODE_FLAGS.isSlotReference */
     )) {
       // remember the content reference comment
       elm['s-sr'] = true; // remember the content reference comment
@@ -13486,7 +14018,7 @@ const createElm = (oldParentVNode, newParentVNode, childIndex, parentElm) => {
 
 const putBackInOriginalLocation = (parentElm, recursive) => {
   plt.$flags$ |= 1
-  /* isTmpDisconnected */
+  /* PLATFORM_FLAGS.isTmpDisconnected */
   ;
   const oldSlotChildNodes = parentElm.childNodes;
 
@@ -13513,7 +14045,7 @@ const putBackInOriginalLocation = (parentElm, recursive) => {
   }
 
   plt.$flags$ &= ~1
-  /* isTmpDisconnected */
+  /* PLATFORM_FLAGS.isTmpDisconnected */
   ;
 };
 
@@ -13561,6 +14093,75 @@ const removeVnodes = (vnodes, startIdx, endIdx, vnode, elm) => {
     }
   }
 };
+/**
+ * Reconcile the children of a new VNode with the children of an old VNode by
+ * traversing the two collections of children, identifying nodes that are
+ * conserved or changed, calling out to `patch` to make any necessary
+ * updates to the DOM, and rearranging DOM nodes as needed.
+ *
+ * The algorithm for reconciling children works by analyzing two 'windows' onto
+ * the two arrays of children (`oldCh` and `newCh`). We keep track of the
+ * 'windows' by storing start and end indices and references to the
+ * corresponding array entries. Initially the two 'windows' are basically equal
+ * to the entire array, but we progressively narrow the windows until there are
+ * no children left to update by doing the following:
+ *
+ * 1. Skip any `null` entries at the beginning or end of the two arrays, so
+ *    that if we have an initial array like the following we'll end up dealing
+ *    only with a window bounded by the highlighted elements:
+ *
+ *    [null, null, VNode1 , ... , VNode2, null, null]
+ *                 ^^^^^^         ^^^^^^
+ *
+ * 2. Check to see if the elements at the head and tail positions are equal
+ *    across the windows. This will basically detect elements which haven't
+ *    been added, removed, or changed position, i.e. if you had the following
+ *    VNode elements (represented as HTML):
+ *
+ *    oldVNode: `<div><p><span>HEY</span></p></div>`
+ *    newVNode: `<div><p><span>THERE</span></p></div>`
+ *
+ *    Then when comparing the children of the `<div>` tag we check the equality
+ *    of the VNodes corresponding to the `<p>` tags and, since they are the
+ *    same tag in the same position, we'd be able to avoid completely
+ *    re-rendering the subtree under them with a new DOM element and would just
+ *    call out to `patch` to handle reconciling their children and so on.
+ *
+ * 3. Check, for both windows, to see if the element at the beginning of the
+ *    window corresponds to the element at the end of the other window. This is
+ *    a heuristic which will let us identify _some_ situations in which
+ *    elements have changed position, for instance it _should_ detect that the
+ *    children nodes themselves have not changed but merely moved in the
+ *    following example:
+ *
+ *    oldVNode: `<div><element-one /><element-two /></div>`
+ *    newVNode: `<div><element-two /><element-one /></div>`
+ *
+ *    If we find cases like this then we also need to move the concrete DOM
+ *    elements corresponding to the moved children to write the re-order to the
+ *    DOM.
+ *
+ * 4. Finally, if VNodes have the `key` attribute set on them we check for any
+ *    nodes in the old children which have the same key as the first element in
+ *    our window on the new children. If we find such a node we handle calling
+ *    out to `patch`, moving relevant DOM nodes, and so on, in accordance with
+ *    what we find.
+ *
+ * Finally, once we've narrowed our 'windows' to the point that either of them
+ * collapse (i.e. they have length 0) we then handle any remaining VNode
+ * insertion or deletion that needs to happen to get a DOM state that correctly
+ * reflects the new child VNodes. If, for instance, after our window on the old
+ * children has collapsed we still have more nodes on the new children that
+ * we haven't dealt with yet then we need to add them, or if the new children
+ * collapse but we still have unhandled _old_ children then we need to make
+ * sure the corresponding DOM nodes are removed.
+ *
+ * @param parentElm the node into which the parent VNode is rendered
+ * @param oldCh the old children of the parent node
+ * @param newVNode the new VNode which will replace the parent
+ * @param newCh the new children of the parent node
+ */
+
 
 const updateChildren = (parentElm, oldCh, newVNode, newCh) => {
   let oldStartIdx = 0;
@@ -13578,7 +14179,7 @@ const updateChildren = (parentElm, oldCh, newVNode, newCh) => {
 
   while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
     if (oldStartVnode == null) {
-      // Vnode might have been moved left
+      // VNode might have been moved left
       oldStartVnode = oldCh[++oldStartIdx];
     } else if (oldEndVnode == null) {
       oldEndVnode = oldCh[--oldEndIdx];
@@ -13587,35 +14188,98 @@ const updateChildren = (parentElm, oldCh, newVNode, newCh) => {
     } else if (newEndVnode == null) {
       newEndVnode = newCh[--newEndIdx];
     } else if (isSameVnode(oldStartVnode, newStartVnode)) {
+      // if the start nodes are the same then we should patch the new VNode
+      // onto the old one, and increment our `newStartIdx` and `oldStartIdx`
+      // indices to reflect that. We don't need to move any DOM Nodes around
+      // since things are matched up in order.
       patch(oldStartVnode, newStartVnode);
       oldStartVnode = oldCh[++oldStartIdx];
       newStartVnode = newCh[++newStartIdx];
     } else if (isSameVnode(oldEndVnode, newEndVnode)) {
+      // likewise, if the end nodes are the same we patch new onto old and
+      // decrement our end indices, and also likewise in this case we don't
+      // need to move any DOM Nodes.
       patch(oldEndVnode, newEndVnode);
       oldEndVnode = oldCh[--oldEndIdx];
       newEndVnode = newCh[--newEndIdx];
     } else if (isSameVnode(oldStartVnode, newEndVnode)) {
-      // Vnode moved right
+      // case: "Vnode moved right"
+      //
+      // We've found that the last node in our window on the new children is
+      // the same VNode as the _first_ node in our window on the old children
+      // we're dealing with now. Visually, this is the layout of these two
+      // nodes:
+      //
+      // newCh: [..., newStartVnode , ... , newEndVnode , ...]
+      //                                    ^^^^^^^^^^^
+      // oldCh: [..., oldStartVnode , ... , oldEndVnode , ...]
+      //              ^^^^^^^^^^^^^
+      //
+      // In this situation we need to patch `newEndVnode` onto `oldStartVnode`
+      // and move the DOM element for `oldStartVnode`.
       if (oldStartVnode.$tag$ === 'slot' || newEndVnode.$tag$ === 'slot') {
         putBackInOriginalLocation(oldStartVnode.$elm$.parentNode, false);
       }
 
-      patch(oldStartVnode, newEndVnode);
+      patch(oldStartVnode, newEndVnode); // We need to move the element for `oldStartVnode` into a position which
+      // will be appropriate for `newEndVnode`. For this we can use
+      // `.insertBefore` and `oldEndVnode.$elm$.nextSibling`. If there is a
+      // sibling for `oldEndVnode.$elm$` then we want to move the DOM node for
+      // `oldStartVnode` between `oldEndVnode` and it's sibling, like so:
+      //
+      // <old-start-node />
+      // <some-intervening-node />
+      // <old-end-node />
+      // <!-- ->              <-- `oldStartVnode.$elm$` should be inserted here
+      // <next-sibling />
+      //
+      // If instead `oldEndVnode.$elm$` has no sibling then we just want to put
+      // the node for `oldStartVnode` at the end of the children of
+      // `parentElm`. Luckily, `Node.nextSibling` will return `null` if there
+      // aren't any siblings, and passing `null` to `Node.insertBefore` will
+      // append it to the children of the parent element.
+
       parentElm.insertBefore(oldStartVnode.$elm$, oldEndVnode.$elm$.nextSibling);
       oldStartVnode = oldCh[++oldStartIdx];
       newEndVnode = newCh[--newEndIdx];
     } else if (isSameVnode(oldEndVnode, newStartVnode)) {
-      // Vnode moved left
+      // case: "Vnode moved left"
+      //
+      // We've found that the first node in our window on the new children is
+      // the same VNode as the _last_ node in our window on the old children.
+      // Visually, this is the layout of these two nodes:
+      //
+      // newCh: [..., newStartVnode , ... , newEndVnode , ...]
+      //              ^^^^^^^^^^^^^
+      // oldCh: [..., oldStartVnode , ... , oldEndVnode , ...]
+      //                                    ^^^^^^^^^^^
+      //
+      // In this situation we need to patch `newStartVnode` onto `oldEndVnode`
+      // (which will handle updating any changed attributes, reconciling their
+      // children etc) but we also need to move the DOM node to which
+      // `oldEndVnode` corresponds.
       if (oldStartVnode.$tag$ === 'slot' || newEndVnode.$tag$ === 'slot') {
         putBackInOriginalLocation(oldEndVnode.$elm$.parentNode, false);
       }
 
-      patch(oldEndVnode, newStartVnode);
+      patch(oldEndVnode, newStartVnode); // We've already checked above if `oldStartVnode` and `newStartVnode` are
+      // the same node, so since we're here we know that they are not. Thus we
+      // can move the element for `oldEndVnode` _before_ the element for
+      // `oldStartVnode`, leaving `oldStartVnode` to be reconciled in the
+      // future.
+
       parentElm.insertBefore(oldEndVnode.$elm$, oldStartVnode.$elm$);
       oldEndVnode = oldCh[--oldEndIdx];
       newStartVnode = newCh[++newStartIdx];
     } else {
-      // createKeyToOldIdx
+      // Here we do some checks to match up old and new nodes based on the
+      // `$key$` attribute, which is set by putting a `key="my-key"` attribute
+      // in the JSX for a DOM element in the implementation of a Stencil
+      // component.
+      //
+      // First we check to see if there are any nodes in the array of old
+      // children which have the same key as the first node in the new
+      // children.
       idxInOld = -1;
       {
         for (i = oldStartIdx; i <= oldEndIdx; ++i) {
@@ -13627,24 +14291,33 @@ const updateChildren = (parentElm, oldCh, newVNode, newCh) => {
       }
 
       if (idxInOld >= 0) {
+        // We found a node in the old children which matches up with the first
+        // node in the new children! So let's deal with that
         elmToMove = oldCh[idxInOld];
 
         if (elmToMove.$tag$ !== newStartVnode.$tag$) {
+          // the tag doesn't match so we'll need a new DOM element
           node = createElm(oldCh && oldCh[newStartIdx], newVNode, idxInOld, parentElm);
         } else {
-          patch(elmToMove, newStartVnode);
+          patch(elmToMove, newStartVnode); // invalidate the matching old node so that we won't try to update it
+          // again later on
+
           oldCh[idxInOld] = undefined;
           node = elmToMove.$elm$;
         }
 
         newStartVnode = newCh[++newStartIdx];
       } else {
-        // new element
+        // We either didn't find an element in the old children that matches
+        // the key of the first new child OR the build is not using `key`
+        // attributes at all. In either case we need to create a new element
+        // for the new node.
         node = createElm(oldCh && oldCh[newStartIdx], newVNode, newStartIdx, parentElm);
         newStartVnode = newCh[++newStartIdx];
       }
 
       if (node) {
+        // if we created a new node then handle inserting it to the DOM
         {
           parentReferenceNode(oldStartVnode.$elm$).insertBefore(node, referenceNode(oldStartVnode.$elm$));
         }
@@ -13653,22 +14326,45 @@ const updateChildren = (parentElm, oldCh, newVNode, newCh) => {
   }
 
   if (oldStartIdx > oldEndIdx) {
+    // we have some more new nodes to add which don't match up with old nodes
     addVnodes(parentElm, newCh[newEndIdx + 1] == null ? null : newCh[newEndIdx + 1].$elm$, newVNode, newCh, newStartIdx, newEndIdx);
   } else if (newStartIdx > newEndIdx) {
+    // there are nodes in the `oldCh` array which no longer correspond to nodes
+    // in the new array, so lets remove them (which entails cleaning up the
+    // relevant DOM nodes)
     removeVnodes(oldCh, oldStartIdx, oldEndIdx);
   }
 };
+/**
+ * Compare two VNodes to determine if they are the same
+ *
+ * **NB**: This function is an equality _heuristic_ based on the available
+ * information set on the two VNodes and can be misleading under certain
+ * circumstances. In particular, if the two nodes do not have `key` attrs
+ * (available under `$key$` on VNodes) then the function falls back on merely
+ * checking that they have the same tag.
+ *
+ * So, in other words, if `key` attrs are not set on VNodes which may be
+ * changing order within a `children` array or something along those lines then
+ * we could obtain a false positive and then have to do needless re-rendering.
+ *
+ * @param leftVNode the first VNode to check
+ * @param rightVNode the second VNode to check
+ * @returns whether they're equal or not
+ */
 
-const isSameVnode = (vnode1, vnode2) => {
+
+const isSameVnode = (leftVNode, rightVNode) => {
   // compare if two vnode to see if they're "technically" the same
   // need to have the same element tag, and same key to be the same
-  if (vnode1.$tag$ === vnode2.$tag$) {
-    if (vnode1.$tag$ === 'slot') {
-      return vnode1.$name$ === vnode2.$name$;
-    }
+  if (leftVNode.$tag$ === rightVNode.$tag$) {
+    if (leftVNode.$tag$ === 'slot') {
+      return leftVNode.$name$ === rightVNode.$name$;
+    } // this will be set if components in the build have `key` attrs set on them
+
 
     {
-      return vnode1.$key$ === vnode2.$key$;
+      return leftVNode.$key$ === rightVNode.$key$;
     }
   }
 
@@ -13684,6 +14380,15 @@ const referenceNode = node => {
 };
 
 const parentReferenceNode = node => (node['s-ol'] ? node['s-ol'] : node).parentNode;
+/**
+ * Handle reconciling an outdated VNode with a new one which corresponds to
+ * it. This function handles flushing updates to the DOM and reconciling the
+ * children of the two nodes (if any).
+ *
+ * @param oldVNode an old VNode whose DOM element and children we want to update
+ * @param newVNode a new VNode representing an updated version of the old one
+ */
+
 
 const patch = (oldVNode, newVNode) => {
   const elm = newVNode.$elm$ = oldVNode.$elm$;
@@ -13698,8 +14403,7 @@ const patch = (oldVNode, newVNode) => {
       // test if we're rendering an svg element, or still rendering nodes inside of one
       // only add this to the when the compiler sees we're using an svg somewhere
       isSvgMode = tag === 'svg' ? true : tag === 'foreignObject' ? false : isSvgMode;
-    } // element node
-
+    }
     {
       if (tag === 'slot') ;else {
         // either this is the first render of an element OR it's an update
@@ -13711,6 +14415,7 @@ const patch = (oldVNode, newVNode) => {
 
     if (oldChildren !== null && newChildren !== null) {
       // looks like there's child vnodes for both the old and new vnodes
+      // so we need to call `updateChildren` to reconcile them
       updateChildren(elm, oldChildren, newVNode, newChildren);
     } else if (newChildren !== null) {
       // no old child vnodes, but there are new child vnodes to add
@@ -13753,7 +14458,7 @@ const updateFallbackSlotVisibility = elm => {
     childNode = childNodes[i];
 
     if (childNode.nodeType === 1
-    /* ElementNode */
+    /* NODE_TYPE.ElementNode */
     ) {
       if (childNode['s-sr']) {
         // this is a slot fallback node
@@ -13769,7 +14474,7 @@ const updateFallbackSlotVisibility = elm => {
           if (childNodes[j]['s-hn'] !== childNode['s-hn'] || slotNameAttr !== '') {
             // this sibling node is from a different component OR is a named fallback slot node
             if (nodeType === 1
-            /* ElementNode */
+            /* NODE_TYPE.ElementNode */
             && slotNameAttr === childNodes[j].getAttribute('slot')) {
               childNode.hidden = true;
               break;
@@ -13779,9 +14484,9 @@ const updateFallbackSlotVisibility = elm => {
             // any element or text node (with content)
             // should hide the default fallback slot node
             if (nodeType === 1
-            /* ElementNode */
+            /* NODE_TYPE.ElementNode */
             || nodeType === 3
-            /* TextNode */
+            /* NODE_TYPE.TextNode */
             && childNodes[j].textContent.trim() !== '') {
               childNode.hidden = true;
               break;
@@ -13870,7 +14575,7 @@ const relocateSlotContent = elm => {
     }
 
     if (childNode.nodeType === 1
-    /* ElementNode */
+    /* NODE_TYPE.ElementNode */
     ) {
       relocateSlotContent(childNode);
     }
@@ -13879,7 +14584,7 @@ const relocateSlotContent = elm => {
 
 const isNodeLocatedInSlot = (nodeToRelocate, slotNameAttr) => {
   if (nodeToRelocate.nodeType === 1
-  /* ElementNode */
+  /* NODE_TYPE.ElementNode */
   ) {
     if (nodeToRelocate.getAttribute('slot') === null && slotNameAttr === '') {
       return true;
@@ -13920,7 +14625,7 @@ const renderVdom = (hostRef, renderFnResults) => {
 
   rootVnode.$tag$ = null;
   rootVnode.$flags$ |= 4
-  /* isHost */
+  /* VNODE_FLAGS.isHost */
   ;
   hostRef.$vnode$ = rootVnode;
   rootVnode.$elm$ = oldVNode.$elm$ = hostElm.shadowRoot || hostElm;
@@ -13930,7 +14635,7 @@ const renderVdom = (hostRef, renderFnResults) => {
   {
     contentRef = hostElm['s-cr'];
     useNativeShadowDom = (cmpMeta.$flags$ & 1
-    /* shadowDomEncapsulation */
+    /* CMP_FLAGS.shadowDomEncapsulation */
     ) !== 0; // always reset
 
     checkSlotFallbackVisibility = false;
@@ -13941,7 +14646,7 @@ const renderVdom = (hostRef, renderFnResults) => {
     // while we're moving nodes around existing nodes, temporarily disable
     // the disconnectCallback from working
     plt.$flags$ |= 1
-    /* isTmpDisconnected */
+    /* PLATFORM_FLAGS.isTmpDisconnected */
     ;
 
     if (checkSlotRelocate) {
@@ -14008,7 +14713,7 @@ const renderVdom = (hostRef, renderFnResults) => {
         } else {
           // this node doesn't have a slot home to go to, so let's hide it
           if (nodeToRelocate.nodeType === 1
-          /* ElementNode */
+          /* NODE_TYPE.ElementNode */
           ) {
             nodeToRelocate.hidden = true;
           }
@@ -14023,7 +14728,7 @@ const renderVdom = (hostRef, renderFnResults) => {
 
 
     plt.$flags$ &= ~1
-    /* isTmpDisconnected */
+    /* PLATFORM_FLAGS.isTmpDisconnected */
     ; // always reset
 
     relocateNodes.length = 0;
@@ -14038,13 +14743,13 @@ const createEvent = (ref, name, flags) => {
     emit: detail => {
       return emitEvent(elm, name, {
         bubbles: !!(flags & 4
-        /* Bubbles */
+        /* EVENT_FLAGS.Bubbles */
         ),
         composed: !!(flags & 2
-        /* Composed */
+        /* EVENT_FLAGS.Composed */
         ),
         cancelable: !!(flags & 1
-        /* Cancellable */
+        /* EVENT_FLAGS.Cancellable */
         ),
         detail
       });
@@ -14075,15 +14780,15 @@ const attachToAncestor = (hostRef, ancestorComponent) => {
 const scheduleUpdate = (hostRef, isInitialLoad) => {
   {
     hostRef.$flags$ |= 16
-    /* isQueuedForUpdate */
+    /* HOST_FLAGS.isQueuedForUpdate */
     ;
   }
 
   if (hostRef.$flags$ & 4
-  /* isWaitingForChildren */
+  /* HOST_FLAGS.isWaitingForChildren */
   ) {
     hostRef.$flags$ |= 512
-    /* needsRerender */
+    /* HOST_FLAGS.needsRerender */
     ;
     return;
   }
@@ -14105,7 +14810,7 @@ const dispatchHooks = (hostRef, isInitialLoad) => {
   if (isInitialLoad) {
     {
       hostRef.$flags$ |= 256
-      /* isListenReady */
+      /* HOST_FLAGS.isListenReady */
       ;
 
       if (hostRef.$queuedListeners$) {
@@ -14126,7 +14831,7 @@ const dispatchHooks = (hostRef, isInitialLoad) => {
 };
 
 const updateComponent = /*#__PURE__*/function () {
-  var _ref = (0,C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (hostRef, instance, isInitialLoad) {
+  var _ref = (0,C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (hostRef, instance, isInitialLoad) {
     // updateComponent
     const elm = hostRef.$hostElement$;
     const endUpdate = createTime('update', hostRef.$cmpMeta$.$tagName$);
@@ -14162,7 +14867,7 @@ const updateComponent = /*#__PURE__*/function () {
       } else {
         Promise.all(childrenPromises).then(postUpdate);
         hostRef.$flags$ |= 4
-        /* isWaitingForChildren */
+        /* HOST_FLAGS.isWaitingForChildren */
         ;
         childrenPromises.length = 0;
       }
@@ -14179,12 +14884,12 @@ const callRender = (hostRef, instance, elm) => {
     instance = instance.render && instance.render();
     {
       hostRef.$flags$ &= ~16
-      /* isQueuedForUpdate */
+      /* HOST_FLAGS.isQueuedForUpdate */
       ;
     }
     {
       hostRef.$flags$ |= 2
-      /* hasRendered */
+      /* HOST_FLAGS.hasRendered */
       ;
     }
     {
@@ -14215,10 +14920,10 @@ const postUpdateComponent = hostRef => {
   }
 
   if (!(hostRef.$flags$ & 64
-  /* hasLoadedComponent */
+  /* HOST_FLAGS.hasLoadedComponent */
   )) {
     hostRef.$flags$ |= 64
-    /* hasLoadedComponent */
+    /* HOST_FLAGS.hasLoadedComponent */
     ;
     {
       // DOM WRITE!
@@ -14254,15 +14959,15 @@ const postUpdateComponent = hostRef => {
     }
 
     if (hostRef.$flags$ & 512
-    /* needsRerender */
+    /* HOST_FLAGS.needsRerender */
     ) {
       nextTick(() => scheduleUpdate(hostRef, false));
     }
 
     hostRef.$flags$ &= ~(4
-    /* isWaitingForChildren */
+    /* HOST_FLAGS.isWaitingForChildren */
     | 512
-    /* needsRerender */
+    /* HOST_FLAGS.needsRerender */
     );
   } // ( •_•)
   // ( •_•)>⌐■-■
@@ -14275,11 +14980,11 @@ const forceUpdate = ref => {
     const isConnected = hostRef.$hostElement$.isConnected;
 
     if (isConnected && (hostRef.$flags$ & (2
-    /* hasRendered */
+    /* HOST_FLAGS.hasRendered */
     | 16
-    /* isQueuedForUpdate */
+    /* HOST_FLAGS.isQueuedForUpdate */
     )) === 2
-    /* hasRendered */
+    /* HOST_FLAGS.hasRendered */
     ) {
       scheduleUpdate(hostRef, false);
     } // Returns "true" when the forced update was successfully scheduled
@@ -14374,7 +15079,7 @@ const clientHydrate = (parentVNode, childRenderNodes, slotNodes, shadowRootNodes
   let i;
 
   if (node.nodeType === 1
-  /* ElementNode */
+  /* NODE_TYPE.ElementNode */
   ) {
     childNodeType = node.getAttribute(HYDRATE_CHILD_ID);
 
@@ -14429,7 +15134,7 @@ const clientHydrate = (parentVNode, childRenderNodes, slotNodes, shadowRootNodes
       }
     }
   } else if (node.nodeType === 8
-  /* CommentNode */
+  /* NODE_TYPE.CommentNode */
   ) {
     // `${COMMENT_TYPE}.${hostId}.${nodeId}.${depth}.${index}`
     childIdSplt = node.nodeValue.split('.');
@@ -14456,7 +15161,7 @@ const clientHydrate = (parentVNode, childRenderNodes, slotNodes, shadowRootNodes
         childVNode.$elm$ = node.nextSibling;
 
         if (childVNode.$elm$ && childVNode.$elm$.nodeType === 3
-        /* TextNode */
+        /* NODE_TYPE.TextNode */
         ) {
           childVNode.$text$ = childVNode.$elm$.textContent;
           childRenderNodes.push(childVNode); // remove the text comment since it's no longer needed
@@ -14536,7 +15241,7 @@ const clientHydrate = (parentVNode, childRenderNodes, slotNodes, shadowRootNodes
 
 const initializeDocumentHydrate = (node, orgLocNodes) => {
   if (node.nodeType === 1
-  /* ElementNode */
+  /* NODE_TYPE.ElementNode */
   ) {
     let i = 0;
 
@@ -14550,7 +15255,7 @@ const initializeDocumentHydrate = (node, orgLocNodes) => {
       }
     }
   } else if (node.nodeType === 8
-  /* CommentNode */
+  /* NODE_TYPE.CommentNode */
   ) {
     const childIdSplt = node.nodeValue.split('.');
 
@@ -14592,7 +15297,7 @@ const parsePropertyValue = (propValue, propType) => {
   // ensure this value is of the correct prop type
   if (propValue != null && !isComplexType(propValue)) {
     if (propType & 4
-    /* Boolean */
+    /* MEMBER_FLAGS.Boolean */
     ) {
       // per the HTML spec, any string value means it is a boolean true value
       // but we'll cheat here and say that the string "false" is the boolean false
@@ -14600,14 +15305,14 @@ const parsePropertyValue = (propValue, propType) => {
     }
 
     if (propType & 2
-    /* Number */
+    /* MEMBER_FLAGS.Number */
     ) {
       // force it to be a number
       return parseFloat(propValue);
     }
 
     if (propType & 1
-    /* String */
+    /* MEMBER_FLAGS.String */
     ) {
       // could have been passed as a number or boolean
       // but we still want it as a string
@@ -14638,7 +15343,7 @@ const setValue = (ref, propName, newVal, cmpMeta) => {
   const didValueChange = newVal !== oldVal && !areBothNaN;
 
   if ((!(flags & 8
-  /* isConstructingInstance */
+  /* HOST_FLAGS.isConstructingInstance */
   ) || oldVal === undefined) && didValueChange) {
     // gadzooks! the property's value has changed!!
     // set our new value!
@@ -14647,7 +15352,7 @@ const setValue = (ref, propName, newVal, cmpMeta) => {
     if (instance) {
       // get an array of method names of watch functions to call
       if (cmpMeta.$watchers$ && flags & 128
-      /* isWatchReady */
+      /* HOST_FLAGS.isWatchReady */
       ) {
         const watchMethods = cmpMeta.$watchers$[propName];
 
@@ -14665,11 +15370,11 @@ const setValue = (ref, propName, newVal, cmpMeta) => {
       }
 
       if ((flags & (2
-      /* hasRendered */
+      /* HOST_FLAGS.hasRendered */
       | 16
-      /* isQueuedForUpdate */
+      /* HOST_FLAGS.isQueuedForUpdate */
       )) === 2
-      /* hasRendered */
+      /* HOST_FLAGS.hasRendered */
       ) {
         // looks like this value actually changed, so we've got work to do!
         // but only if we've already rendered, otherwise just chill out
@@ -14692,11 +15397,11 @@ const proxyComponent = (Cstr, cmpMeta, flags) => {
     const prototype = Cstr.prototype;
     members.map(([memberName, [memberFlags]]) => {
       if (memberFlags & 31
-      /* Prop */
+      /* MEMBER_FLAGS.Prop */
       || flags & 2
-      /* proxyState */
+      /* PROXY_FLAGS.proxyState */
       && memberFlags & 32
-      /* State */
+      /* MEMBER_FLAGS.State */
       ) {
         // proxyComponent - prop
         Object.defineProperty(prototype, memberName, {
@@ -14714,9 +15419,9 @@ const proxyComponent = (Cstr, cmpMeta, flags) => {
           enumerable: true
         });
       } else if (flags & 1
-      /* isElementConstructor */
+      /* PROXY_FLAGS.isElementConstructor */
       && memberFlags & 64
-      /* Method */
+      /* MEMBER_FLAGS.Method */
       ) {
         // proxyComponent - method
         Object.defineProperty(prototype, memberName, {
@@ -14730,7 +15435,7 @@ const proxyComponent = (Cstr, cmpMeta, flags) => {
     });
 
     if (flags & 1
-    /* isElementConstructor */
+    /* PROXY_FLAGS.isElementConstructor */
     ) {
       const attrNameToPropName = new Map();
 
@@ -14787,14 +15492,14 @@ const proxyComponent = (Cstr, cmpMeta, flags) => {
 
 
       Cstr.observedAttributes = members.filter(([_, m]) => m[0] & 15
-      /* HasAttribute */
+      /* MEMBER_FLAGS.HasAttribute */
       ) // filter to only keep props that should match attributes
       .map(([propName, m]) => {
         const attrName = m[1] || propName;
         attrNameToPropName.set(attrName, propName);
 
         if (m[0] & 512
-        /* ReflectAttr */
+        /* MEMBER_FLAGS.ReflectAttr */
         ) {
           cmpMeta.$attrsToReflect$.push([propName, attrName]);
         }
@@ -14808,15 +15513,15 @@ const proxyComponent = (Cstr, cmpMeta, flags) => {
 };
 
 const initializeComponent = /*#__PURE__*/function () {
-  var _ref2 = (0,C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (elm, hostRef, cmpMeta, hmrVersionId, Cstr) {
+  var _ref2 = (0,C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (elm, hostRef, cmpMeta, hmrVersionId, Cstr) {
     // initializeComponent
     if ((hostRef.$flags$ & 32
-    /* hasInitializedComponent */
+    /* HOST_FLAGS.hasInitializedComponent */
     ) === 0) {
       {
         // we haven't initialized this element yet
         hostRef.$flags$ |= 32
-        /* hasInitializedComponent */
+        /* HOST_FLAGS.hasInitializedComponent */
         ; // lazy loaded components
         // request the component's implementation to be
         // wired up with the host element
@@ -14838,7 +15543,7 @@ const initializeComponent = /*#__PURE__*/function () {
             cmpMeta.$watchers$ = Cstr.watchers;
           }
           proxyComponent(Cstr, cmpMeta, 2
-          /* proxyState */
+          /* PROXY_FLAGS.proxyState */
           );
           Cstr.isProxied = true;
         }
@@ -14849,7 +15554,7 @@ const initializeComponent = /*#__PURE__*/function () {
 
         {
           hostRef.$flags$ |= 8
-          /* isConstructingInstance */
+          /* HOST_FLAGS.isConstructingInstance */
           ;
         } // construct the lazy-loaded component implementation
         // passing the hostRef is very important during
@@ -14864,12 +15569,12 @@ const initializeComponent = /*#__PURE__*/function () {
 
         {
           hostRef.$flags$ &= ~8
-          /* isConstructingInstance */
+          /* HOST_FLAGS.isConstructingInstance */
           ;
         }
         {
           hostRef.$flags$ |= 128
-          /* isWatchReady */
+          /* HOST_FLAGS.isWatchReady */
           ;
         }
         endNewInstance();
@@ -14889,7 +15594,7 @@ const initializeComponent = /*#__PURE__*/function () {
         if (!styles.has(scopeId)) {
           const endRegisterStyles = createTime('registerStyles', cmpMeta.$tagName$);
           registerStyle(scopeId, style, !!(cmpMeta.$flags$ & 1
-          /* shadowDomEncapsulation */
+          /* CMP_FLAGS.shadowDomEncapsulation */
           ));
           endRegisterStyles();
         }
@@ -14927,18 +15632,18 @@ const fireConnectedCallback = instance => {
 
 const connectedCallback = elm => {
   if ((plt.$flags$ & 1
-  /* isTmpDisconnected */
+  /* PLATFORM_FLAGS.isTmpDisconnected */
   ) === 0) {
     const hostRef = getHostRef(elm);
     const cmpMeta = hostRef.$cmpMeta$;
     const endConnected = createTime('connectedCallback', cmpMeta.$tagName$);
 
     if (!(hostRef.$flags$ & 1
-    /* hasConnected */
+    /* HOST_FLAGS.hasConnected */
     )) {
       // first time this component has connected
       hostRef.$flags$ |= 1
-      /* hasConnected */
+      /* HOST_FLAGS.hasConnected */
       ;
       let hostId;
       {
@@ -14946,7 +15651,7 @@ const connectedCallback = elm => {
 
         if (hostId) {
           if (cmpMeta.$flags$ & 1
-          /* shadowDomEncapsulation */
+          /* CMP_FLAGS.shadowDomEncapsulation */
           ) {
             const scopeId = addStyle(elm.shadowRoot, cmpMeta, elm.getAttribute('s-mode'));
             elm.classList.remove(scopeId + '-h', scopeId + '-s');
@@ -14962,9 +15667,9 @@ const connectedCallback = elm => {
         // in here to act as original content anchors as we move nodes around
         // host element has been connected to the DOM
         if (cmpMeta.$flags$ & (4
-        /* hasSlotRelocation */
+        /* CMP_FLAGS.hasSlotRelocation */
         | 8
-        /* needsShadowDomShim */
+        /* CMP_FLAGS.needsShadowDomShim */
         )) {
           setContentReference(elm);
         }
@@ -14979,7 +15684,7 @@ const connectedCallback = elm => {
           // climb up the ancestors looking for the first
           // component that hasn't finished its lifecycle update yet
           if (ancestorComponent.nodeType === 1
-          /* ElementNode */
+          /* NODE_TYPE.ElementNode */
           && ancestorComponent.hasAttribute('s-id') && ancestorComponent['s-p'] || ancestorComponent['s-p']) {
             // we found this components first ancestor component
             // keep a reference to this component's ancestor component
@@ -14993,7 +15698,7 @@ const connectedCallback = elm => {
       if (cmpMeta.$members$) {
         Object.entries(cmpMeta.$members$).map(([memberName, [memberFlags]]) => {
           if (memberFlags & 31
-          /* Prop */
+          /* MEMBER_FLAGS.Prop */
           && elm.hasOwnProperty(memberName)) {
             const value = elm[memberName];
             delete elm[memberName];
@@ -15036,7 +15741,7 @@ const setContentReference = elm => {
 
 const disconnectedCallback = elm => {
   if ((plt.$flags$ & 1
-  /* isTmpDisconnected */
+  /* PLATFORM_FLAGS.isTmpDisconnected */
   ) === 0) {
     const hostRef = getHostRef(elm);
     const instance = hostRef.$lazyInstance$;
@@ -15071,7 +15776,7 @@ const bootstrapLazy = (lazyBundles, options = {}) => {
     // If the app is already hydrated there is not point to disable the
     // async queue. This will improve the first input delay
     plt.$flags$ |= 2
-    /* appLoaded */
+    /* PLATFORM_FLAGS.appLoaded */
     ;
   }
   {
@@ -15109,7 +15814,7 @@ const bootstrapLazy = (lazyBundles, options = {}) => {
           registerHost(self, cmpMeta);
 
           if (cmpMeta.$flags$ & 1
-          /* shadowDomEncapsulation */
+          /* CMP_FLAGS.shadowDomEncapsulation */
           ) {
             // this component is using shadow dom
             // and this browser supports shadow dom
@@ -15120,7 +15825,7 @@ const bootstrapLazy = (lazyBundles, options = {}) => {
                 self.attachShadow({
                   mode: 'open',
                   delegatesFocus: !!(cmpMeta.$flags$ & 16
-                  /* shadowDelegatesFocus */
+                  /* CMP_FLAGS.shadowDelegatesFocus */
                   )
                 });
               }
@@ -15156,7 +15861,7 @@ const bootstrapLazy = (lazyBundles, options = {}) => {
       if (!exclude.includes(tagName) && !customElements.get(tagName)) {
         cmpTags.push(tagName);
         customElements.define(tagName, proxyComponent(HostElement, cmpMeta, 1
-        /* isElementConstructor */
+        /* PROXY_FLAGS.isElementConstructor */
         ));
       }
     });
@@ -15186,7 +15891,7 @@ const getAssetPath = path => {
   return assetUrl.origin !== win.location.origin ? assetUrl.href : assetUrl.pathname;
 };
 
-const hostRefs = new WeakMap();
+const hostRefs = /*@__PURE__*/new WeakMap();
 
 const getHostRef = ref => hostRefs.get(ref);
 
@@ -15237,7 +15942,7 @@ const loadModule = (cmpMeta, hostRef, hmrVersionId) => {
   }, consoleError);
 };
 
-const styles = new Map();
+const styles = /*@__PURE__*/new Map();
 const modeResolutionChain = [];
 const queueDomReads = [];
 const queueDomWrites = [];
@@ -15249,7 +15954,7 @@ const queueTask = (queue, write) => cb => {
     queuePending = true;
 
     if (write && plt.$flags$ & 4
-    /* queueSync */
+    /* PLATFORM_FLAGS.queueSync */
     ) {
       nextTick(flush);
     } else {
@@ -15301,18 +16006,518 @@ const Build = {
 
 /***/ }),
 
-/***/ 2172:
+/***/ 1652:
 /*!*************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/index-3f1a7d95.js ***!
+  !*** ./node_modules/@ionic/core/dist/esm/index-dff497fb.js ***!
   \*************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "GESTURE_CONTROLLER": () => (/* reexport safe */ _gesture_controller_17e82006_js__WEBPACK_IMPORTED_MODULE_0__.G),
+/* harmony export */   "I": () => (/* binding */ IonicSafeString),
+/* harmony export */   "s": () => (/* binding */ sanitizeDOMString)
+/* harmony export */ });
+/*!
+ * (C) Ionic http://ionicframework.com - MIT License
+ */
+
+/**
+ * Does a simple sanitization of all elements
+ * in an untrusted string
+ */
+const sanitizeDOMString = untrustedString => {
+  try {
+    if (untrustedString instanceof IonicSafeString) {
+      return untrustedString.value;
+    }
+
+    if (!isSanitizerEnabled() || typeof untrustedString !== 'string' || untrustedString === '') {
+      return untrustedString;
+    }
+    /**
+     * Create a document fragment
+     * separate from the main DOM,
+     * create a div to do our work in
+     */
+
+
+    const documentFragment = document.createDocumentFragment();
+    const workingDiv = document.createElement('div');
+    documentFragment.appendChild(workingDiv);
+    workingDiv.innerHTML = untrustedString;
+    /**
+     * Remove any elements
+     * that are blocked
+     */
+
+    blockedTags.forEach(blockedTag => {
+      const getElementsToRemove = documentFragment.querySelectorAll(blockedTag);
+
+      for (let elementIndex = getElementsToRemove.length - 1; elementIndex >= 0; elementIndex--) {
+        const element = getElementsToRemove[elementIndex];
+
+        if (element.parentNode) {
+          element.parentNode.removeChild(element);
+        } else {
+          documentFragment.removeChild(element);
+        }
+        /**
+         * We still need to sanitize
+         * the children of this element
+         * as they are left behind
+         */
+
+
+        const childElements = getElementChildren(element);
+        /* eslint-disable-next-line */
+
+        for (let childIndex = 0; childIndex < childElements.length; childIndex++) {
+          sanitizeElement(childElements[childIndex]);
+        }
+      }
+    });
+    /**
+     * Go through remaining elements and remove
+     * non-allowed attribs
+     */
+    // IE does not support .children on document fragments, only .childNodes
+
+    const dfChildren = getElementChildren(documentFragment);
+    /* eslint-disable-next-line */
+
+    for (let childIndex = 0; childIndex < dfChildren.length; childIndex++) {
+      sanitizeElement(dfChildren[childIndex]);
+    } // Append document fragment to div
+
+
+    const fragmentDiv = document.createElement('div');
+    fragmentDiv.appendChild(documentFragment); // First child is always the div we did our work in
+
+    const getInnerDiv = fragmentDiv.querySelector('div');
+    return getInnerDiv !== null ? getInnerDiv.innerHTML : fragmentDiv.innerHTML;
+  } catch (err) {
+    console.error(err);
+    return '';
+  }
+};
+/**
+ * Clean up current element based on allowed attributes
+ * and then recursively dig down into any child elements to
+ * clean those up as well
+ */
+
+
+const sanitizeElement = element => {
+  // IE uses childNodes, so ignore nodes that are not elements
+  if (element.nodeType && element.nodeType !== 1) {
+    return;
+  }
+
+  for (let i = element.attributes.length - 1; i >= 0; i--) {
+    const attribute = element.attributes.item(i);
+    const attributeName = attribute.name; // remove non-allowed attribs
+
+    if (!allowedAttributes.includes(attributeName.toLowerCase())) {
+      element.removeAttribute(attributeName);
+      continue;
+    } // clean up any allowed attribs
+    // that attempt to do any JS funny-business
+
+
+    const attributeValue = attribute.value;
+    /* eslint-disable-next-line */
+
+    if (attributeValue != null && attributeValue.toLowerCase().includes('javascript:')) {
+      element.removeAttribute(attributeName);
+    }
+  }
+  /**
+   * Sanitize any nested children
+   */
+
+
+  const childElements = getElementChildren(element);
+  /* eslint-disable-next-line */
+
+  for (let i = 0; i < childElements.length; i++) {
+    sanitizeElement(childElements[i]);
+  }
+};
+/**
+ * IE doesn't always support .children
+ * so we revert to .childNodes instead
+ */
+
+
+const getElementChildren = el => {
+  return el.children != null ? el.children : el.childNodes;
+};
+
+const isSanitizerEnabled = () => {
+  var _a;
+
+  const win = window;
+  const config = (_a = win === null || win === void 0 ? void 0 : win.Ionic) === null || _a === void 0 ? void 0 : _a.config;
+
+  if (config) {
+    if (config.get) {
+      return config.get('sanitizerEnabled', true);
+    } else {
+      return config.sanitizerEnabled === true || config.sanitizerEnabled === undefined;
+    }
+  }
+
+  return true;
+};
+
+const allowedAttributes = ['class', 'id', 'href', 'src', 'name', 'slot'];
+const blockedTags = ['script', 'style', 'iframe', 'meta', 'link', 'object', 'embed'];
+
+class IonicSafeString {
+  constructor(value) {
+    this.value = value;
+  }
+
+}
+
+
+
+/***/ }),
+
+/***/ 1856:
+/*!*************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/esm/index-eab49c64.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "L": () => (/* binding */ LIFECYCLE_WILL_ENTER),
+/* harmony export */   "a": () => (/* binding */ LIFECYCLE_DID_ENTER),
+/* harmony export */   "b": () => (/* binding */ LIFECYCLE_WILL_LEAVE),
+/* harmony export */   "c": () => (/* binding */ LIFECYCLE_DID_LEAVE),
+/* harmony export */   "d": () => (/* binding */ LIFECYCLE_WILL_UNLOAD),
+/* harmony export */   "e": () => (/* binding */ deepReady),
+/* harmony export */   "g": () => (/* binding */ getIonPageElement),
+/* harmony export */   "l": () => (/* binding */ lifecycle),
+/* harmony export */   "s": () => (/* binding */ setPageHidden),
+/* harmony export */   "t": () => (/* binding */ transition)
+/* harmony export */ });
+/* harmony import */ var C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
+/* harmony import */ var _index_8e692445_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index-8e692445.js */ 1559);
+/* harmony import */ var _helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers-3b390e48.js */ 9234);
+
+
+/*!
+ * (C) Ionic http://ionicframework.com - MIT License
+ */
+
+
+const LIFECYCLE_WILL_ENTER = 'ionViewWillEnter';
+const LIFECYCLE_DID_ENTER = 'ionViewDidEnter';
+const LIFECYCLE_WILL_LEAVE = 'ionViewWillLeave';
+const LIFECYCLE_DID_LEAVE = 'ionViewDidLeave';
+const LIFECYCLE_WILL_UNLOAD = 'ionViewWillUnload';
+
+const iosTransitionAnimation = () => Promise.resolve(/*! import() */).then(__webpack_require__.bind(__webpack_require__, /*! ./ios.transition-15066173.js */ 9591));
+
+const mdTransitionAnimation = () => Promise.resolve(/*! import() */).then(__webpack_require__.bind(__webpack_require__, /*! ./md.transition-d0077e8c.js */ 2797));
+
+const transition = opts => {
+  return new Promise((resolve, reject) => {
+    (0,_index_8e692445_js__WEBPACK_IMPORTED_MODULE_1__.c)(() => {
+      beforeTransition(opts);
+      runTransition(opts).then(result => {
+        if (result.animation) {
+          result.animation.destroy();
+        }
+
+        afterTransition(opts);
+        resolve(result);
+      }, error => {
+        afterTransition(opts);
+        reject(error);
+      });
+    });
+  });
+};
+
+const beforeTransition = opts => {
+  const enteringEl = opts.enteringEl;
+  const leavingEl = opts.leavingEl;
+  setZIndex(enteringEl, leavingEl, opts.direction);
+
+  if (opts.showGoBack) {
+    enteringEl.classList.add('can-go-back');
+  } else {
+    enteringEl.classList.remove('can-go-back');
+  }
+
+  setPageHidden(enteringEl, false);
+  /**
+   * When transitioning, the page should not
+   * respond to click events. This resolves small
+   * issues like users double tapping the ion-back-button.
+   * These pointer events are removed in `afterTransition`.
+   */
+
+  enteringEl.style.setProperty('pointer-events', 'none');
+
+  if (leavingEl) {
+    setPageHidden(leavingEl, false);
+    leavingEl.style.setProperty('pointer-events', 'none');
+  }
+};
+
+const runTransition = /*#__PURE__*/function () {
+  var _ref = (0,C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (opts) {
+    const animationBuilder = yield getAnimationBuilder(opts);
+    const ani = animationBuilder && _index_8e692445_js__WEBPACK_IMPORTED_MODULE_1__.B.isBrowser ? animation(animationBuilder, opts) : noAnimation(opts); // fast path for no animation
+
+    return ani;
+  });
+
+  return function runTransition(_x) {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+const afterTransition = opts => {
+  const enteringEl = opts.enteringEl;
+  const leavingEl = opts.leavingEl;
+  enteringEl.classList.remove('ion-page-invisible');
+  enteringEl.style.removeProperty('pointer-events');
+
+  if (leavingEl !== undefined) {
+    leavingEl.classList.remove('ion-page-invisible');
+    leavingEl.style.removeProperty('pointer-events');
+  }
+};
+
+const getAnimationBuilder = /*#__PURE__*/function () {
+  var _ref2 = (0,C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (opts) {
+    if (!opts.leavingEl || !opts.animated || opts.duration === 0) {
+      return undefined;
+    }
+
+    if (opts.animationBuilder) {
+      return opts.animationBuilder;
+    }
+
+    const getAnimation = opts.mode === 'ios' ? (yield iosTransitionAnimation()).iosTransitionAnimation : (yield mdTransitionAnimation()).mdTransitionAnimation;
+    return getAnimation;
+  });
+
+  return function getAnimationBuilder(_x2) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+const animation = /*#__PURE__*/function () {
+  var _ref3 = (0,C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (animationBuilder, opts) {
+    yield waitForReady(opts, true);
+    const trans = animationBuilder(opts.baseEl, opts);
+    fireWillEvents(opts.enteringEl, opts.leavingEl);
+    const didComplete = yield playTransition(trans, opts);
+
+    if (opts.progressCallback) {
+      opts.progressCallback(undefined);
+    }
+
+    if (didComplete) {
+      fireDidEvents(opts.enteringEl, opts.leavingEl);
+    }
+
+    return {
+      hasCompleted: didComplete,
+      animation: trans
+    };
+  });
+
+  return function animation(_x3, _x4) {
+    return _ref3.apply(this, arguments);
+  };
+}();
+
+const noAnimation = /*#__PURE__*/function () {
+  var _ref4 = (0,C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (opts) {
+    const enteringEl = opts.enteringEl;
+    const leavingEl = opts.leavingEl;
+    yield waitForReady(opts, false);
+    fireWillEvents(enteringEl, leavingEl);
+    fireDidEvents(enteringEl, leavingEl);
+    return {
+      hasCompleted: true
+    };
+  });
+
+  return function noAnimation(_x5) {
+    return _ref4.apply(this, arguments);
+  };
+}();
+
+const waitForReady = /*#__PURE__*/function () {
+  var _ref5 = (0,C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (opts, defaultDeep) {
+    const deep = opts.deepWait !== undefined ? opts.deepWait : defaultDeep;
+    const promises = deep ? [deepReady(opts.enteringEl), deepReady(opts.leavingEl)] : [shallowReady(opts.enteringEl), shallowReady(opts.leavingEl)];
+    yield Promise.all(promises);
+    yield notifyViewReady(opts.viewIsReady, opts.enteringEl);
+  });
+
+  return function waitForReady(_x6, _x7) {
+    return _ref5.apply(this, arguments);
+  };
+}();
+
+const notifyViewReady = /*#__PURE__*/function () {
+  var _ref6 = (0,C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (viewIsReady, enteringEl) {
+    if (viewIsReady) {
+      yield viewIsReady(enteringEl);
+    }
+  });
+
+  return function notifyViewReady(_x8, _x9) {
+    return _ref6.apply(this, arguments);
+  };
+}();
+
+const playTransition = (trans, opts) => {
+  const progressCallback = opts.progressCallback;
+  const promise = new Promise(resolve => {
+    trans.onFinish(currentStep => resolve(currentStep === 1));
+  }); // cool, let's do this, start the transition
+
+  if (progressCallback) {
+    // this is a swipe to go back, just get the transition progress ready
+    // kick off the swipe animation start
+    trans.progressStart(true);
+    progressCallback(trans);
+  } else {
+    // only the top level transition should actually start "play"
+    // kick it off and let it play through
+    // ******** DOM WRITE ****************
+    trans.play();
+  } // create a callback for when the animation is done
+
+
+  return promise;
+};
+
+const fireWillEvents = (enteringEl, leavingEl) => {
+  lifecycle(leavingEl, LIFECYCLE_WILL_LEAVE);
+  lifecycle(enteringEl, LIFECYCLE_WILL_ENTER);
+};
+
+const fireDidEvents = (enteringEl, leavingEl) => {
+  lifecycle(enteringEl, LIFECYCLE_DID_ENTER);
+  lifecycle(leavingEl, LIFECYCLE_DID_LEAVE);
+};
+
+const lifecycle = (el, eventName) => {
+  if (el) {
+    const ev = new CustomEvent(eventName, {
+      bubbles: false,
+      cancelable: false
+    });
+    el.dispatchEvent(ev);
+  }
+};
+
+const shallowReady = el => {
+  if (el) {
+    return new Promise(resolve => (0,_helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_2__.c)(el, resolve));
+  }
+
+  return Promise.resolve();
+};
+
+const deepReady = /*#__PURE__*/function () {
+  var _ref7 = (0,C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (el) {
+    const element = el;
+
+    if (element) {
+      if (element.componentOnReady != null) {
+        // eslint-disable-next-line custom-rules/no-component-on-ready-method
+        const stencilEl = yield element.componentOnReady();
+
+        if (stencilEl != null) {
+          return;
+        }
+        /**
+         * Custom elements in Stencil will have __registerHost.
+         */
+
+      } else if (element.__registerHost != null) {
+        /**
+         * Non-lazy loaded custom elements need to wait
+         * one frame for component to be loaded.
+         */
+        const waitForCustomElement = new Promise(resolve => (0,_helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_2__.r)(resolve));
+        yield waitForCustomElement;
+        return;
+      }
+
+      yield Promise.all(Array.from(element.children).map(deepReady));
+    }
+  });
+
+  return function deepReady(_x10) {
+    return _ref7.apply(this, arguments);
+  };
+}();
+
+const setPageHidden = (el, hidden) => {
+  if (hidden) {
+    el.setAttribute('aria-hidden', 'true');
+    el.classList.add('ion-page-hidden');
+  } else {
+    el.hidden = false;
+    el.removeAttribute('aria-hidden');
+    el.classList.remove('ion-page-hidden');
+  }
+};
+
+const setZIndex = (enteringEl, leavingEl, direction) => {
+  if (enteringEl !== undefined) {
+    enteringEl.style.zIndex = direction === 'back' ? '99' : '101';
+  }
+
+  if (leavingEl !== undefined) {
+    leavingEl.style.zIndex = '100';
+  }
+};
+
+const getIonPageElement = element => {
+  if (element.classList.contains('ion-page')) {
+    return element;
+  }
+
+  const ionPage = element.querySelector(':scope > .ion-page, :scope > ion-nav, :scope > ion-tabs');
+
+  if (ionPage) {
+    return ionPage;
+  } // idk, return the original element so at least something animates and we don't have a null pointer
+
+
+  return element;
+};
+
+
+
+/***/ }),
+
+/***/ 9286:
+/*!*************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/esm/index-f8d8aa5a.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "GESTURE_CONTROLLER": () => (/* reexport safe */ _gesture_controller_17060b7c_js__WEBPACK_IMPORTED_MODULE_0__.G),
 /* harmony export */   "createGesture": () => (/* binding */ createGesture)
 /* harmony export */ });
-/* harmony import */ var _gesture_controller_17e82006_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./gesture-controller-17e82006.js */ 607);
+/* harmony import */ var _gesture_controller_17060b7c_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./gesture-controller-17060b7c.js */ 6379);
 /*!
  * (C) Ionic http://ionicframework.com - MIT License
  */
@@ -15606,7 +16811,7 @@ const createGesture = config => {
     data: undefined
   };
   const pan = createPanRecognizer(finalConfig.direction, finalConfig.threshold, finalConfig.maxAngle);
-  const gesture = _gesture_controller_17e82006_js__WEBPACK_IMPORTED_MODULE_0__.G.createGesture({
+  const gesture = _gesture_controller_17060b7c_js__WEBPACK_IMPORTED_MODULE_0__.G.createGesture({
     name: config.gestureName,
     priority: config.gesturePriority,
     disableScroll: config.disableScroll
@@ -15685,7 +16890,7 @@ const createGesture = config => {
   };
 
   const tryToCapturePan = () => {
-    if (gesture && !gesture.capture()) {
+    if (!gesture.capture()) {
       return false;
     }
 
@@ -15858,952 +17063,6 @@ const now = ev => {
 
 /***/ }),
 
-/***/ 7060:
-/*!*************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/index-8191d09f.js ***!
-  \*************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "L": () => (/* binding */ LIFECYCLE_WILL_ENTER),
-/* harmony export */   "a": () => (/* binding */ LIFECYCLE_DID_ENTER),
-/* harmony export */   "b": () => (/* binding */ LIFECYCLE_WILL_LEAVE),
-/* harmony export */   "c": () => (/* binding */ LIFECYCLE_DID_LEAVE),
-/* harmony export */   "d": () => (/* binding */ LIFECYCLE_WILL_UNLOAD),
-/* harmony export */   "e": () => (/* binding */ deepReady),
-/* harmony export */   "g": () => (/* binding */ getIonPageElement),
-/* harmony export */   "l": () => (/* binding */ lifecycle),
-/* harmony export */   "s": () => (/* binding */ setPageHidden),
-/* harmony export */   "t": () => (/* binding */ transition)
-/* harmony export */ });
-/* harmony import */ var C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
-/* harmony import */ var _index_1a99aeb7_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index-1a99aeb7.js */ 4895);
-/* harmony import */ var _helpers_4d272360_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers-4d272360.js */ 9158);
-
-
-/*!
- * (C) Ionic http://ionicframework.com - MIT License
- */
-
-
-const LIFECYCLE_WILL_ENTER = 'ionViewWillEnter';
-const LIFECYCLE_DID_ENTER = 'ionViewDidEnter';
-const LIFECYCLE_WILL_LEAVE = 'ionViewWillLeave';
-const LIFECYCLE_DID_LEAVE = 'ionViewDidLeave';
-const LIFECYCLE_WILL_UNLOAD = 'ionViewWillUnload';
-
-const iosTransitionAnimation = () => Promise.resolve(/*! import() */).then(__webpack_require__.bind(__webpack_require__, /*! ./ios.transition-8b9192bb.js */ 4800));
-
-const mdTransitionAnimation = () => Promise.resolve(/*! import() */).then(__webpack_require__.bind(__webpack_require__, /*! ./md.transition-4352cd7a.js */ 53));
-
-const transition = opts => {
-  return new Promise((resolve, reject) => {
-    (0,_index_1a99aeb7_js__WEBPACK_IMPORTED_MODULE_1__.c)(() => {
-      beforeTransition(opts);
-      runTransition(opts).then(result => {
-        if (result.animation) {
-          result.animation.destroy();
-        }
-
-        afterTransition(opts);
-        resolve(result);
-      }, error => {
-        afterTransition(opts);
-        reject(error);
-      });
-    });
-  });
-};
-
-const beforeTransition = opts => {
-  const enteringEl = opts.enteringEl;
-  const leavingEl = opts.leavingEl;
-  setZIndex(enteringEl, leavingEl, opts.direction);
-
-  if (opts.showGoBack) {
-    enteringEl.classList.add('can-go-back');
-  } else {
-    enteringEl.classList.remove('can-go-back');
-  }
-
-  setPageHidden(enteringEl, false);
-  /**
-   * When transitioning, the page should not
-   * respond to click events. This resolves small
-   * issues like users double tapping the ion-back-button.
-   * These pointer events are removed in `afterTransition`.
-   */
-
-  enteringEl.style.setProperty('pointer-events', 'none');
-
-  if (leavingEl) {
-    setPageHidden(leavingEl, false);
-    leavingEl.style.setProperty('pointer-events', 'none');
-  }
-};
-
-const runTransition = /*#__PURE__*/function () {
-  var _ref = (0,C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (opts) {
-    const animationBuilder = yield getAnimationBuilder(opts);
-    const ani = animationBuilder && _index_1a99aeb7_js__WEBPACK_IMPORTED_MODULE_1__.B.isBrowser ? animation(animationBuilder, opts) : noAnimation(opts); // fast path for no animation
-
-    return ani;
-  });
-
-  return function runTransition(_x) {
-    return _ref.apply(this, arguments);
-  };
-}();
-
-const afterTransition = opts => {
-  const enteringEl = opts.enteringEl;
-  const leavingEl = opts.leavingEl;
-  enteringEl.classList.remove('ion-page-invisible');
-  enteringEl.style.removeProperty('pointer-events');
-
-  if (leavingEl !== undefined) {
-    leavingEl.classList.remove('ion-page-invisible');
-    leavingEl.style.removeProperty('pointer-events');
-  }
-};
-
-const getAnimationBuilder = /*#__PURE__*/function () {
-  var _ref2 = (0,C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (opts) {
-    if (!opts.leavingEl || !opts.animated || opts.duration === 0) {
-      return undefined;
-    }
-
-    if (opts.animationBuilder) {
-      return opts.animationBuilder;
-    }
-
-    const getAnimation = opts.mode === 'ios' ? (yield iosTransitionAnimation()).iosTransitionAnimation : (yield mdTransitionAnimation()).mdTransitionAnimation;
-    return getAnimation;
-  });
-
-  return function getAnimationBuilder(_x2) {
-    return _ref2.apply(this, arguments);
-  };
-}();
-
-const animation = /*#__PURE__*/function () {
-  var _ref3 = (0,C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (animationBuilder, opts) {
-    yield waitForReady(opts, true);
-    const trans = animationBuilder(opts.baseEl, opts);
-    fireWillEvents(opts.enteringEl, opts.leavingEl);
-    const didComplete = yield playTransition(trans, opts);
-
-    if (opts.progressCallback) {
-      opts.progressCallback(undefined);
-    }
-
-    if (didComplete) {
-      fireDidEvents(opts.enteringEl, opts.leavingEl);
-    }
-
-    return {
-      hasCompleted: didComplete,
-      animation: trans
-    };
-  });
-
-  return function animation(_x3, _x4) {
-    return _ref3.apply(this, arguments);
-  };
-}();
-
-const noAnimation = /*#__PURE__*/function () {
-  var _ref4 = (0,C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (opts) {
-    const enteringEl = opts.enteringEl;
-    const leavingEl = opts.leavingEl;
-    yield waitForReady(opts, false);
-    fireWillEvents(enteringEl, leavingEl);
-    fireDidEvents(enteringEl, leavingEl);
-    return {
-      hasCompleted: true
-    };
-  });
-
-  return function noAnimation(_x5) {
-    return _ref4.apply(this, arguments);
-  };
-}();
-
-const waitForReady = /*#__PURE__*/function () {
-  var _ref5 = (0,C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (opts, defaultDeep) {
-    const deep = opts.deepWait !== undefined ? opts.deepWait : defaultDeep;
-    const promises = deep ? [deepReady(opts.enteringEl), deepReady(opts.leavingEl)] : [shallowReady(opts.enteringEl), shallowReady(opts.leavingEl)];
-    yield Promise.all(promises);
-    yield notifyViewReady(opts.viewIsReady, opts.enteringEl);
-  });
-
-  return function waitForReady(_x6, _x7) {
-    return _ref5.apply(this, arguments);
-  };
-}();
-
-const notifyViewReady = /*#__PURE__*/function () {
-  var _ref6 = (0,C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (viewIsReady, enteringEl) {
-    if (viewIsReady) {
-      yield viewIsReady(enteringEl);
-    }
-  });
-
-  return function notifyViewReady(_x8, _x9) {
-    return _ref6.apply(this, arguments);
-  };
-}();
-
-const playTransition = (trans, opts) => {
-  const progressCallback = opts.progressCallback;
-  const promise = new Promise(resolve => {
-    trans.onFinish(currentStep => resolve(currentStep === 1));
-  }); // cool, let's do this, start the transition
-
-  if (progressCallback) {
-    // this is a swipe to go back, just get the transition progress ready
-    // kick off the swipe animation start
-    trans.progressStart(true);
-    progressCallback(trans);
-  } else {
-    // only the top level transition should actually start "play"
-    // kick it off and let it play through
-    // ******** DOM WRITE ****************
-    trans.play();
-  } // create a callback for when the animation is done
-
-
-  return promise;
-};
-
-const fireWillEvents = (enteringEl, leavingEl) => {
-  lifecycle(leavingEl, LIFECYCLE_WILL_LEAVE);
-  lifecycle(enteringEl, LIFECYCLE_WILL_ENTER);
-};
-
-const fireDidEvents = (enteringEl, leavingEl) => {
-  lifecycle(enteringEl, LIFECYCLE_DID_ENTER);
-  lifecycle(leavingEl, LIFECYCLE_DID_LEAVE);
-};
-
-const lifecycle = (el, eventName) => {
-  if (el) {
-    const ev = new CustomEvent(eventName, {
-      bubbles: false,
-      cancelable: false
-    });
-    el.dispatchEvent(ev);
-  }
-};
-
-const shallowReady = el => {
-  if (el) {
-    return new Promise(resolve => (0,_helpers_4d272360_js__WEBPACK_IMPORTED_MODULE_2__.c)(el, resolve));
-  }
-
-  return Promise.resolve();
-};
-
-const deepReady = /*#__PURE__*/function () {
-  var _ref7 = (0,C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (el) {
-    const element = el;
-
-    if (element) {
-      if (element.componentOnReady != null) {
-        const stencilEl = yield element.componentOnReady();
-
-        if (stencilEl != null) {
-          return;
-        }
-        /**
-         * Custom elements in Stencil will have __registerHost.
-         */
-
-      } else if (element.__registerHost != null) {
-        /**
-         * Non-lazy loaded custom elements need to wait
-         * one frame for component to be loaded.
-         */
-        const waitForCustomElement = new Promise(resolve => (0,_helpers_4d272360_js__WEBPACK_IMPORTED_MODULE_2__.r)(resolve));
-        yield waitForCustomElement;
-        return;
-      }
-
-      yield Promise.all(Array.from(element.children).map(deepReady));
-    }
-  });
-
-  return function deepReady(_x10) {
-    return _ref7.apply(this, arguments);
-  };
-}();
-
-const setPageHidden = (el, hidden) => {
-  if (hidden) {
-    el.setAttribute('aria-hidden', 'true');
-    el.classList.add('ion-page-hidden');
-  } else {
-    el.hidden = false;
-    el.removeAttribute('aria-hidden');
-    el.classList.remove('ion-page-hidden');
-  }
-};
-
-const setZIndex = (enteringEl, leavingEl, direction) => {
-  if (enteringEl !== undefined) {
-    enteringEl.style.zIndex = direction === 'back' ? '99' : '101';
-  }
-
-  if (leavingEl !== undefined) {
-    leavingEl.style.zIndex = '100';
-  }
-};
-
-const getIonPageElement = element => {
-  if (element.classList.contains('ion-page')) {
-    return element;
-  }
-
-  const ionPage = element.querySelector(':scope > .ion-page, :scope > ion-nav, :scope > ion-tabs');
-
-  if (ionPage) {
-    return ionPage;
-  } // idk, return the original element so at least something animates and we don't have a null pointer
-
-
-  return element;
-};
-
-
-
-/***/ }),
-
-/***/ 1652:
-/*!*************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/index-dff497fb.js ***!
-  \*************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "I": () => (/* binding */ IonicSafeString),
-/* harmony export */   "s": () => (/* binding */ sanitizeDOMString)
-/* harmony export */ });
-/*!
- * (C) Ionic http://ionicframework.com - MIT License
- */
-
-/**
- * Does a simple sanitization of all elements
- * in an untrusted string
- */
-const sanitizeDOMString = untrustedString => {
-  try {
-    if (untrustedString instanceof IonicSafeString) {
-      return untrustedString.value;
-    }
-
-    if (!isSanitizerEnabled() || typeof untrustedString !== 'string' || untrustedString === '') {
-      return untrustedString;
-    }
-    /**
-     * Create a document fragment
-     * separate from the main DOM,
-     * create a div to do our work in
-     */
-
-
-    const documentFragment = document.createDocumentFragment();
-    const workingDiv = document.createElement('div');
-    documentFragment.appendChild(workingDiv);
-    workingDiv.innerHTML = untrustedString;
-    /**
-     * Remove any elements
-     * that are blocked
-     */
-
-    blockedTags.forEach(blockedTag => {
-      const getElementsToRemove = documentFragment.querySelectorAll(blockedTag);
-
-      for (let elementIndex = getElementsToRemove.length - 1; elementIndex >= 0; elementIndex--) {
-        const element = getElementsToRemove[elementIndex];
-
-        if (element.parentNode) {
-          element.parentNode.removeChild(element);
-        } else {
-          documentFragment.removeChild(element);
-        }
-        /**
-         * We still need to sanitize
-         * the children of this element
-         * as they are left behind
-         */
-
-
-        const childElements = getElementChildren(element);
-        /* eslint-disable-next-line */
-
-        for (let childIndex = 0; childIndex < childElements.length; childIndex++) {
-          sanitizeElement(childElements[childIndex]);
-        }
-      }
-    });
-    /**
-     * Go through remaining elements and remove
-     * non-allowed attribs
-     */
-    // IE does not support .children on document fragments, only .childNodes
-
-    const dfChildren = getElementChildren(documentFragment);
-    /* eslint-disable-next-line */
-
-    for (let childIndex = 0; childIndex < dfChildren.length; childIndex++) {
-      sanitizeElement(dfChildren[childIndex]);
-    } // Append document fragment to div
-
-
-    const fragmentDiv = document.createElement('div');
-    fragmentDiv.appendChild(documentFragment); // First child is always the div we did our work in
-
-    const getInnerDiv = fragmentDiv.querySelector('div');
-    return getInnerDiv !== null ? getInnerDiv.innerHTML : fragmentDiv.innerHTML;
-  } catch (err) {
-    console.error(err);
-    return '';
-  }
-};
-/**
- * Clean up current element based on allowed attributes
- * and then recursively dig down into any child elements to
- * clean those up as well
- */
-
-
-const sanitizeElement = element => {
-  // IE uses childNodes, so ignore nodes that are not elements
-  if (element.nodeType && element.nodeType !== 1) {
-    return;
-  }
-
-  for (let i = element.attributes.length - 1; i >= 0; i--) {
-    const attribute = element.attributes.item(i);
-    const attributeName = attribute.name; // remove non-allowed attribs
-
-    if (!allowedAttributes.includes(attributeName.toLowerCase())) {
-      element.removeAttribute(attributeName);
-      continue;
-    } // clean up any allowed attribs
-    // that attempt to do any JS funny-business
-
-
-    const attributeValue = attribute.value;
-    /* eslint-disable-next-line */
-
-    if (attributeValue != null && attributeValue.toLowerCase().includes('javascript:')) {
-      element.removeAttribute(attributeName);
-    }
-  }
-  /**
-   * Sanitize any nested children
-   */
-
-
-  const childElements = getElementChildren(element);
-  /* eslint-disable-next-line */
-
-  for (let i = 0; i < childElements.length; i++) {
-    sanitizeElement(childElements[i]);
-  }
-};
-/**
- * IE doesn't always support .children
- * so we revert to .childNodes instead
- */
-
-
-const getElementChildren = el => {
-  return el.children != null ? el.children : el.childNodes;
-};
-
-const isSanitizerEnabled = () => {
-  var _a;
-
-  const win = window;
-  const config = (_a = win === null || win === void 0 ? void 0 : win.Ionic) === null || _a === void 0 ? void 0 : _a.config;
-
-  if (config) {
-    if (config.get) {
-      return config.get('sanitizerEnabled', true);
-    } else {
-      return config.sanitizerEnabled === true || config.sanitizerEnabled === undefined;
-    }
-  }
-
-  return true;
-};
-
-const allowedAttributes = ['class', 'id', 'href', 'src', 'name', 'slot'];
-const blockedTags = ['script', 'style', 'iframe', 'meta', 'link', 'object', 'embed'];
-
-class IonicSafeString {
-  constructor(value) {
-    this.value = value;
-  }
-
-}
-
-
-
-/***/ }),
-
-/***/ 8266:
-/*!*************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/index-e7c8c45c.js ***!
-  \*************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "m": () => (/* binding */ menuController)
-/* harmony export */ });
-/* harmony import */ var C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
-/* harmony import */ var _hardware_back_button_490df115_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./hardware-back-button-490df115.js */ 159);
-/* harmony import */ var _helpers_4d272360_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers-4d272360.js */ 9158);
-/* harmony import */ var _ionic_global_04e268e7_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ionic-global-04e268e7.js */ 2107);
-/* harmony import */ var _animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./animation-36c1d77d.js */ 2597);
-
-
-/*!
- * (C) Ionic http://ionicframework.com - MIT License
- */
-
-
-
-
-/**
- * baseAnimation
- * Base class which is extended by the various types. Each
- * type will provide their own animations for open and close
- * and registers itself with Menu.
- */
-
-const baseAnimation = isIos => {
-  // https://material.io/guidelines/motion/movement.html#movement-movement-in-out-of-screen-bounds
-  // https://material.io/guidelines/motion/duration-easing.html#duration-easing-natural-easing-curves
-
-  /**
-   * "Apply the sharp curve to items temporarily leaving the screen that may return
-   * from the same exit point. When they return, use the deceleration curve. On mobile,
-   * this transition typically occurs over 300ms" -- MD Motion Guide
-   */
-  return (0,_animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_4__.c)().duration(isIos ? 400 : 300);
-};
-/**
- * Menu Overlay Type
- * The menu slides over the content. The content
- * itself, which is under the menu, does not move.
- */
-
-
-const menuOverlayAnimation = menu => {
-  let closedX;
-  let openedX;
-  const width = menu.width + 8;
-  const menuAnimation = (0,_animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_4__.c)();
-  const backdropAnimation = (0,_animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_4__.c)();
-
-  if (menu.isEndSide) {
-    // right side
-    closedX = width + 'px';
-    openedX = '0px';
-  } else {
-    // left side
-    closedX = -width + 'px';
-    openedX = '0px';
-  }
-
-  menuAnimation.addElement(menu.menuInnerEl).fromTo('transform', `translateX(${closedX})`, `translateX(${openedX})`);
-  const mode = (0,_ionic_global_04e268e7_js__WEBPACK_IMPORTED_MODULE_3__.b)(menu);
-  const isIos = mode === 'ios';
-  const opacity = isIos ? 0.2 : 0.25;
-  backdropAnimation.addElement(menu.backdropEl).fromTo('opacity', 0.01, opacity);
-  return baseAnimation(isIos).addAnimation([menuAnimation, backdropAnimation]);
-};
-/**
- * Menu Push Type
- * The content slides over to reveal the menu underneath.
- * The menu itself also slides over to reveal its bad self.
- */
-
-
-const menuPushAnimation = menu => {
-  let contentOpenedX;
-  let menuClosedX;
-  const mode = (0,_ionic_global_04e268e7_js__WEBPACK_IMPORTED_MODULE_3__.b)(menu);
-  const width = menu.width;
-
-  if (menu.isEndSide) {
-    contentOpenedX = -width + 'px';
-    menuClosedX = width + 'px';
-  } else {
-    contentOpenedX = width + 'px';
-    menuClosedX = -width + 'px';
-  }
-
-  const menuAnimation = (0,_animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_4__.c)().addElement(menu.menuInnerEl).fromTo('transform', `translateX(${menuClosedX})`, 'translateX(0px)');
-  const contentAnimation = (0,_animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_4__.c)().addElement(menu.contentEl).fromTo('transform', 'translateX(0px)', `translateX(${contentOpenedX})`);
-  const backdropAnimation = (0,_animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_4__.c)().addElement(menu.backdropEl).fromTo('opacity', 0.01, 0.32);
-  return baseAnimation(mode === 'ios').addAnimation([menuAnimation, contentAnimation, backdropAnimation]);
-};
-/**
- * Menu Reveal Type
- * The content slides over to reveal the menu underneath.
- * The menu itself, which is under the content, does not move.
- */
-
-
-const menuRevealAnimation = menu => {
-  const mode = (0,_ionic_global_04e268e7_js__WEBPACK_IMPORTED_MODULE_3__.b)(menu);
-  const openedX = menu.width * (menu.isEndSide ? -1 : 1) + 'px';
-  const contentOpen = (0,_animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_4__.c)().addElement(menu.contentEl) // REVIEW
-  .fromTo('transform', 'translateX(0px)', `translateX(${openedX})`);
-  return baseAnimation(mode === 'ios').addAnimation(contentOpen);
-};
-
-const createMenuController = () => {
-  const menuAnimations = new Map();
-  const menus = [];
-
-  const open = /*#__PURE__*/function () {
-    var _ref = (0,C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (menu) {
-      const menuEl = yield get(menu);
-
-      if (menuEl) {
-        return menuEl.open();
-      }
-
-      return false;
-    });
-
-    return function open(_x) {
-      return _ref.apply(this, arguments);
-    };
-  }();
-
-  const close = /*#__PURE__*/function () {
-    var _ref2 = (0,C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (menu) {
-      const menuEl = yield menu !== undefined ? get(menu) : getOpen();
-
-      if (menuEl !== undefined) {
-        return menuEl.close();
-      }
-
-      return false;
-    });
-
-    return function close(_x2) {
-      return _ref2.apply(this, arguments);
-    };
-  }();
-
-  const toggle = /*#__PURE__*/function () {
-    var _ref3 = (0,C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (menu) {
-      const menuEl = yield get(menu);
-
-      if (menuEl) {
-        return menuEl.toggle();
-      }
-
-      return false;
-    });
-
-    return function toggle(_x3) {
-      return _ref3.apply(this, arguments);
-    };
-  }();
-
-  const enable = /*#__PURE__*/function () {
-    var _ref4 = (0,C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (shouldEnable, menu) {
-      const menuEl = yield get(menu);
-
-      if (menuEl) {
-        menuEl.disabled = !shouldEnable;
-      }
-
-      return menuEl;
-    });
-
-    return function enable(_x4, _x5) {
-      return _ref4.apply(this, arguments);
-    };
-  }();
-
-  const swipeGesture = /*#__PURE__*/function () {
-    var _ref5 = (0,C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (shouldEnable, menu) {
-      const menuEl = yield get(menu);
-
-      if (menuEl) {
-        menuEl.swipeGesture = shouldEnable;
-      }
-
-      return menuEl;
-    });
-
-    return function swipeGesture(_x6, _x7) {
-      return _ref5.apply(this, arguments);
-    };
-  }();
-
-  const isOpen = /*#__PURE__*/function () {
-    var _ref6 = (0,C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (menu) {
-      if (menu != null) {
-        const menuEl = yield get(menu); // eslint-disable-next-line @typescript-eslint/prefer-optional-chain
-
-        return menuEl !== undefined && menuEl.isOpen();
-      } else {
-        const menuEl = yield getOpen();
-        return menuEl !== undefined;
-      }
-    });
-
-    return function isOpen(_x8) {
-      return _ref6.apply(this, arguments);
-    };
-  }();
-
-  const isEnabled = /*#__PURE__*/function () {
-    var _ref7 = (0,C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (menu) {
-      const menuEl = yield get(menu);
-
-      if (menuEl) {
-        return !menuEl.disabled;
-      }
-
-      return false;
-    });
-
-    return function isEnabled(_x9) {
-      return _ref7.apply(this, arguments);
-    };
-  }();
-
-  const get = /*#__PURE__*/function () {
-    var _ref8 = (0,C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (menu) {
-      yield waitUntilReady();
-
-      if (menu === 'start' || menu === 'end') {
-        // there could be more than one menu on the same side
-        // so first try to get the enabled one
-        const menuRef = find(m => m.side === menu && !m.disabled);
-
-        if (menuRef) {
-          return menuRef;
-        } // didn't find a menu side that is enabled
-        // so try to get the first menu side found
-
-
-        return find(m => m.side === menu);
-      } else if (menu != null) {
-        // the menuId was not left or right
-        // so try to get the menu by its "id"
-        return find(m => m.menuId === menu);
-      } // return the first enabled menu
-
-
-      const menuEl = find(m => !m.disabled);
-
-      if (menuEl) {
-        return menuEl;
-      } // get the first menu in the array, if one exists
-
-
-      return menus.length > 0 ? menus[0].el : undefined;
-    });
-
-    return function get(_x10) {
-      return _ref8.apply(this, arguments);
-    };
-  }();
-  /**
-   * Get the instance of the opened menu. Returns `null` if a menu is not found.
-   */
-
-
-  const getOpen = /*#__PURE__*/function () {
-    var _ref9 = (0,C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
-      yield waitUntilReady();
-      return _getOpenSync();
-    });
-
-    return function getOpen() {
-      return _ref9.apply(this, arguments);
-    };
-  }();
-  /**
-   * Get all menu instances.
-   */
-
-
-  const getMenus = /*#__PURE__*/function () {
-    var _ref10 = (0,C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
-      yield waitUntilReady();
-      return getMenusSync();
-    });
-
-    return function getMenus() {
-      return _ref10.apply(this, arguments);
-    };
-  }();
-  /**
-   * Get whether or not a menu is animating. Returns `true` if any
-   * menu is currently animating.
-   */
-
-
-  const isAnimating = /*#__PURE__*/function () {
-    var _ref11 = (0,C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
-      yield waitUntilReady();
-      return isAnimatingSync();
-    });
-
-    return function isAnimating() {
-      return _ref11.apply(this, arguments);
-    };
-  }();
-
-  const registerAnimation = (name, animation) => {
-    menuAnimations.set(name, animation);
-  };
-
-  const _register = menu => {
-    if (menus.indexOf(menu) < 0) {
-      if (!menu.disabled) {
-        _setActiveMenu(menu);
-      }
-
-      menus.push(menu);
-    }
-  };
-
-  const _unregister = menu => {
-    const index = menus.indexOf(menu);
-
-    if (index > -1) {
-      menus.splice(index, 1);
-    }
-  };
-
-  const _setActiveMenu = menu => {
-    // if this menu should be enabled
-    // then find all the other menus on this same side
-    // and automatically disable other same side menus
-    const side = menu.side;
-    menus.filter(m => m.side === side && m !== menu).forEach(m => m.disabled = true);
-  };
-
-  const _setOpen = /*#__PURE__*/function () {
-    var _ref12 = (0,C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (menu, shouldOpen, animated) {
-      if (isAnimatingSync()) {
-        return false;
-      }
-
-      if (shouldOpen) {
-        const openedMenu = yield getOpen();
-
-        if (openedMenu && menu.el !== openedMenu) {
-          yield openedMenu.setOpen(false, false);
-        }
-      }
-
-      return menu._setOpen(shouldOpen, animated);
-    });
-
-    return function _setOpen(_x11, _x12, _x13) {
-      return _ref12.apply(this, arguments);
-    };
-  }();
-
-  const _createAnimation = (type, menuCmp) => {
-    const animationBuilder = menuAnimations.get(type);
-
-    if (!animationBuilder) {
-      throw new Error('animation not registered');
-    }
-
-    const animation = animationBuilder(menuCmp);
-    return animation;
-  };
-
-  const _getOpenSync = () => {
-    return find(m => m._isOpen);
-  };
-
-  const getMenusSync = () => {
-    return menus.map(menu => menu.el);
-  };
-
-  const isAnimatingSync = () => {
-    return menus.some(menu => menu.isAnimating);
-  };
-
-  const find = predicate => {
-    const instance = menus.find(predicate);
-
-    if (instance !== undefined) {
-      return instance.el;
-    }
-
-    return undefined;
-  };
-
-  const waitUntilReady = () => {
-    return Promise.all(Array.from(document.querySelectorAll('ion-menu')).map(menu => new Promise(resolve => (0,_helpers_4d272360_js__WEBPACK_IMPORTED_MODULE_2__.c)(menu, resolve))));
-  };
-
-  registerAnimation('reveal', menuRevealAnimation);
-  registerAnimation('push', menuPushAnimation);
-  registerAnimation('overlay', menuOverlayAnimation);
-
-  if (typeof document !== 'undefined') {
-    document.addEventListener('ionBackButton', ev => {
-      const openMenu = _getOpenSync();
-
-      if (openMenu) {
-        ev.detail.register(_hardware_back_button_490df115_js__WEBPACK_IMPORTED_MODULE_1__.MENU_BACK_BUTTON_PRIORITY, () => {
-          return openMenu.close();
-        });
-      }
-    });
-  }
-
-  return {
-    registerAnimation,
-    get,
-    getMenus,
-    getOpen,
-    isEnabled,
-    swipeGesture,
-    isAnimating,
-    isOpen,
-    enable,
-    toggle,
-    close,
-    open,
-    _getOpenSync,
-    _createAnimation,
-    _register,
-    _unregister,
-    _setOpen,
-    _setActiveMenu
-  };
-};
-
-const menuController = /*@__PURE__*/createMenuController();
-
-
-/***/ }),
-
 /***/ 6710:
 /*!****************************************************!*\
   !*** ./node_modules/@ionic/core/dist/esm/index.js ***!
@@ -16815,48 +17074,50 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "IonicSafeString": () => (/* reexport safe */ _index_dff497fb_js__WEBPACK_IMPORTED_MODULE_7__.I),
 /* harmony export */   "IonicSlides": () => (/* binding */ IonicSlides),
 /* harmony export */   "IonicSwiper": () => (/* binding */ IonicSwiper),
-/* harmony export */   "LIFECYCLE_DID_ENTER": () => (/* reexport safe */ _index_8191d09f_js__WEBPACK_IMPORTED_MODULE_8__.a),
-/* harmony export */   "LIFECYCLE_DID_LEAVE": () => (/* reexport safe */ _index_8191d09f_js__WEBPACK_IMPORTED_MODULE_8__.c),
-/* harmony export */   "LIFECYCLE_WILL_ENTER": () => (/* reexport safe */ _index_8191d09f_js__WEBPACK_IMPORTED_MODULE_8__.L),
-/* harmony export */   "LIFECYCLE_WILL_LEAVE": () => (/* reexport safe */ _index_8191d09f_js__WEBPACK_IMPORTED_MODULE_8__.b),
-/* harmony export */   "LIFECYCLE_WILL_UNLOAD": () => (/* reexport safe */ _index_8191d09f_js__WEBPACK_IMPORTED_MODULE_8__.d),
-/* harmony export */   "actionSheetController": () => (/* reexport safe */ _overlays_f469834d_js__WEBPACK_IMPORTED_MODULE_10__.b),
-/* harmony export */   "alertController": () => (/* reexport safe */ _overlays_f469834d_js__WEBPACK_IMPORTED_MODULE_10__.a),
-/* harmony export */   "componentOnReady": () => (/* reexport safe */ _helpers_4d272360_js__WEBPACK_IMPORTED_MODULE_6__.c),
-/* harmony export */   "createAnimation": () => (/* reexport safe */ _animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_0__.c),
-/* harmony export */   "createGesture": () => (/* reexport safe */ _index_3f1a7d95_js__WEBPACK_IMPORTED_MODULE_4__.createGesture),
+/* harmony export */   "LIFECYCLE_DID_ENTER": () => (/* reexport safe */ _index_eab49c64_js__WEBPACK_IMPORTED_MODULE_8__.a),
+/* harmony export */   "LIFECYCLE_DID_LEAVE": () => (/* reexport safe */ _index_eab49c64_js__WEBPACK_IMPORTED_MODULE_8__.c),
+/* harmony export */   "LIFECYCLE_WILL_ENTER": () => (/* reexport safe */ _index_eab49c64_js__WEBPACK_IMPORTED_MODULE_8__.L),
+/* harmony export */   "LIFECYCLE_WILL_LEAVE": () => (/* reexport safe */ _index_eab49c64_js__WEBPACK_IMPORTED_MODULE_8__.b),
+/* harmony export */   "LIFECYCLE_WILL_UNLOAD": () => (/* reexport safe */ _index_eab49c64_js__WEBPACK_IMPORTED_MODULE_8__.d),
+/* harmony export */   "actionSheetController": () => (/* reexport safe */ _overlays_87c7c7cb_js__WEBPACK_IMPORTED_MODULE_10__.b),
+/* harmony export */   "alertController": () => (/* reexport safe */ _overlays_87c7c7cb_js__WEBPACK_IMPORTED_MODULE_10__.a),
+/* harmony export */   "componentOnReady": () => (/* reexport safe */ _helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_6__.c),
+/* harmony export */   "createAnimation": () => (/* reexport safe */ _animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_0__.c),
+/* harmony export */   "createGesture": () => (/* reexport safe */ _index_f8d8aa5a_js__WEBPACK_IMPORTED_MODULE_4__.createGesture),
 /* harmony export */   "getMode": () => (/* binding */ getMode),
-/* harmony export */   "getPlatforms": () => (/* reexport safe */ _ionic_global_04e268e7_js__WEBPACK_IMPORTED_MODULE_5__.g),
-/* harmony export */   "getTimeGivenProgression": () => (/* reexport safe */ _cubic_bezier_c313947a_js__WEBPACK_IMPORTED_MODULE_3__.g),
-/* harmony export */   "initialize": () => (/* reexport safe */ _ionic_global_04e268e7_js__WEBPACK_IMPORTED_MODULE_5__.i),
-/* harmony export */   "iosTransitionAnimation": () => (/* reexport safe */ _ios_transition_8b9192bb_js__WEBPACK_IMPORTED_MODULE_1__.iosTransitionAnimation),
-/* harmony export */   "isPlatform": () => (/* reexport safe */ _ionic_global_04e268e7_js__WEBPACK_IMPORTED_MODULE_5__.a),
-/* harmony export */   "loadingController": () => (/* reexport safe */ _overlays_f469834d_js__WEBPACK_IMPORTED_MODULE_10__.l),
-/* harmony export */   "mdTransitionAnimation": () => (/* reexport safe */ _md_transition_4352cd7a_js__WEBPACK_IMPORTED_MODULE_2__.mdTransitionAnimation),
-/* harmony export */   "menuController": () => (/* reexport safe */ _index_e7c8c45c_js__WEBPACK_IMPORTED_MODULE_9__.m),
-/* harmony export */   "modalController": () => (/* reexport safe */ _overlays_f469834d_js__WEBPACK_IMPORTED_MODULE_10__.m),
-/* harmony export */   "pickerController": () => (/* reexport safe */ _overlays_f469834d_js__WEBPACK_IMPORTED_MODULE_10__.p),
-/* harmony export */   "popoverController": () => (/* reexport safe */ _overlays_f469834d_js__WEBPACK_IMPORTED_MODULE_10__.c),
+/* harmony export */   "getPlatforms": () => (/* reexport safe */ _ionic_global_c95cf239_js__WEBPACK_IMPORTED_MODULE_5__.g),
+/* harmony export */   "getTimeGivenProgression": () => (/* reexport safe */ _cubic_bezier_e78d1307_js__WEBPACK_IMPORTED_MODULE_3__.g),
+/* harmony export */   "initialize": () => (/* reexport safe */ _ionic_global_c95cf239_js__WEBPACK_IMPORTED_MODULE_5__.i),
+/* harmony export */   "iosTransitionAnimation": () => (/* reexport safe */ _ios_transition_15066173_js__WEBPACK_IMPORTED_MODULE_1__.iosTransitionAnimation),
+/* harmony export */   "isPlatform": () => (/* reexport safe */ _ionic_global_c95cf239_js__WEBPACK_IMPORTED_MODULE_5__.a),
+/* harmony export */   "loadingController": () => (/* reexport safe */ _overlays_87c7c7cb_js__WEBPACK_IMPORTED_MODULE_10__.l),
+/* harmony export */   "mdTransitionAnimation": () => (/* reexport safe */ _md_transition_d0077e8c_js__WEBPACK_IMPORTED_MODULE_2__.mdTransitionAnimation),
+/* harmony export */   "menuController": () => (/* reexport safe */ _index_2dc81358_js__WEBPACK_IMPORTED_MODULE_9__.m),
+/* harmony export */   "modalController": () => (/* reexport safe */ _overlays_87c7c7cb_js__WEBPACK_IMPORTED_MODULE_10__.m),
+/* harmony export */   "pickerController": () => (/* reexport safe */ _overlays_87c7c7cb_js__WEBPACK_IMPORTED_MODULE_10__.p),
+/* harmony export */   "popoverController": () => (/* reexport safe */ _overlays_87c7c7cb_js__WEBPACK_IMPORTED_MODULE_10__.c),
 /* harmony export */   "setupConfig": () => (/* binding */ setupConfig),
-/* harmony export */   "toastController": () => (/* reexport safe */ _overlays_f469834d_js__WEBPACK_IMPORTED_MODULE_10__.t)
+/* harmony export */   "toastController": () => (/* reexport safe */ _overlays_87c7c7cb_js__WEBPACK_IMPORTED_MODULE_10__.t)
 /* harmony export */ });
-/* harmony import */ var _animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation-36c1d77d.js */ 2597);
-/* harmony import */ var _ios_transition_8b9192bb_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ios.transition-8b9192bb.js */ 4800);
-/* harmony import */ var _md_transition_4352cd7a_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./md.transition-4352cd7a.js */ 53);
-/* harmony import */ var _cubic_bezier_c313947a_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./cubic-bezier-c313947a.js */ 1077);
-/* harmony import */ var _index_3f1a7d95_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./index-3f1a7d95.js */ 2172);
-/* harmony import */ var _ionic_global_04e268e7_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ionic-global-04e268e7.js */ 2107);
-/* harmony import */ var _helpers_4d272360_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./helpers-4d272360.js */ 9158);
+/* harmony import */ var _animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation-6a1a2a1d.js */ 8211);
+/* harmony import */ var _ios_transition_15066173_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ios.transition-15066173.js */ 9591);
+/* harmony import */ var _md_transition_d0077e8c_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./md.transition-d0077e8c.js */ 2797);
+/* harmony import */ var _cubic_bezier_e78d1307_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./cubic-bezier-e78d1307.js */ 1463);
+/* harmony import */ var _index_f8d8aa5a_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./index-f8d8aa5a.js */ 9286);
+/* harmony import */ var _ionic_global_c95cf239_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ionic-global-c95cf239.js */ 8607);
+/* harmony import */ var _helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./helpers-3b390e48.js */ 9234);
 /* harmony import */ var _index_dff497fb_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./index-dff497fb.js */ 1652);
-/* harmony import */ var _index_8191d09f_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./index-8191d09f.js */ 7060);
-/* harmony import */ var _index_e7c8c45c_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./index-e7c8c45c.js */ 8266);
-/* harmony import */ var _overlays_f469834d_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./overlays-f469834d.js */ 6938);
-/* harmony import */ var _gesture_controller_17e82006_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./gesture-controller-17e82006.js */ 607);
-/* harmony import */ var _index_1a99aeb7_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./index-1a99aeb7.js */ 4895);
-/* harmony import */ var _hardware_back_button_490df115_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./hardware-back-button-490df115.js */ 159);
+/* harmony import */ var _index_eab49c64_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./index-eab49c64.js */ 1856);
+/* harmony import */ var _index_2dc81358_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./index-2dc81358.js */ 6277);
+/* harmony import */ var _overlays_87c7c7cb_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./overlays-87c7c7cb.js */ 2752);
+/* harmony import */ var _index_33ffec25_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./index-33ffec25.js */ 2286);
+/* harmony import */ var _gesture_controller_17060b7c_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./gesture-controller-17060b7c.js */ 6379);
+/* harmony import */ var _index_8e692445_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./index-8e692445.js */ 1559);
+/* harmony import */ var _hardware_back_button_490df115_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./hardware-back-button-490df115.js */ 159);
 /*!
  * (C) Ionic http://ionicframework.com - MIT License
  */
+
 
 
 
@@ -16978,13 +17239,13 @@ const setupSwiperInIonic = (swiper, watchForIonPageChanges = true) => {
        * We need an raf here so the update
        * is fired one tick after the overlay is shown.
        */
-      (0,_helpers_4d272360_js__WEBPACK_IMPORTED_MODULE_6__.r)(() => {
+      (0,_helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_6__.r)(() => {
         swiperEl.swiper.update();
-        (0,_helpers_4d272360_js__WEBPACK_IMPORTED_MODULE_6__.b)(modalOrPopover, eventName, overlayCallback);
+        (0,_helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_6__.b)(modalOrPopover, eventName, overlayCallback);
       });
     };
 
-    (0,_helpers_4d272360_js__WEBPACK_IMPORTED_MODULE_6__.a)(modalOrPopover, eventName, overlayCallback);
+    (0,_helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_6__.a)(modalOrPopover, eventName, overlayCallback);
   } else {
     /**
      * If using slides in a page
@@ -17022,10 +17283,10 @@ const setupSwiperInIonic = (swiper, watchForIonPageChanges = true) => {
 
   const onAppLoad = () => {
     swiperEl.swiper.update();
-    (0,_helpers_4d272360_js__WEBPACK_IMPORTED_MODULE_6__.b)(window, 'appload', onAppLoad);
+    (0,_helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_6__.b)(window, 'appload', onAppLoad);
   };
 
-  (0,_helpers_4d272360_js__WEBPACK_IMPORTED_MODULE_6__.a)(window, 'appload', onAppLoad);
+  (0,_helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_6__.a)(window, 'appload', onAppLoad);
 };
 
 const IonicSwiper = {
@@ -17149,9 +17410,9 @@ const IonicSlides = opts => {
 
 /***/ }),
 
-/***/ 2107:
+/***/ 8607:
 /*!********************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/ionic-global-04e268e7.js ***!
+  !*** ./node_modules/@ionic/core/dist/esm/ionic-global-c95cf239.js ***!
   \********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -17163,7 +17424,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "g": () => (/* binding */ getPlatforms),
 /* harmony export */   "i": () => (/* binding */ initialize)
 /* harmony export */ });
-/* harmony import */ var _index_1a99aeb7_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index-1a99aeb7.js */ 4895);
+/* harmony import */ var _index_8e692445_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index-8e692445.js */ 1559);
 /*!
  * (C) Ionic http://ionicframework.com - MIT License
  */
@@ -17367,7 +17628,7 @@ const PLATFORMS_MAP = {
 let defaultMode;
 
 const getIonMode = ref => {
-  return ref && (0,_index_1a99aeb7_js__WEBPACK_IMPORTED_MODULE_0__.g)(ref) || defaultMode;
+  return ref && (0,_index_8e692445_js__WEBPACK_IMPORTED_MODULE_0__.g)(ref) || defaultMode;
 };
 
 const initialize = (userConfig = {}) => {
@@ -17392,7 +17653,7 @@ const initialize = (userConfig = {}) => {
     platformHelpers.ce = userConfig._ce;
   }
 
-  (0,_index_1a99aeb7_js__WEBPACK_IMPORTED_MODULE_0__.s)(platformHelpers); // create the Ionic.config from raw config object (if it exists)
+  (0,_index_8e692445_js__WEBPACK_IMPORTED_MODULE_0__.s)(platformHelpers); // create the Ionic.config from raw config object (if it exists)
   // and convert Ionic.config into a ConfigApi that has a get() fn
 
   const configObj = Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({}, configFromSession(win)), {
@@ -17427,7 +17688,7 @@ const initialize = (userConfig = {}) => {
 
   const isAllowedIonicModeValue = elmMode => ['ios', 'md'].includes(elmMode);
 
-  (0,_index_1a99aeb7_js__WEBPACK_IMPORTED_MODULE_0__.a)(elm => {
+  (0,_index_8e692445_js__WEBPACK_IMPORTED_MODULE_0__.a)(elm => {
     while (elm) {
       const elmMode = elm.mode || elm.getAttribute('mode');
 
@@ -17450,9 +17711,9 @@ const initialize = (userConfig = {}) => {
 
 /***/ }),
 
-/***/ 4800:
+/***/ 9591:
 /*!**********************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/ios.transition-8b9192bb.js ***!
+  !*** ./node_modules/@ionic/core/dist/esm/ios.transition-15066173.js ***!
   \**********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -17461,13 +17722,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "iosTransitionAnimation": () => (/* binding */ iosTransitionAnimation),
 /* harmony export */   "shadow": () => (/* binding */ shadow)
 /* harmony export */ });
-/* harmony import */ var _animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation-36c1d77d.js */ 2597);
-/* harmony import */ var _index_8191d09f_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index-8191d09f.js */ 7060);
-/* harmony import */ var _helpers_4d272360_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers-4d272360.js */ 9158);
-/* harmony import */ var _index_1a99aeb7_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./index-1a99aeb7.js */ 4895);
+/* harmony import */ var _animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation-6a1a2a1d.js */ 8211);
+/* harmony import */ var _index_eab49c64_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index-eab49c64.js */ 1856);
+/* harmony import */ var _helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers-3b390e48.js */ 9234);
+/* harmony import */ var _index_33ffec25_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./index-33ffec25.js */ 2286);
+/* harmony import */ var _index_8e692445_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./index-8e692445.js */ 1559);
 /*!
  * (C) Ionic http://ionicframework.com - MIT License
  */
+
 
 
 
@@ -17601,8 +17864,8 @@ const animateBackButton = (rootAnimation, rtl, backDirection, backButtonEl, larg
     transform: `translate3d(${ICON_TRANSLATE}, ${backButtonBox.top - 41}px, 0) scale(0.6)`
   }];
   const ICON_KEYFRAMES = backDirection ? BACKWARD_ICON_KEYFRAMES : FORWARD_ICON_KEYFRAMES;
-  const enteringBackButtonTextAnimation = (0,_animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
-  const enteringBackButtonIconAnimation = (0,_animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
+  const enteringBackButtonTextAnimation = (0,_animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
+  const enteringBackButtonIconAnimation = (0,_animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
   const clonedBackButtonEl = getClonedElement('ion-back-button');
   const backButtonTextEl = shadow(clonedBackButtonEl).querySelector('.button-text');
   const backButtonIconEl = shadow(clonedBackButtonEl).querySelector('ion-icon');
@@ -17661,7 +17924,7 @@ const animateLargeTitle = (rootAnimation, rtl, backDirection, largeTitleEl, larg
   }];
   const KEYFRAMES = backDirection ? BACKWARDS_KEYFRAMES : FORWARDS_KEYFRAMES;
   const clonedTitleEl = getClonedElement('ion-title');
-  const clonedLargeTitleAnimation = (0,_animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
+  const clonedLargeTitleAnimation = (0,_animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
   clonedTitleEl.innerText = largeTitleEl.innerText;
   clonedTitleEl.size = largeTitleEl.size;
   clonedTitleEl.color = largeTitleEl.color;
@@ -17682,6 +17945,8 @@ const animateLargeTitle = (rootAnimation, rtl, backDirection, largeTitleEl, larg
 };
 
 const iosTransitionAnimation = (navEl, opts) => {
+  var _a;
+
   try {
     const EASING = 'cubic-bezier(0.32,0.72,0,1)';
     const OPACITY = 'opacity';
@@ -17697,12 +17962,12 @@ const iosTransitionAnimation = (navEl, opts) => {
     const contentEl = enteringEl.querySelector(':scope > ion-content');
     const headerEls = enteringEl.querySelectorAll(':scope > ion-header > *:not(ion-toolbar), :scope > ion-footer > *');
     const enteringToolBarEls = enteringEl.querySelectorAll(':scope > ion-header > ion-toolbar');
-    const rootAnimation = (0,_animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
-    const enteringContentAnimation = (0,_animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
-    rootAnimation.addElement(enteringEl).duration(opts.duration || DURATION).easing(opts.easing || EASING).fill('both').beforeRemoveClass('ion-page-invisible');
+    const rootAnimation = (0,_animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
+    const enteringContentAnimation = (0,_animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
+    rootAnimation.addElement(enteringEl).duration(((_a = opts.duration) !== null && _a !== void 0 ? _a : 0) || DURATION).easing(opts.easing || EASING).fill('both').beforeRemoveClass('ion-page-invisible');
 
-    if (leavingEl && navEl) {
-      const navDecorAnimation = (0,_animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
+    if (leavingEl && navEl !== null && navEl !== undefined) {
+      const navDecorAnimation = (0,_animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
       navDecorAnimation.addElement(navEl);
       rootAnimation.addAnimation(navDecorAnimation);
     }
@@ -17730,9 +17995,9 @@ const iosTransitionAnimation = (navEl, opts) => {
       if (enteringTransitionEffectEl) {
         const enteringTransitionCoverEl = enteringTransitionEffectEl.querySelector('.transition-cover');
         const enteringTransitionShadowEl = enteringTransitionEffectEl.querySelector('.transition-shadow');
-        const enteringTransitionEffect = (0,_animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
-        const enteringTransitionCover = (0,_animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
-        const enteringTransitionShadow = (0,_animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
+        const enteringTransitionEffect = (0,_animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
+        const enteringTransitionCover = (0,_animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
+        const enteringTransitionShadow = (0,_animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
         enteringTransitionEffect.addElement(enteringTransitionEffectEl).beforeStyles({
           opacity: '1',
           display: 'block'
@@ -17755,13 +18020,13 @@ const iosTransitionAnimation = (navEl, opts) => {
       backward
     } = createLargeTitleTransition(rootAnimation, isRTL, backDirection, enteringEl, leavingEl);
     enteringToolBarEls.forEach(enteringToolBarEl => {
-      const enteringToolBar = (0,_animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
+      const enteringToolBar = (0,_animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
       enteringToolBar.addElement(enteringToolBarEl);
       rootAnimation.addAnimation(enteringToolBar);
-      const enteringTitle = (0,_animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
+      const enteringTitle = (0,_animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
       enteringTitle.addElement(enteringToolBarEl.querySelector('ion-title')); // REVIEW
 
-      const enteringToolBarButtons = (0,_animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
+      const enteringToolBarButtons = (0,_animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
       const buttons = Array.from(enteringToolBarEl.querySelectorAll('ion-buttons,[menuToggle]'));
       const parentHeader = enteringToolBarEl.closest('ion-header');
       const inactiveHeader = parentHeader === null || parentHeader === void 0 ? void 0 : parentHeader.classList.contains('header-collapse-condense-inactive');
@@ -17777,12 +18042,12 @@ const iosTransitionAnimation = (navEl, opts) => {
       }
 
       enteringToolBarButtons.addElement(buttonsToAnimate);
-      const enteringToolBarItems = (0,_animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
+      const enteringToolBarItems = (0,_animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
       enteringToolBarItems.addElement(enteringToolBarEl.querySelectorAll(':scope > *:not(ion-title):not(ion-buttons):not([menuToggle])'));
-      const enteringToolBarBg = (0,_animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
+      const enteringToolBarBg = (0,_animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
       enteringToolBarBg.addElement(shadow(enteringToolBarEl).querySelector('.toolbar-background')); // REVIEW
 
-      const enteringBackButton = (0,_animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
+      const enteringBackButton = (0,_animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
       const backButtonEl = enteringToolBarEl.querySelector('ion-back-button');
 
       if (backButtonEl) {
@@ -17823,7 +18088,7 @@ const iosTransitionAnimation = (navEl, opts) => {
         }
 
         if (backButtonEl && !forward) {
-          const enteringBackBtnText = (0,_animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
+          const enteringBackBtnText = (0,_animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
           enteringBackBtnText.addElement(shadow(backButtonEl).querySelector('.button-text')) // REVIEW
           .fromTo(`transform`, isRTL ? 'translateX(-100px)' : 'translateX(100px)', 'translateX(0px)');
           enteringToolBar.addAnimation(enteringBackBtnText);
@@ -17832,7 +18097,7 @@ const iosTransitionAnimation = (navEl, opts) => {
     }); // setup leaving view
 
     if (leavingEl) {
-      const leavingContent = (0,_animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
+      const leavingContent = (0,_animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
       const leavingContentEl = leavingEl.querySelector(':scope > ion-content');
       const leavingToolBarEls = leavingEl.querySelectorAll(':scope > ion-header > ion-toolbar');
       const leavingHeaderEls = leavingEl.querySelectorAll(':scope > ion-header > *:not(ion-toolbar), :scope > ion-footer > *');
@@ -17850,7 +18115,7 @@ const iosTransitionAnimation = (navEl, opts) => {
       if (backDirection) {
         // leaving content, back direction
         leavingContent.beforeClearStyles([OPACITY]).fromTo('transform', `translateX(${CENTER})`, isRTL ? 'translateX(-100%)' : 'translateX(100%)');
-        const leavingPage = (0,_index_8191d09f_js__WEBPACK_IMPORTED_MODULE_1__.g)(leavingEl);
+        const leavingPage = (0,_index_eab49c64_js__WEBPACK_IMPORTED_MODULE_1__.g)(leavingEl);
         rootAnimation.afterAddWrite(() => {
           if (rootAnimation.getDirection() === 'normal') {
             leavingPage.style.setProperty('display', 'none');
@@ -17867,9 +18132,9 @@ const iosTransitionAnimation = (navEl, opts) => {
         if (leavingTransitionEffectEl) {
           const leavingTransitionCoverEl = leavingTransitionEffectEl.querySelector('.transition-cover');
           const leavingTransitionShadowEl = leavingTransitionEffectEl.querySelector('.transition-shadow');
-          const leavingTransitionEffect = (0,_animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
-          const leavingTransitionCover = (0,_animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
-          const leavingTransitionShadow = (0,_animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
+          const leavingTransitionEffect = (0,_animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
+          const leavingTransitionCover = (0,_animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
+          const leavingTransitionShadow = (0,_animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
           leavingTransitionEffect.addElement(leavingTransitionEffectEl).beforeStyles({
             opacity: '1',
             display: 'block'
@@ -17887,12 +18152,12 @@ const iosTransitionAnimation = (navEl, opts) => {
       }
 
       leavingToolBarEls.forEach(leavingToolBarEl => {
-        const leavingToolBar = (0,_animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
+        const leavingToolBar = (0,_animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
         leavingToolBar.addElement(leavingToolBarEl);
-        const leavingTitle = (0,_animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
+        const leavingTitle = (0,_animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
         leavingTitle.addElement(leavingToolBarEl.querySelector('ion-title')); // REVIEW
 
-        const leavingToolBarButtons = (0,_animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
+        const leavingToolBarButtons = (0,_animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
         const buttons = leavingToolBarEl.querySelectorAll('ion-buttons,[menuToggle]');
         const parentHeader = leavingToolBarEl.closest('ion-header');
         const inactiveHeader = parentHeader === null || parentHeader === void 0 ? void 0 : parentHeader.classList.contains('header-collapse-condense-inactive');
@@ -17901,17 +18166,17 @@ const iosTransitionAnimation = (navEl, opts) => {
           return isCollapseButton && !inactiveHeader || !isCollapseButton;
         });
         leavingToolBarButtons.addElement(buttonsToAnimate);
-        const leavingToolBarItems = (0,_animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
+        const leavingToolBarItems = (0,_animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
         const leavingToolBarItemEls = leavingToolBarEl.querySelectorAll(':scope > *:not(ion-title):not(ion-buttons):not([menuToggle])');
 
         if (leavingToolBarItemEls.length > 0) {
           leavingToolBarItems.addElement(leavingToolBarItemEls);
         }
 
-        const leavingToolBarBg = (0,_animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
+        const leavingToolBarBg = (0,_animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
         leavingToolBarBg.addElement(shadow(leavingToolBarEl).querySelector('.toolbar-background')); // REVIEW
 
-        const leavingBackButton = (0,_animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
+        const leavingBackButton = (0,_animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
         const backButtonEl = leavingToolBarEl.querySelector('ion-back-button');
 
         if (backButtonEl) {
@@ -17944,7 +18209,7 @@ const iosTransitionAnimation = (navEl, opts) => {
           }
 
           if (backButtonEl && !backward) {
-            const leavingBackBtnText = (0,_animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
+            const leavingBackBtnText = (0,_animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
             leavingBackBtnText.addElement(shadow(backButtonEl).querySelector('.button-text')) // REVIEW
             .fromTo('transform', `translateX(${CENTER})`, `translateX(${(isRTL ? -124 : 124) + 'px'})`);
             leavingToolBar.addAnimation(leavingBackBtnText);
@@ -17983,9 +18248,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "defineCustomElements": () => (/* binding */ defineCustomElements)
 /* harmony export */ });
-/* harmony import */ var _index_1a99aeb7_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index-1a99aeb7.js */ 4895);
-/* harmony import */ var _app_globals_9cd5ddd1_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./app-globals-9cd5ddd1.js */ 8367);
-/* harmony import */ var _ionic_global_04e268e7_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ionic-global-04e268e7.js */ 2107);
+/* harmony import */ var _index_8e692445_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index-8e692445.js */ 1559);
+/* harmony import */ var _app_globals_275fb4c9_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./app-globals-275fb4c9.js */ 6958);
+/* harmony import */ var _ionic_global_c95cf239_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ionic-global-c95cf239.js */ 8607);
 /*!
  * (C) Ionic http://ionicframework.com - MIT License
  */
@@ -17993,18 +18258,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /*
- Stencil Client Patch Esm v2.17.4 | MIT Licensed | https://stenciljs.com
+ Stencil Client Patch Esm v2.18.0 | MIT Licensed | https://stenciljs.com
  */
 
 const patchEsm = () => {
-  return (0,_index_1a99aeb7_js__WEBPACK_IMPORTED_MODULE_0__.p)();
+  return (0,_index_8e692445_js__WEBPACK_IMPORTED_MODULE_0__.p)();
 };
 
 const defineCustomElements = (win, options) => {
   if (typeof window === 'undefined') return Promise.resolve();
   return patchEsm().then(() => {
-    (0,_app_globals_9cd5ddd1_js__WEBPACK_IMPORTED_MODULE_1__.g)();
-    return (0,_index_1a99aeb7_js__WEBPACK_IMPORTED_MODULE_0__.b)(JSON.parse("[[\"ion-menu_3\",[[33,\"ion-menu-button\",{\"color\":[513],\"disabled\":[4],\"menu\":[1],\"autoHide\":[4,\"auto-hide\"],\"type\":[1],\"visible\":[32]},[[16,\"ionMenuChange\",\"visibilityChanged\"],[16,\"ionSplitPaneVisible\",\"visibilityChanged\"]]],[33,\"ion-menu\",{\"contentId\":[513,\"content-id\"],\"menuId\":[513,\"menu-id\"],\"type\":[1025],\"disabled\":[1028],\"side\":[513],\"swipeGesture\":[4,\"swipe-gesture\"],\"maxEdgeStart\":[2,\"max-edge-start\"],\"isPaneVisible\":[32],\"isEndSide\":[32],\"isOpen\":[64],\"isActive\":[64],\"open\":[64],\"close\":[64],\"toggle\":[64],\"setOpen\":[64]},[[16,\"ionSplitPaneVisible\",\"onSplitPaneChanged\"],[2,\"click\",\"onBackdropClick\"],[0,\"keydown\",\"onKeydown\"]]],[1,\"ion-menu-toggle\",{\"menu\":[1],\"autoHide\":[4,\"auto-hide\"],\"visible\":[32]},[[16,\"ionMenuChange\",\"visibilityChanged\"],[16,\"ionSplitPaneVisible\",\"visibilityChanged\"]]]]],[\"ion-fab_3\",[[33,\"ion-fab-button\",{\"color\":[513],\"activated\":[4],\"disabled\":[4],\"download\":[1],\"href\":[1],\"rel\":[1],\"routerDirection\":[1,\"router-direction\"],\"routerAnimation\":[16],\"target\":[1],\"show\":[4],\"translucent\":[4],\"type\":[1],\"size\":[1],\"closeIcon\":[1,\"close-icon\"]}],[1,\"ion-fab\",{\"horizontal\":[1],\"vertical\":[1],\"edge\":[4],\"activated\":[1028],\"close\":[64],\"toggle\":[64]}],[1,\"ion-fab-list\",{\"activated\":[4],\"side\":[1]}]]],[\"ion-refresher_2\",[[0,\"ion-refresher-content\",{\"pullingIcon\":[1025,\"pulling-icon\"],\"pullingText\":[1,\"pulling-text\"],\"refreshingSpinner\":[1025,\"refreshing-spinner\"],\"refreshingText\":[1,\"refreshing-text\"]}],[32,\"ion-refresher\",{\"pullMin\":[2,\"pull-min\"],\"pullMax\":[2,\"pull-max\"],\"closeDuration\":[1,\"close-duration\"],\"snapbackDuration\":[1,\"snapback-duration\"],\"pullFactor\":[2,\"pull-factor\"],\"disabled\":[4],\"nativeRefresher\":[32],\"state\":[32],\"complete\":[64],\"cancel\":[64],\"getProgress\":[64]}]]],[\"ion-back-button\",[[33,\"ion-back-button\",{\"color\":[513],\"defaultHref\":[1025,\"default-href\"],\"disabled\":[516],\"icon\":[1],\"text\":[1],\"type\":[1],\"routerAnimation\":[16]}]]],[\"ion-toast\",[[33,\"ion-toast\",{\"overlayIndex\":[2,\"overlay-index\"],\"color\":[513],\"enterAnimation\":[16],\"leaveAnimation\":[16],\"cssClass\":[1,\"css-class\"],\"duration\":[2],\"header\":[1],\"message\":[1],\"keyboardClose\":[4,\"keyboard-close\"],\"position\":[1],\"buttons\":[16],\"translucent\":[4],\"animated\":[4],\"icon\":[1],\"htmlAttributes\":[16],\"present\":[64],\"dismiss\":[64],\"onDidDismiss\":[64],\"onWillDismiss\":[64]}]]],[\"ion-card_5\",[[33,\"ion-card\",{\"color\":[513],\"button\":[4],\"type\":[1],\"disabled\":[4],\"download\":[1],\"href\":[1],\"rel\":[1],\"routerDirection\":[1,\"router-direction\"],\"routerAnimation\":[16],\"target\":[1]}],[32,\"ion-card-content\"],[33,\"ion-card-header\",{\"color\":[513],\"translucent\":[4]}],[33,\"ion-card-subtitle\",{\"color\":[513]}],[33,\"ion-card-title\",{\"color\":[513]}]]],[\"ion-item-option_3\",[[33,\"ion-item-option\",{\"color\":[513],\"disabled\":[4],\"download\":[1],\"expandable\":[4],\"href\":[1],\"rel\":[1],\"target\":[1],\"type\":[1]}],[32,\"ion-item-options\",{\"side\":[1],\"fireSwipeEvent\":[64]}],[0,\"ion-item-sliding\",{\"disabled\":[4],\"state\":[32],\"getOpenAmount\":[64],\"getSlidingRatio\":[64],\"open\":[64],\"close\":[64],\"closeOpened\":[64]}]]],[\"ion-accordion_2\",[[49,\"ion-accordion\",{\"value\":[1],\"disabled\":[4],\"readonly\":[4],\"toggleIcon\":[1,\"toggle-icon\"],\"toggleIconSlot\":[1,\"toggle-icon-slot\"],\"state\":[32],\"isNext\":[32],\"isPrevious\":[32]}],[33,\"ion-accordion-group\",{\"animated\":[4],\"multiple\":[4],\"value\":[1025],\"disabled\":[4],\"readonly\":[4],\"expand\":[1],\"requestAccordionToggle\":[64],\"getAccordions\":[64]},[[0,\"keydown\",\"onKeydown\"]]]]],[\"ion-breadcrumb_2\",[[33,\"ion-breadcrumb\",{\"collapsed\":[4],\"last\":[4],\"showCollapsedIndicator\":[4,\"show-collapsed-indicator\"],\"color\":[1],\"active\":[4],\"disabled\":[4],\"download\":[1],\"href\":[1],\"rel\":[1],\"separator\":[4],\"target\":[1],\"routerDirection\":[1,\"router-direction\"],\"routerAnimation\":[16]}],[33,\"ion-breadcrumbs\",{\"color\":[1],\"maxItems\":[2,\"max-items\"],\"itemsBeforeCollapse\":[2,\"items-before-collapse\"],\"itemsAfterCollapse\":[2,\"items-after-collapse\"],\"collapsed\":[32],\"activeChanged\":[32]},[[0,\"collapsedClick\",\"onCollapsedClick\"]]]]],[\"ion-infinite-scroll_2\",[[32,\"ion-infinite-scroll-content\",{\"loadingSpinner\":[1025,\"loading-spinner\"],\"loadingText\":[1,\"loading-text\"]}],[0,\"ion-infinite-scroll\",{\"threshold\":[1],\"disabled\":[4],\"position\":[1],\"isLoading\":[32],\"complete\":[64]}]]],[\"ion-reorder_2\",[[33,\"ion-reorder\",null,[[2,\"click\",\"onClick\"]]],[0,\"ion-reorder-group\",{\"disabled\":[4],\"state\":[32],\"complete\":[64]}]]],[\"ion-segment_2\",[[33,\"ion-segment-button\",{\"disabled\":[4],\"layout\":[1],\"type\":[1],\"value\":[1],\"checked\":[32]}],[33,\"ion-segment\",{\"color\":[513],\"disabled\":[4],\"scrollable\":[4],\"swipeGesture\":[4,\"swipe-gesture\"],\"value\":[1025],\"selectOnFocus\":[4,\"select-on-focus\"],\"activated\":[32]},[[0,\"keydown\",\"onKeyDown\"]]]]],[\"ion-tab-bar_2\",[[33,\"ion-tab-button\",{\"disabled\":[4],\"download\":[1],\"href\":[1],\"rel\":[1],\"layout\":[1025],\"selected\":[1028],\"tab\":[1],\"target\":[1]},[[8,\"ionTabBarChanged\",\"onTabBarChanged\"]]],[33,\"ion-tab-bar\",{\"color\":[513],\"selectedTab\":[1,\"selected-tab\"],\"translucent\":[4],\"keyboardVisible\":[32]}]]],[\"ion-chip\",[[33,\"ion-chip\",{\"color\":[513],\"outline\":[4],\"disabled\":[4]}]]],[\"ion-datetime-button\",[[33,\"ion-datetime-button\",{\"color\":[513],\"disabled\":[516],\"datetime\":[1],\"datetimePresentation\":[32],\"dateText\":[32],\"timeText\":[32],\"datetimeActive\":[32],\"selectedButton\":[32]}]]],[\"ion-searchbar\",[[34,\"ion-searchbar\",{\"color\":[513],\"animated\":[4],\"autocomplete\":[1],\"autocorrect\":[1],\"cancelButtonIcon\":[1,\"cancel-button-icon\"],\"cancelButtonText\":[1,\"cancel-button-text\"],\"clearIcon\":[1,\"clear-icon\"],\"debounce\":[2],\"disabled\":[4],\"inputmode\":[1],\"enterkeyhint\":[1],\"placeholder\":[1],\"searchIcon\":[1,\"search-icon\"],\"showCancelButton\":[1,\"show-cancel-button\"],\"showClearButton\":[1,\"show-clear-button\"],\"spellcheck\":[4],\"type\":[1],\"value\":[1025],\"focused\":[32],\"noAnimate\":[32],\"setFocus\":[64],\"getInputElement\":[64]}]]],[\"ion-toggle\",[[33,\"ion-toggle\",{\"color\":[513],\"name\":[1],\"checked\":[1028],\"disabled\":[4],\"value\":[1],\"enableOnOffLabels\":[4,\"enable-on-off-labels\"],\"activated\":[32]}]]],[\"ion-nav_2\",[[1,\"ion-nav\",{\"delegate\":[16],\"swipeGesture\":[1028,\"swipe-gesture\"],\"animated\":[4],\"animation\":[16],\"rootParams\":[16],\"root\":[1],\"push\":[64],\"insert\":[64],\"insertPages\":[64],\"pop\":[64],\"popTo\":[64],\"popToRoot\":[64],\"removeIndex\":[64],\"setRoot\":[64],\"setPages\":[64],\"setRouteId\":[64],\"getRouteId\":[64],\"getActive\":[64],\"getByIndex\":[64],\"canGoBack\":[64],\"getPrevious\":[64]}],[0,\"ion-nav-link\",{\"component\":[1],\"componentProps\":[16],\"routerDirection\":[1,\"router-direction\"],\"routerAnimation\":[16]}]]],[\"ion-input\",[[34,\"ion-input\",{\"fireFocusEvents\":[4,\"fire-focus-events\"],\"color\":[513],\"accept\":[1],\"autocapitalize\":[1],\"autocomplete\":[1],\"autocorrect\":[1],\"autofocus\":[4],\"clearInput\":[4,\"clear-input\"],\"clearOnEdit\":[4,\"clear-on-edit\"],\"debounce\":[2],\"disabled\":[4],\"enterkeyhint\":[1],\"inputmode\":[1],\"max\":[8],\"maxlength\":[2],\"min\":[8],\"minlength\":[2],\"multiple\":[4],\"name\":[1],\"pattern\":[1],\"placeholder\":[1],\"readonly\":[4],\"required\":[4],\"spellcheck\":[4],\"step\":[1],\"size\":[2],\"type\":[1],\"value\":[1032],\"hasFocus\":[32],\"setFocus\":[64],\"setBlur\":[64],\"getInputElement\":[64]}]]],[\"ion-textarea\",[[34,\"ion-textarea\",{\"fireFocusEvents\":[4,\"fire-focus-events\"],\"color\":[513],\"autocapitalize\":[1],\"autofocus\":[4],\"clearOnEdit\":[1028,\"clear-on-edit\"],\"debounce\":[2],\"disabled\":[4],\"inputmode\":[1],\"enterkeyhint\":[1],\"maxlength\":[2],\"minlength\":[2],\"name\":[1],\"placeholder\":[1],\"readonly\":[4],\"required\":[4],\"spellcheck\":[4],\"cols\":[2],\"rows\":[2],\"wrap\":[1],\"autoGrow\":[516,\"auto-grow\"],\"value\":[1025],\"hasFocus\":[32],\"setFocus\":[64],\"setBlur\":[64],\"getInputElement\":[64]}]]],[\"ion-backdrop\",[[33,\"ion-backdrop\",{\"visible\":[4],\"tappable\":[4],\"stopPropagation\":[4,\"stop-propagation\"]},[[2,\"click\",\"onMouseDown\"]]]]],[\"ion-loading\",[[34,\"ion-loading\",{\"overlayIndex\":[2,\"overlay-index\"],\"keyboardClose\":[4,\"keyboard-close\"],\"enterAnimation\":[16],\"leaveAnimation\":[16],\"message\":[1],\"cssClass\":[1,\"css-class\"],\"duration\":[2],\"backdropDismiss\":[4,\"backdrop-dismiss\"],\"showBackdrop\":[4,\"show-backdrop\"],\"spinner\":[1025],\"translucent\":[4],\"animated\":[4],\"htmlAttributes\":[16],\"present\":[64],\"dismiss\":[64],\"onDidDismiss\":[64],\"onWillDismiss\":[64]}]]],[\"ion-modal\",[[33,\"ion-modal\",{\"hasController\":[4,\"has-controller\"],\"overlayIndex\":[2,\"overlay-index\"],\"delegate\":[16],\"keyboardClose\":[4,\"keyboard-close\"],\"enterAnimation\":[16],\"leaveAnimation\":[16],\"breakpoints\":[16],\"initialBreakpoint\":[2,\"initial-breakpoint\"],\"backdropBreakpoint\":[2,\"backdrop-breakpoint\"],\"handle\":[4],\"handleBehavior\":[1,\"handle-behavior\"],\"component\":[1],\"componentProps\":[16],\"cssClass\":[1,\"css-class\"],\"backdropDismiss\":[4,\"backdrop-dismiss\"],\"showBackdrop\":[4,\"show-backdrop\"],\"animated\":[4],\"swipeToClose\":[4,\"swipe-to-close\"],\"presentingElement\":[16],\"htmlAttributes\":[16],\"isOpen\":[4,\"is-open\"],\"trigger\":[1],\"keepContentsMounted\":[4,\"keep-contents-mounted\"],\"canDismiss\":[4,\"can-dismiss\"],\"presented\":[32],\"present\":[64],\"dismiss\":[64],\"onDidDismiss\":[64],\"onWillDismiss\":[64],\"setCurrentBreakpoint\":[64],\"getCurrentBreakpoint\":[64]}]]],[\"ion-route_4\",[[0,\"ion-route\",{\"url\":[1],\"component\":[1],\"componentProps\":[16],\"beforeLeave\":[16],\"beforeEnter\":[16]}],[0,\"ion-route-redirect\",{\"from\":[1],\"to\":[1]}],[0,\"ion-router\",{\"root\":[1],\"useHash\":[4,\"use-hash\"],\"canTransition\":[64],\"push\":[64],\"back\":[64],\"printDebug\":[64],\"navChanged\":[64]},[[8,\"popstate\",\"onPopState\"],[4,\"ionBackButton\",\"onBackButton\"]]],[1,\"ion-router-link\",{\"color\":[513],\"href\":[1],\"rel\":[1],\"routerDirection\":[1,\"router-direction\"],\"routerAnimation\":[16],\"target\":[1]}]]],[\"ion-avatar_3\",[[33,\"ion-avatar\"],[33,\"ion-badge\",{\"color\":[513]}],[1,\"ion-thumbnail\"]]],[\"ion-col_3\",[[1,\"ion-col\",{\"offset\":[1],\"offsetXs\":[1,\"offset-xs\"],\"offsetSm\":[1,\"offset-sm\"],\"offsetMd\":[1,\"offset-md\"],\"offsetLg\":[1,\"offset-lg\"],\"offsetXl\":[1,\"offset-xl\"],\"pull\":[1],\"pullXs\":[1,\"pull-xs\"],\"pullSm\":[1,\"pull-sm\"],\"pullMd\":[1,\"pull-md\"],\"pullLg\":[1,\"pull-lg\"],\"pullXl\":[1,\"pull-xl\"],\"push\":[1],\"pushXs\":[1,\"push-xs\"],\"pushSm\":[1,\"push-sm\"],\"pushMd\":[1,\"push-md\"],\"pushLg\":[1,\"push-lg\"],\"pushXl\":[1,\"push-xl\"],\"size\":[1],\"sizeXs\":[1,\"size-xs\"],\"sizeSm\":[1,\"size-sm\"],\"sizeMd\":[1,\"size-md\"],\"sizeLg\":[1,\"size-lg\"],\"sizeXl\":[1,\"size-xl\"]},[[9,\"resize\",\"onResize\"]]],[1,\"ion-grid\",{\"fixed\":[4]}],[1,\"ion-row\"]]],[\"ion-slide_2\",[[0,\"ion-slide\"],[36,\"ion-slides\",{\"options\":[8],\"pager\":[4],\"scrollbar\":[4],\"update\":[64],\"updateAutoHeight\":[64],\"slideTo\":[64],\"slideNext\":[64],\"slidePrev\":[64],\"getActiveIndex\":[64],\"getPreviousIndex\":[64],\"length\":[64],\"isEnd\":[64],\"isBeginning\":[64],\"startAutoplay\":[64],\"stopAutoplay\":[64],\"lockSwipeToNext\":[64],\"lockSwipeToPrev\":[64],\"lockSwipes\":[64],\"getSwiper\":[64]}]]],[\"ion-tab_2\",[[1,\"ion-tab\",{\"active\":[1028],\"delegate\":[16],\"tab\":[1],\"component\":[1],\"setActive\":[64]}],[1,\"ion-tabs\",{\"useRouter\":[1028,\"use-router\"],\"selectedTab\":[32],\"select\":[64],\"getTab\":[64],\"getSelected\":[64],\"setRouteId\":[64],\"getRouteId\":[64]}]]],[\"ion-img\",[[1,\"ion-img\",{\"alt\":[1],\"src\":[1],\"loadSrc\":[32],\"loadError\":[32]}]]],[\"ion-progress-bar\",[[33,\"ion-progress-bar\",{\"type\":[1],\"reversed\":[4],\"value\":[2],\"buffer\":[2],\"color\":[513]}]]],[\"ion-range\",[[33,\"ion-range\",{\"color\":[513],\"debounce\":[2],\"name\":[1],\"dualKnobs\":[4,\"dual-knobs\"],\"min\":[2],\"max\":[2],\"pin\":[4],\"pinFormatter\":[16],\"snaps\":[4],\"step\":[2],\"ticks\":[4],\"activeBarStart\":[1026,\"active-bar-start\"],\"disabled\":[4],\"value\":[1026],\"ratioA\":[32],\"ratioB\":[32],\"pressedKnob\":[32]}]]],[\"ion-split-pane\",[[33,\"ion-split-pane\",{\"contentId\":[513,\"content-id\"],\"disabled\":[4],\"when\":[8],\"visible\":[32]}]]],[\"ion-text\",[[1,\"ion-text\",{\"color\":[513]}]]],[\"ion-virtual-scroll\",[[0,\"ion-virtual-scroll\",{\"approxItemHeight\":[2,\"approx-item-height\"],\"approxHeaderHeight\":[2,\"approx-header-height\"],\"approxFooterHeight\":[2,\"approx-footer-height\"],\"headerFn\":[16],\"footerFn\":[16],\"items\":[16],\"itemHeight\":[16],\"headerHeight\":[16],\"footerHeight\":[16],\"renderItem\":[16],\"renderHeader\":[16],\"renderFooter\":[16],\"nodeRender\":[16],\"domRender\":[16],\"totalHeight\":[32],\"positionForItem\":[64],\"checkRange\":[64],\"checkEnd\":[64]},[[9,\"resize\",\"onResize\"]]]]],[\"ion-picker-column-internal\",[[33,\"ion-picker-column-internal\",{\"items\":[16],\"value\":[1032],\"color\":[513],\"numericInput\":[4,\"numeric-input\"],\"isActive\":[32],\"scrollActiveItemIntoView\":[64],\"setValue\":[64]}]]],[\"ion-picker-internal\",[[33,\"ion-picker-internal\"]]],[\"ion-radio_2\",[[33,\"ion-radio\",{\"color\":[513],\"name\":[1],\"disabled\":[4],\"value\":[8],\"checked\":[32],\"buttonTabindex\":[32],\"setFocus\":[64],\"setButtonTabindex\":[64]}],[0,\"ion-radio-group\",{\"allowEmptySelection\":[4,\"allow-empty-selection\"],\"name\":[1],\"value\":[1032]},[[4,\"keydown\",\"onKeydown\"]]]]],[\"ion-ripple-effect\",[[1,\"ion-ripple-effect\",{\"type\":[1],\"addRipple\":[64]}]]],[\"ion-button_2\",[[33,\"ion-button\",{\"color\":[513],\"buttonType\":[1025,\"button-type\"],\"disabled\":[516],\"expand\":[513],\"fill\":[1537],\"routerDirection\":[1,\"router-direction\"],\"routerAnimation\":[16],\"download\":[1],\"href\":[1],\"rel\":[1],\"shape\":[513],\"size\":[513],\"strong\":[4],\"target\":[1],\"type\":[1]}],[1,\"ion-icon\",{\"mode\":[1025],\"color\":[1],\"ios\":[1],\"md\":[1],\"flipRtl\":[4,\"flip-rtl\"],\"name\":[513],\"src\":[1],\"icon\":[8],\"size\":[1],\"lazy\":[4],\"sanitize\":[4],\"svgContent\":[32],\"isVisible\":[32],\"ariaLabel\":[32]}]]],[\"ion-datetime_3\",[[33,\"ion-datetime\",{\"color\":[1],\"name\":[1],\"disabled\":[4],\"readonly\":[4],\"isDateEnabled\":[16],\"min\":[1025],\"max\":[1025],\"presentation\":[1],\"cancelText\":[1,\"cancel-text\"],\"doneText\":[1,\"done-text\"],\"clearText\":[1,\"clear-text\"],\"yearValues\":[8,\"year-values\"],\"monthValues\":[8,\"month-values\"],\"dayValues\":[8,\"day-values\"],\"hourValues\":[8,\"hour-values\"],\"minuteValues\":[8,\"minute-values\"],\"locale\":[1],\"firstDayOfWeek\":[2,\"first-day-of-week\"],\"multiple\":[4],\"value\":[1025],\"showDefaultTitle\":[4,\"show-default-title\"],\"showDefaultButtons\":[4,\"show-default-buttons\"],\"showClearButton\":[4,\"show-clear-button\"],\"showDefaultTimeLabel\":[4,\"show-default-time-label\"],\"hourCycle\":[1,\"hour-cycle\"],\"size\":[1],\"preferWheel\":[4,\"prefer-wheel\"],\"showMonthAndYear\":[32],\"activeParts\":[32],\"workingParts\":[32],\"isPresented\":[32],\"isTimePopoverOpen\":[32],\"confirm\":[64],\"reset\":[64],\"cancel\":[64]}],[34,\"ion-picker\",{\"overlayIndex\":[2,\"overlay-index\"],\"keyboardClose\":[4,\"keyboard-close\"],\"enterAnimation\":[16],\"leaveAnimation\":[16],\"buttons\":[16],\"columns\":[16],\"cssClass\":[1,\"css-class\"],\"duration\":[2],\"showBackdrop\":[4,\"show-backdrop\"],\"backdropDismiss\":[4,\"backdrop-dismiss\"],\"animated\":[4],\"htmlAttributes\":[16],\"presented\":[32],\"present\":[64],\"dismiss\":[64],\"onDidDismiss\":[64],\"onWillDismiss\":[64],\"getColumn\":[64]}],[32,\"ion-picker-column\",{\"col\":[16]}]]],[\"ion-action-sheet\",[[34,\"ion-action-sheet\",{\"overlayIndex\":[2,\"overlay-index\"],\"keyboardClose\":[4,\"keyboard-close\"],\"enterAnimation\":[16],\"leaveAnimation\":[16],\"buttons\":[16],\"cssClass\":[1,\"css-class\"],\"backdropDismiss\":[4,\"backdrop-dismiss\"],\"header\":[1],\"subHeader\":[1,\"sub-header\"],\"translucent\":[4],\"animated\":[4],\"htmlAttributes\":[16],\"present\":[64],\"dismiss\":[64],\"onDidDismiss\":[64],\"onWillDismiss\":[64]}]]],[\"ion-alert\",[[34,\"ion-alert\",{\"overlayIndex\":[2,\"overlay-index\"],\"keyboardClose\":[4,\"keyboard-close\"],\"enterAnimation\":[16],\"leaveAnimation\":[16],\"cssClass\":[1,\"css-class\"],\"header\":[1],\"subHeader\":[1,\"sub-header\"],\"message\":[1],\"buttons\":[16],\"inputs\":[1040],\"backdropDismiss\":[4,\"backdrop-dismiss\"],\"translucent\":[4],\"animated\":[4],\"htmlAttributes\":[16],\"present\":[64],\"dismiss\":[64],\"onDidDismiss\":[64],\"onWillDismiss\":[64]},[[4,\"keydown\",\"onKeydown\"]]]]],[\"ion-popover\",[[33,\"ion-popover\",{\"hasController\":[4,\"has-controller\"],\"delegate\":[16],\"overlayIndex\":[2,\"overlay-index\"],\"enterAnimation\":[16],\"leaveAnimation\":[16],\"component\":[1],\"componentProps\":[16],\"keyboardClose\":[4,\"keyboard-close\"],\"cssClass\":[1,\"css-class\"],\"backdropDismiss\":[4,\"backdrop-dismiss\"],\"event\":[8],\"showBackdrop\":[4,\"show-backdrop\"],\"translucent\":[4],\"animated\":[4],\"htmlAttributes\":[16],\"triggerAction\":[1,\"trigger-action\"],\"trigger\":[1],\"size\":[1],\"dismissOnSelect\":[4,\"dismiss-on-select\"],\"reference\":[1],\"side\":[1],\"alignment\":[1025],\"arrow\":[4],\"isOpen\":[4,\"is-open\"],\"keyboardEvents\":[4,\"keyboard-events\"],\"keepContentsMounted\":[4,\"keep-contents-mounted\"],\"presented\":[32],\"presentFromTrigger\":[64],\"present\":[64],\"dismiss\":[64],\"getParentPopover\":[64],\"onDidDismiss\":[64],\"onWillDismiss\":[64]}]]],[\"ion-checkbox\",[[33,\"ion-checkbox\",{\"color\":[513],\"name\":[1],\"checked\":[1028],\"indeterminate\":[1028],\"disabled\":[4],\"value\":[8]}]]],[\"ion-select_3\",[[33,\"ion-select\",{\"disabled\":[4],\"cancelText\":[1,\"cancel-text\"],\"okText\":[1,\"ok-text\"],\"placeholder\":[1],\"name\":[1],\"selectedText\":[1,\"selected-text\"],\"multiple\":[4],\"interface\":[1],\"interfaceOptions\":[8,\"interface-options\"],\"compareWith\":[1,\"compare-with\"],\"value\":[1032],\"isExpanded\":[32],\"open\":[64]}],[1,\"ion-select-option\",{\"disabled\":[4],\"value\":[8]}],[34,\"ion-select-popover\",{\"header\":[1],\"subHeader\":[1,\"sub-header\"],\"message\":[1],\"multiple\":[4],\"options\":[16]},[[0,\"ionChange\",\"onSelect\"]]]]],[\"ion-app_8\",[[0,\"ion-app\",{\"setFocus\":[64]}],[1,\"ion-content\",{\"color\":[513],\"fullscreen\":[4],\"forceOverscroll\":[1028,\"force-overscroll\"],\"scrollX\":[4,\"scroll-x\"],\"scrollY\":[4,\"scroll-y\"],\"scrollEvents\":[4,\"scroll-events\"],\"getScrollElement\":[64],\"getBackgroundElement\":[64],\"scrollToTop\":[64],\"scrollToBottom\":[64],\"scrollByPoint\":[64],\"scrollToPoint\":[64]},[[8,\"appload\",\"onAppLoad\"]]],[36,\"ion-footer\",{\"collapse\":[1],\"translucent\":[4],\"keyboardVisible\":[32]}],[36,\"ion-header\",{\"collapse\":[1],\"translucent\":[4]}],[1,\"ion-router-outlet\",{\"mode\":[1025],\"delegate\":[16],\"animated\":[4],\"animation\":[16],\"swipeHandler\":[16],\"commit\":[64],\"setRouteId\":[64],\"getRouteId\":[64]}],[33,\"ion-title\",{\"color\":[513],\"size\":[1]}],[33,\"ion-toolbar\",{\"color\":[513]},[[0,\"ionStyle\",\"childrenStyle\"]]],[34,\"ion-buttons\",{\"collapse\":[4]}]]],[\"ion-spinner\",[[1,\"ion-spinner\",{\"color\":[513],\"duration\":[2],\"name\":[1],\"paused\":[4]}]]],[\"ion-item_8\",[[33,\"ion-item-divider\",{\"color\":[513],\"sticky\":[4]}],[32,\"ion-item-group\"],[1,\"ion-skeleton-text\",{\"animated\":[4]}],[32,\"ion-list\",{\"lines\":[1],\"inset\":[4],\"closeSlidingItems\":[64]}],[33,\"ion-list-header\",{\"color\":[513],\"lines\":[1]}],[49,\"ion-item\",{\"color\":[513],\"button\":[4],\"detail\":[4],\"detailIcon\":[1,\"detail-icon\"],\"disabled\":[4],\"download\":[1],\"fill\":[1],\"shape\":[1],\"href\":[1],\"rel\":[1],\"lines\":[1],\"counter\":[4],\"routerAnimation\":[16],\"routerDirection\":[1,\"router-direction\"],\"target\":[1],\"type\":[1],\"counterFormatter\":[16],\"multipleInputs\":[32],\"focusable\":[32],\"counterString\":[32]},[[0,\"ionChange\",\"handleIonChange\"],[0,\"ionColor\",\"labelColorChanged\"],[0,\"ionStyle\",\"itemStyle\"]]],[34,\"ion-label\",{\"color\":[513],\"position\":[1],\"noAnimate\":[32]}],[33,\"ion-note\",{\"color\":[513]}]]]]"), options);
+    (0,_app_globals_275fb4c9_js__WEBPACK_IMPORTED_MODULE_1__.g)();
+    return (0,_index_8e692445_js__WEBPACK_IMPORTED_MODULE_0__.b)(JSON.parse("[[\"ion-menu_3\",[[33,\"ion-menu-button\",{\"color\":[513],\"disabled\":[4],\"menu\":[1],\"autoHide\":[4,\"auto-hide\"],\"type\":[1],\"visible\":[32]},[[16,\"ionMenuChange\",\"visibilityChanged\"],[16,\"ionSplitPaneVisible\",\"visibilityChanged\"]]],[33,\"ion-menu\",{\"contentId\":[513,\"content-id\"],\"menuId\":[513,\"menu-id\"],\"type\":[1025],\"disabled\":[1028],\"side\":[513],\"swipeGesture\":[4,\"swipe-gesture\"],\"maxEdgeStart\":[2,\"max-edge-start\"],\"isPaneVisible\":[32],\"isEndSide\":[32],\"isOpen\":[64],\"isActive\":[64],\"open\":[64],\"close\":[64],\"toggle\":[64],\"setOpen\":[64]},[[16,\"ionSplitPaneVisible\",\"onSplitPaneChanged\"],[2,\"click\",\"onBackdropClick\"],[0,\"keydown\",\"onKeydown\"]]],[1,\"ion-menu-toggle\",{\"menu\":[1],\"autoHide\":[4,\"auto-hide\"],\"visible\":[32]},[[16,\"ionMenuChange\",\"visibilityChanged\"],[16,\"ionSplitPaneVisible\",\"visibilityChanged\"]]]]],[\"ion-fab_3\",[[33,\"ion-fab-button\",{\"color\":[513],\"activated\":[4],\"disabled\":[4],\"download\":[1],\"href\":[1],\"rel\":[1],\"routerDirection\":[1,\"router-direction\"],\"routerAnimation\":[16],\"target\":[1],\"show\":[4],\"translucent\":[4],\"type\":[1],\"size\":[1],\"closeIcon\":[1,\"close-icon\"]}],[1,\"ion-fab\",{\"horizontal\":[1],\"vertical\":[1],\"edge\":[4],\"activated\":[1028],\"close\":[64],\"toggle\":[64]}],[1,\"ion-fab-list\",{\"activated\":[4],\"side\":[1]}]]],[\"ion-refresher_2\",[[0,\"ion-refresher-content\",{\"pullingIcon\":[1025,\"pulling-icon\"],\"pullingText\":[1,\"pulling-text\"],\"refreshingSpinner\":[1025,\"refreshing-spinner\"],\"refreshingText\":[1,\"refreshing-text\"]}],[32,\"ion-refresher\",{\"pullMin\":[2,\"pull-min\"],\"pullMax\":[2,\"pull-max\"],\"closeDuration\":[1,\"close-duration\"],\"snapbackDuration\":[1,\"snapback-duration\"],\"pullFactor\":[2,\"pull-factor\"],\"disabled\":[4],\"nativeRefresher\":[32],\"state\":[32],\"complete\":[64],\"cancel\":[64],\"getProgress\":[64]}]]],[\"ion-back-button\",[[33,\"ion-back-button\",{\"color\":[513],\"defaultHref\":[1025,\"default-href\"],\"disabled\":[516],\"icon\":[1],\"text\":[1],\"type\":[1],\"routerAnimation\":[16]}]]],[\"ion-toast\",[[33,\"ion-toast\",{\"overlayIndex\":[2,\"overlay-index\"],\"color\":[513],\"enterAnimation\":[16],\"leaveAnimation\":[16],\"cssClass\":[1,\"css-class\"],\"duration\":[2],\"header\":[1],\"message\":[1],\"keyboardClose\":[4,\"keyboard-close\"],\"position\":[1],\"buttons\":[16],\"translucent\":[4],\"animated\":[4],\"icon\":[1],\"htmlAttributes\":[16],\"present\":[64],\"dismiss\":[64],\"onDidDismiss\":[64],\"onWillDismiss\":[64]}]]],[\"ion-card_5\",[[33,\"ion-card\",{\"color\":[513],\"button\":[4],\"type\":[1],\"disabled\":[4],\"download\":[1],\"href\":[1],\"rel\":[1],\"routerDirection\":[1,\"router-direction\"],\"routerAnimation\":[16],\"target\":[1]}],[32,\"ion-card-content\"],[33,\"ion-card-header\",{\"color\":[513],\"translucent\":[4]}],[33,\"ion-card-subtitle\",{\"color\":[513]}],[33,\"ion-card-title\",{\"color\":[513]}]]],[\"ion-item-option_3\",[[33,\"ion-item-option\",{\"color\":[513],\"disabled\":[4],\"download\":[1],\"expandable\":[4],\"href\":[1],\"rel\":[1],\"target\":[1],\"type\":[1]}],[32,\"ion-item-options\",{\"side\":[1],\"fireSwipeEvent\":[64]}],[0,\"ion-item-sliding\",{\"disabled\":[4],\"state\":[32],\"getOpenAmount\":[64],\"getSlidingRatio\":[64],\"open\":[64],\"close\":[64],\"closeOpened\":[64]}]]],[\"ion-accordion_2\",[[49,\"ion-accordion\",{\"value\":[1],\"disabled\":[4],\"readonly\":[4],\"toggleIcon\":[1,\"toggle-icon\"],\"toggleIconSlot\":[1,\"toggle-icon-slot\"],\"state\":[32],\"isNext\":[32],\"isPrevious\":[32]}],[33,\"ion-accordion-group\",{\"animated\":[4],\"multiple\":[4],\"value\":[1025],\"disabled\":[4],\"readonly\":[4],\"expand\":[1],\"requestAccordionToggle\":[64],\"getAccordions\":[64]},[[0,\"keydown\",\"onKeydown\"]]]]],[\"ion-breadcrumb_2\",[[33,\"ion-breadcrumb\",{\"collapsed\":[4],\"last\":[4],\"showCollapsedIndicator\":[4,\"show-collapsed-indicator\"],\"color\":[1],\"active\":[4],\"disabled\":[4],\"download\":[1],\"href\":[1],\"rel\":[1],\"separator\":[4],\"target\":[1],\"routerDirection\":[1,\"router-direction\"],\"routerAnimation\":[16]}],[33,\"ion-breadcrumbs\",{\"color\":[1],\"maxItems\":[2,\"max-items\"],\"itemsBeforeCollapse\":[2,\"items-before-collapse\"],\"itemsAfterCollapse\":[2,\"items-after-collapse\"],\"collapsed\":[32],\"activeChanged\":[32]},[[0,\"collapsedClick\",\"onCollapsedClick\"]]]]],[\"ion-infinite-scroll_2\",[[32,\"ion-infinite-scroll-content\",{\"loadingSpinner\":[1025,\"loading-spinner\"],\"loadingText\":[1,\"loading-text\"]}],[0,\"ion-infinite-scroll\",{\"threshold\":[1],\"disabled\":[4],\"position\":[1],\"isLoading\":[32],\"complete\":[64]}]]],[\"ion-reorder_2\",[[33,\"ion-reorder\",null,[[2,\"click\",\"onClick\"]]],[0,\"ion-reorder-group\",{\"disabled\":[4],\"state\":[32],\"complete\":[64]}]]],[\"ion-segment_2\",[[33,\"ion-segment-button\",{\"disabled\":[4],\"layout\":[1],\"type\":[1],\"value\":[1],\"checked\":[32]}],[33,\"ion-segment\",{\"color\":[513],\"disabled\":[4],\"scrollable\":[4],\"swipeGesture\":[4,\"swipe-gesture\"],\"value\":[1025],\"selectOnFocus\":[4,\"select-on-focus\"],\"activated\":[32]},[[0,\"keydown\",\"onKeyDown\"]]]]],[\"ion-tab-bar_2\",[[33,\"ion-tab-button\",{\"disabled\":[4],\"download\":[1],\"href\":[1],\"rel\":[1],\"layout\":[1025],\"selected\":[1028],\"tab\":[1],\"target\":[1]},[[8,\"ionTabBarChanged\",\"onTabBarChanged\"]]],[33,\"ion-tab-bar\",{\"color\":[513],\"selectedTab\":[1,\"selected-tab\"],\"translucent\":[4],\"keyboardVisible\":[32]}]]],[\"ion-chip\",[[1,\"ion-chip\",{\"color\":[513],\"outline\":[4],\"disabled\":[4]}]]],[\"ion-datetime-button\",[[33,\"ion-datetime-button\",{\"color\":[513],\"disabled\":[516],\"datetime\":[1],\"datetimePresentation\":[32],\"dateText\":[32],\"timeText\":[32],\"datetimeActive\":[32],\"selectedButton\":[32]}]]],[\"ion-searchbar\",[[34,\"ion-searchbar\",{\"color\":[513],\"animated\":[4],\"autocomplete\":[1],\"autocorrect\":[1],\"cancelButtonIcon\":[1,\"cancel-button-icon\"],\"cancelButtonText\":[1,\"cancel-button-text\"],\"clearIcon\":[1,\"clear-icon\"],\"debounce\":[2],\"disabled\":[4],\"inputmode\":[1],\"enterkeyhint\":[1],\"placeholder\":[1],\"searchIcon\":[1,\"search-icon\"],\"showCancelButton\":[1,\"show-cancel-button\"],\"showClearButton\":[1,\"show-clear-button\"],\"spellcheck\":[4],\"type\":[1],\"value\":[1025],\"focused\":[32],\"noAnimate\":[32],\"setFocus\":[64],\"getInputElement\":[64]}]]],[\"ion-toggle\",[[33,\"ion-toggle\",{\"color\":[513],\"name\":[1],\"checked\":[1028],\"disabled\":[4],\"value\":[1],\"enableOnOffLabels\":[4,\"enable-on-off-labels\"],\"activated\":[32]}]]],[\"ion-nav_2\",[[1,\"ion-nav\",{\"delegate\":[16],\"swipeGesture\":[1028,\"swipe-gesture\"],\"animated\":[4],\"animation\":[16],\"rootParams\":[16],\"root\":[1],\"push\":[64],\"insert\":[64],\"insertPages\":[64],\"pop\":[64],\"popTo\":[64],\"popToRoot\":[64],\"removeIndex\":[64],\"setRoot\":[64],\"setPages\":[64],\"setRouteId\":[64],\"getRouteId\":[64],\"getActive\":[64],\"getByIndex\":[64],\"canGoBack\":[64],\"getPrevious\":[64]}],[0,\"ion-nav-link\",{\"component\":[1],\"componentProps\":[16],\"routerDirection\":[1,\"router-direction\"],\"routerAnimation\":[16]}]]],[\"ion-input\",[[34,\"ion-input\",{\"fireFocusEvents\":[4,\"fire-focus-events\"],\"color\":[513],\"accept\":[1],\"autocapitalize\":[1],\"autocomplete\":[1],\"autocorrect\":[1],\"autofocus\":[4],\"clearInput\":[4,\"clear-input\"],\"clearOnEdit\":[4,\"clear-on-edit\"],\"debounce\":[2],\"disabled\":[4],\"enterkeyhint\":[1],\"inputmode\":[1],\"max\":[8],\"maxlength\":[2],\"min\":[8],\"minlength\":[2],\"multiple\":[4],\"name\":[1],\"pattern\":[1],\"placeholder\":[1],\"readonly\":[4],\"required\":[4],\"spellcheck\":[4],\"step\":[1],\"size\":[2],\"type\":[1],\"value\":[1032],\"hasFocus\":[32],\"setFocus\":[64],\"setBlur\":[64],\"getInputElement\":[64]}]]],[\"ion-textarea\",[[34,\"ion-textarea\",{\"fireFocusEvents\":[4,\"fire-focus-events\"],\"color\":[513],\"autocapitalize\":[1],\"autofocus\":[4],\"clearOnEdit\":[1028,\"clear-on-edit\"],\"debounce\":[2],\"disabled\":[4],\"inputmode\":[1],\"enterkeyhint\":[1],\"maxlength\":[2],\"minlength\":[2],\"name\":[1],\"placeholder\":[1],\"readonly\":[4],\"required\":[4],\"spellcheck\":[4],\"cols\":[2],\"rows\":[2],\"wrap\":[1],\"autoGrow\":[516,\"auto-grow\"],\"value\":[1025],\"hasFocus\":[32],\"setFocus\":[64],\"setBlur\":[64],\"getInputElement\":[64]}]]],[\"ion-backdrop\",[[33,\"ion-backdrop\",{\"visible\":[4],\"tappable\":[4],\"stopPropagation\":[4,\"stop-propagation\"]},[[2,\"click\",\"onMouseDown\"]]]]],[\"ion-loading\",[[34,\"ion-loading\",{\"overlayIndex\":[2,\"overlay-index\"],\"keyboardClose\":[4,\"keyboard-close\"],\"enterAnimation\":[16],\"leaveAnimation\":[16],\"message\":[1],\"cssClass\":[1,\"css-class\"],\"duration\":[2],\"backdropDismiss\":[4,\"backdrop-dismiss\"],\"showBackdrop\":[4,\"show-backdrop\"],\"spinner\":[1025],\"translucent\":[4],\"animated\":[4],\"htmlAttributes\":[16],\"present\":[64],\"dismiss\":[64],\"onDidDismiss\":[64],\"onWillDismiss\":[64]}]]],[\"ion-modal\",[[33,\"ion-modal\",{\"hasController\":[4,\"has-controller\"],\"overlayIndex\":[2,\"overlay-index\"],\"delegate\":[16],\"keyboardClose\":[4,\"keyboard-close\"],\"enterAnimation\":[16],\"leaveAnimation\":[16],\"breakpoints\":[16],\"initialBreakpoint\":[2,\"initial-breakpoint\"],\"backdropBreakpoint\":[2,\"backdrop-breakpoint\"],\"handle\":[4],\"handleBehavior\":[1,\"handle-behavior\"],\"component\":[1],\"componentProps\":[16],\"cssClass\":[1,\"css-class\"],\"backdropDismiss\":[4,\"backdrop-dismiss\"],\"showBackdrop\":[4,\"show-backdrop\"],\"animated\":[4],\"swipeToClose\":[4,\"swipe-to-close\"],\"presentingElement\":[16],\"htmlAttributes\":[16],\"isOpen\":[4,\"is-open\"],\"trigger\":[1],\"keepContentsMounted\":[4,\"keep-contents-mounted\"],\"canDismiss\":[4,\"can-dismiss\"],\"presented\":[32],\"present\":[64],\"dismiss\":[64],\"onDidDismiss\":[64],\"onWillDismiss\":[64],\"setCurrentBreakpoint\":[64],\"getCurrentBreakpoint\":[64]}]]],[\"ion-route_4\",[[0,\"ion-route\",{\"url\":[1],\"component\":[1],\"componentProps\":[16],\"beforeLeave\":[16],\"beforeEnter\":[16]}],[0,\"ion-route-redirect\",{\"from\":[1],\"to\":[1]}],[0,\"ion-router\",{\"root\":[1],\"useHash\":[4,\"use-hash\"],\"canTransition\":[64],\"push\":[64],\"back\":[64],\"printDebug\":[64],\"navChanged\":[64]},[[8,\"popstate\",\"onPopState\"],[4,\"ionBackButton\",\"onBackButton\"]]],[1,\"ion-router-link\",{\"color\":[513],\"href\":[1],\"rel\":[1],\"routerDirection\":[1,\"router-direction\"],\"routerAnimation\":[16],\"target\":[1]}]]],[\"ion-avatar_3\",[[33,\"ion-avatar\"],[33,\"ion-badge\",{\"color\":[513]}],[1,\"ion-thumbnail\"]]],[\"ion-col_3\",[[1,\"ion-col\",{\"offset\":[1],\"offsetXs\":[1,\"offset-xs\"],\"offsetSm\":[1,\"offset-sm\"],\"offsetMd\":[1,\"offset-md\"],\"offsetLg\":[1,\"offset-lg\"],\"offsetXl\":[1,\"offset-xl\"],\"pull\":[1],\"pullXs\":[1,\"pull-xs\"],\"pullSm\":[1,\"pull-sm\"],\"pullMd\":[1,\"pull-md\"],\"pullLg\":[1,\"pull-lg\"],\"pullXl\":[1,\"pull-xl\"],\"push\":[1],\"pushXs\":[1,\"push-xs\"],\"pushSm\":[1,\"push-sm\"],\"pushMd\":[1,\"push-md\"],\"pushLg\":[1,\"push-lg\"],\"pushXl\":[1,\"push-xl\"],\"size\":[1],\"sizeXs\":[1,\"size-xs\"],\"sizeSm\":[1,\"size-sm\"],\"sizeMd\":[1,\"size-md\"],\"sizeLg\":[1,\"size-lg\"],\"sizeXl\":[1,\"size-xl\"]},[[9,\"resize\",\"onResize\"]]],[1,\"ion-grid\",{\"fixed\":[4]}],[1,\"ion-row\"]]],[\"ion-slide_2\",[[0,\"ion-slide\"],[36,\"ion-slides\",{\"options\":[8],\"pager\":[4],\"scrollbar\":[4],\"update\":[64],\"updateAutoHeight\":[64],\"slideTo\":[64],\"slideNext\":[64],\"slidePrev\":[64],\"getActiveIndex\":[64],\"getPreviousIndex\":[64],\"length\":[64],\"isEnd\":[64],\"isBeginning\":[64],\"startAutoplay\":[64],\"stopAutoplay\":[64],\"lockSwipeToNext\":[64],\"lockSwipeToPrev\":[64],\"lockSwipes\":[64],\"getSwiper\":[64]}]]],[\"ion-tab_2\",[[1,\"ion-tab\",{\"active\":[1028],\"delegate\":[16],\"tab\":[1],\"component\":[1],\"setActive\":[64]}],[1,\"ion-tabs\",{\"useRouter\":[1028,\"use-router\"],\"selectedTab\":[32],\"select\":[64],\"getTab\":[64],\"getSelected\":[64],\"setRouteId\":[64],\"getRouteId\":[64]}]]],[\"ion-img\",[[1,\"ion-img\",{\"alt\":[1],\"src\":[1],\"loadSrc\":[32],\"loadError\":[32]}]]],[\"ion-progress-bar\",[[33,\"ion-progress-bar\",{\"type\":[1],\"reversed\":[4],\"value\":[2],\"buffer\":[2],\"color\":[513]}]]],[\"ion-range\",[[33,\"ion-range\",{\"color\":[513],\"debounce\":[2],\"name\":[1],\"dualKnobs\":[4,\"dual-knobs\"],\"min\":[2],\"max\":[2],\"pin\":[4],\"pinFormatter\":[16],\"snaps\":[4],\"step\":[2],\"ticks\":[4],\"activeBarStart\":[1026,\"active-bar-start\"],\"disabled\":[4],\"value\":[1026],\"ratioA\":[32],\"ratioB\":[32],\"pressedKnob\":[32]}]]],[\"ion-split-pane\",[[33,\"ion-split-pane\",{\"contentId\":[513,\"content-id\"],\"disabled\":[4],\"when\":[8],\"visible\":[32]}]]],[\"ion-text\",[[1,\"ion-text\",{\"color\":[513]}]]],[\"ion-virtual-scroll\",[[0,\"ion-virtual-scroll\",{\"approxItemHeight\":[2,\"approx-item-height\"],\"approxHeaderHeight\":[2,\"approx-header-height\"],\"approxFooterHeight\":[2,\"approx-footer-height\"],\"headerFn\":[16],\"footerFn\":[16],\"items\":[16],\"itemHeight\":[16],\"headerHeight\":[16],\"footerHeight\":[16],\"renderItem\":[16],\"renderHeader\":[16],\"renderFooter\":[16],\"nodeRender\":[16],\"domRender\":[16],\"totalHeight\":[32],\"positionForItem\":[64],\"checkRange\":[64],\"checkEnd\":[64]},[[9,\"resize\",\"onResize\"]]]]],[\"ion-picker-column-internal\",[[33,\"ion-picker-column-internal\",{\"items\":[16],\"value\":[1032],\"color\":[513],\"numericInput\":[4,\"numeric-input\"],\"isActive\":[32],\"scrollActiveItemIntoView\":[64],\"setValue\":[64]}]]],[\"ion-picker-internal\",[[33,\"ion-picker-internal\",null,[[1,\"touchstart\",\"preventTouchStartPropagation\"]]]]],[\"ion-radio_2\",[[33,\"ion-radio\",{\"color\":[513],\"name\":[1],\"disabled\":[4],\"value\":[8],\"checked\":[32],\"buttonTabindex\":[32],\"setFocus\":[64],\"setButtonTabindex\":[64]}],[0,\"ion-radio-group\",{\"allowEmptySelection\":[4,\"allow-empty-selection\"],\"name\":[1],\"value\":[1032]},[[4,\"keydown\",\"onKeydown\"]]]]],[\"ion-ripple-effect\",[[1,\"ion-ripple-effect\",{\"type\":[1],\"addRipple\":[64]}]]],[\"ion-button_2\",[[33,\"ion-button\",{\"color\":[513],\"buttonType\":[1025,\"button-type\"],\"disabled\":[516],\"expand\":[513],\"fill\":[1537],\"routerDirection\":[1,\"router-direction\"],\"routerAnimation\":[16],\"download\":[1],\"href\":[1],\"rel\":[1],\"shape\":[513],\"size\":[513],\"strong\":[4],\"target\":[1],\"type\":[1],\"form\":[1]}],[1,\"ion-icon\",{\"mode\":[1025],\"color\":[1],\"ios\":[1],\"md\":[1],\"flipRtl\":[4,\"flip-rtl\"],\"name\":[513],\"src\":[1],\"icon\":[8],\"size\":[1],\"lazy\":[4],\"sanitize\":[4],\"svgContent\":[32],\"isVisible\":[32],\"ariaLabel\":[32]}]]],[\"ion-datetime_3\",[[33,\"ion-datetime\",{\"color\":[1],\"name\":[1],\"disabled\":[4],\"readonly\":[4],\"isDateEnabled\":[16],\"min\":[1025],\"max\":[1025],\"presentation\":[1],\"cancelText\":[1,\"cancel-text\"],\"doneText\":[1,\"done-text\"],\"clearText\":[1,\"clear-text\"],\"yearValues\":[8,\"year-values\"],\"monthValues\":[8,\"month-values\"],\"dayValues\":[8,\"day-values\"],\"hourValues\":[8,\"hour-values\"],\"minuteValues\":[8,\"minute-values\"],\"locale\":[1],\"firstDayOfWeek\":[2,\"first-day-of-week\"],\"titleSelectedDatesFormatter\":[16],\"multiple\":[4],\"value\":[1025],\"showDefaultTitle\":[4,\"show-default-title\"],\"showDefaultButtons\":[4,\"show-default-buttons\"],\"showClearButton\":[4,\"show-clear-button\"],\"showDefaultTimeLabel\":[4,\"show-default-time-label\"],\"hourCycle\":[1,\"hour-cycle\"],\"size\":[1],\"preferWheel\":[4,\"prefer-wheel\"],\"showMonthAndYear\":[32],\"activeParts\":[32],\"workingParts\":[32],\"isPresented\":[32],\"isTimePopoverOpen\":[32],\"confirm\":[64],\"reset\":[64],\"cancel\":[64]}],[34,\"ion-picker\",{\"overlayIndex\":[2,\"overlay-index\"],\"keyboardClose\":[4,\"keyboard-close\"],\"enterAnimation\":[16],\"leaveAnimation\":[16],\"buttons\":[16],\"columns\":[16],\"cssClass\":[1,\"css-class\"],\"duration\":[2],\"showBackdrop\":[4,\"show-backdrop\"],\"backdropDismiss\":[4,\"backdrop-dismiss\"],\"animated\":[4],\"htmlAttributes\":[16],\"presented\":[32],\"present\":[64],\"dismiss\":[64],\"onDidDismiss\":[64],\"onWillDismiss\":[64],\"getColumn\":[64]}],[32,\"ion-picker-column\",{\"col\":[16]}]]],[\"ion-action-sheet\",[[34,\"ion-action-sheet\",{\"overlayIndex\":[2,\"overlay-index\"],\"keyboardClose\":[4,\"keyboard-close\"],\"enterAnimation\":[16],\"leaveAnimation\":[16],\"buttons\":[16],\"cssClass\":[1,\"css-class\"],\"backdropDismiss\":[4,\"backdrop-dismiss\"],\"header\":[1],\"subHeader\":[1,\"sub-header\"],\"translucent\":[4],\"animated\":[4],\"htmlAttributes\":[16],\"present\":[64],\"dismiss\":[64],\"onDidDismiss\":[64],\"onWillDismiss\":[64]}]]],[\"ion-alert\",[[34,\"ion-alert\",{\"overlayIndex\":[2,\"overlay-index\"],\"keyboardClose\":[4,\"keyboard-close\"],\"enterAnimation\":[16],\"leaveAnimation\":[16],\"cssClass\":[1,\"css-class\"],\"header\":[1],\"subHeader\":[1,\"sub-header\"],\"message\":[1],\"buttons\":[16],\"inputs\":[1040],\"backdropDismiss\":[4,\"backdrop-dismiss\"],\"translucent\":[4],\"animated\":[4],\"htmlAttributes\":[16],\"present\":[64],\"dismiss\":[64],\"onDidDismiss\":[64],\"onWillDismiss\":[64]},[[4,\"keydown\",\"onKeydown\"]]]]],[\"ion-popover\",[[33,\"ion-popover\",{\"hasController\":[4,\"has-controller\"],\"delegate\":[16],\"overlayIndex\":[2,\"overlay-index\"],\"enterAnimation\":[16],\"leaveAnimation\":[16],\"component\":[1],\"componentProps\":[16],\"keyboardClose\":[4,\"keyboard-close\"],\"cssClass\":[1,\"css-class\"],\"backdropDismiss\":[4,\"backdrop-dismiss\"],\"event\":[8],\"showBackdrop\":[4,\"show-backdrop\"],\"translucent\":[4],\"animated\":[4],\"htmlAttributes\":[16],\"triggerAction\":[1,\"trigger-action\"],\"trigger\":[1],\"size\":[1],\"dismissOnSelect\":[4,\"dismiss-on-select\"],\"reference\":[1],\"side\":[1],\"alignment\":[1025],\"arrow\":[4],\"isOpen\":[4,\"is-open\"],\"keyboardEvents\":[4,\"keyboard-events\"],\"keepContentsMounted\":[4,\"keep-contents-mounted\"],\"presented\":[32],\"presentFromTrigger\":[64],\"present\":[64],\"dismiss\":[64],\"getParentPopover\":[64],\"onDidDismiss\":[64],\"onWillDismiss\":[64]}]]],[\"ion-checkbox\",[[33,\"ion-checkbox\",{\"color\":[513],\"name\":[1],\"checked\":[1028],\"indeterminate\":[1028],\"disabled\":[4],\"value\":[8]}]]],[\"ion-select_3\",[[33,\"ion-select\",{\"disabled\":[4],\"cancelText\":[1,\"cancel-text\"],\"okText\":[1,\"ok-text\"],\"placeholder\":[1],\"name\":[1],\"selectedText\":[1,\"selected-text\"],\"multiple\":[4],\"interface\":[1],\"interfaceOptions\":[8,\"interface-options\"],\"compareWith\":[1,\"compare-with\"],\"value\":[1032],\"isExpanded\":[32],\"open\":[64]}],[1,\"ion-select-option\",{\"disabled\":[4],\"value\":[8]}],[34,\"ion-select-popover\",{\"header\":[1],\"subHeader\":[1,\"sub-header\"],\"message\":[1],\"multiple\":[4],\"options\":[16]},[[0,\"ionChange\",\"onSelect\"]]]]],[\"ion-app_8\",[[0,\"ion-app\",{\"setFocus\":[64]}],[1,\"ion-content\",{\"color\":[513],\"fullscreen\":[4],\"forceOverscroll\":[1028,\"force-overscroll\"],\"scrollX\":[4,\"scroll-x\"],\"scrollY\":[4,\"scroll-y\"],\"scrollEvents\":[4,\"scroll-events\"],\"getScrollElement\":[64],\"getBackgroundElement\":[64],\"scrollToTop\":[64],\"scrollToBottom\":[64],\"scrollByPoint\":[64],\"scrollToPoint\":[64]},[[8,\"appload\",\"onAppLoad\"]]],[36,\"ion-footer\",{\"collapse\":[1],\"translucent\":[4],\"keyboardVisible\":[32]}],[36,\"ion-header\",{\"collapse\":[1],\"translucent\":[4]}],[1,\"ion-router-outlet\",{\"mode\":[1025],\"delegate\":[16],\"animated\":[4],\"animation\":[16],\"swipeHandler\":[16],\"commit\":[64],\"setRouteId\":[64],\"getRouteId\":[64]}],[33,\"ion-title\",{\"color\":[513],\"size\":[1]}],[33,\"ion-toolbar\",{\"color\":[513]},[[0,\"ionStyle\",\"childrenStyle\"]]],[34,\"ion-buttons\",{\"collapse\":[4]}]]],[\"ion-spinner\",[[1,\"ion-spinner\",{\"color\":[513],\"duration\":[2],\"name\":[1],\"paused\":[4]}]]],[\"ion-item_8\",[[33,\"ion-item-divider\",{\"color\":[513],\"sticky\":[4]}],[32,\"ion-item-group\"],[1,\"ion-skeleton-text\",{\"animated\":[4]}],[32,\"ion-list\",{\"lines\":[1],\"inset\":[4],\"closeSlidingItems\":[64]}],[33,\"ion-list-header\",{\"color\":[513],\"lines\":[1]}],[49,\"ion-item\",{\"color\":[513],\"button\":[4],\"detail\":[4],\"detailIcon\":[1,\"detail-icon\"],\"disabled\":[4],\"download\":[1],\"fill\":[1],\"shape\":[1],\"href\":[1],\"rel\":[1],\"lines\":[1],\"counter\":[4],\"routerAnimation\":[16],\"routerDirection\":[1,\"router-direction\"],\"target\":[1],\"type\":[1],\"counterFormatter\":[16],\"multipleInputs\":[32],\"focusable\":[32],\"counterString\":[32]},[[0,\"ionChange\",\"handleIonChange\"],[0,\"ionColor\",\"labelColorChanged\"],[0,\"ionStyle\",\"itemStyle\"]]],[34,\"ion-label\",{\"color\":[513],\"position\":[1],\"noAnimate\":[32]}],[33,\"ion-note\",{\"color\":[513]}]]]]"), options);
   });
 };
 
@@ -18012,9 +18277,9 @@ const defineCustomElements = (win, options) => {
 
 /***/ }),
 
-/***/ 53:
+/***/ 2797:
 /*!*********************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/md.transition-4352cd7a.js ***!
+  !*** ./node_modules/@ionic/core/dist/esm/md.transition-d0077e8c.js ***!
   \*********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -18022,10 +18287,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "mdTransitionAnimation": () => (/* binding */ mdTransitionAnimation)
 /* harmony export */ });
-/* harmony import */ var _animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation-36c1d77d.js */ 2597);
-/* harmony import */ var _index_8191d09f_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index-8191d09f.js */ 7060);
-/* harmony import */ var _helpers_4d272360_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers-4d272360.js */ 9158);
-/* harmony import */ var _index_1a99aeb7_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./index-1a99aeb7.js */ 4895);
+/* harmony import */ var _animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation-6a1a2a1d.js */ 8211);
+/* harmony import */ var _index_eab49c64_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index-eab49c64.js */ 1856);
+/* harmony import */ var _helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers-3b390e48.js */ 9234);
+/* harmony import */ var _index_33ffec25_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./index-33ffec25.js */ 2286);
+/* harmony import */ var _index_8e692445_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./index-8e692445.js */ 1559);
 /*!
  * (C) Ionic http://ionicframework.com - MIT License
  */
@@ -18034,26 +18300,29 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 const mdTransitionAnimation = (_, opts) => {
+  var _a, _b, _c;
+
   const OFF_BOTTOM = '40px';
   const CENTER = '0px';
   const backDirection = opts.direction === 'back';
   const enteringEl = opts.enteringEl;
   const leavingEl = opts.leavingEl;
-  const ionPageElement = (0,_index_8191d09f_js__WEBPACK_IMPORTED_MODULE_1__.g)(enteringEl);
+  const ionPageElement = (0,_index_eab49c64_js__WEBPACK_IMPORTED_MODULE_1__.g)(enteringEl);
   const enteringToolbarEle = ionPageElement.querySelector('ion-toolbar');
-  const rootTransition = (0,_animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
+  const rootTransition = (0,_animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
   rootTransition.addElement(ionPageElement).fill('both').beforeRemoveClass('ion-page-invisible'); // animate the component itself
 
   if (backDirection) {
-    rootTransition.duration(opts.duration || 200).easing('cubic-bezier(0.47,0,0.745,0.715)');
+    rootTransition.duration(((_a = opts.duration) !== null && _a !== void 0 ? _a : 0) || 200).easing('cubic-bezier(0.47,0,0.745,0.715)');
   } else {
-    rootTransition.duration(opts.duration || 280).easing('cubic-bezier(0.36,0.66,0.04,1)').fromTo('transform', `translateY(${OFF_BOTTOM})`, `translateY(${CENTER})`).fromTo('opacity', 0.01, 1);
+    rootTransition.duration(((_b = opts.duration) !== null && _b !== void 0 ? _b : 0) || 280).easing('cubic-bezier(0.36,0.66,0.04,1)').fromTo('transform', `translateY(${OFF_BOTTOM})`, `translateY(${CENTER})`).fromTo('opacity', 0.01, 1);
   } // Animate toolbar if it's there
 
 
   if (enteringToolbarEle) {
-    const enteringToolBar = (0,_animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
+    const enteringToolBar = (0,_animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
     enteringToolBar.addElement(enteringToolbarEle);
     rootTransition.addAnimation(enteringToolBar);
   } // setup leaving view
@@ -18061,9 +18330,9 @@ const mdTransitionAnimation = (_, opts) => {
 
   if (leavingEl && backDirection) {
     // leaving content
-    rootTransition.duration(opts.duration || 200).easing('cubic-bezier(0.47,0,0.745,0.715)');
-    const leavingPage = (0,_animation_36c1d77d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
-    leavingPage.addElement((0,_index_8191d09f_js__WEBPACK_IMPORTED_MODULE_1__.g)(leavingEl)).onFinish(currentStep => {
+    rootTransition.duration(((_c = opts.duration) !== null && _c !== void 0 ? _c : 0) || 200).easing('cubic-bezier(0.47,0,0.745,0.715)');
+    const leavingPage = (0,_animation_6a1a2a1d_js__WEBPACK_IMPORTED_MODULE_0__.c)();
+    leavingPage.addElement((0,_index_eab49c64_js__WEBPACK_IMPORTED_MODULE_1__.g)(leavingEl)).onFinish(currentStep => {
       if (currentStep === 1 && leavingPage.elements.length > 0) {
         leavingPage.elements[0].style.setProperty('display', 'none');
       }
@@ -18078,9 +18347,9 @@ const mdTransitionAnimation = (_, opts) => {
 
 /***/ }),
 
-/***/ 6938:
+/***/ 2752:
 /*!****************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/overlays-f469834d.js ***!
+  !*** ./node_modules/@ionic/core/dist/esm/overlays-87c7c7cb.js ***!
   \****************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -18104,10 +18373,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "s": () => (/* binding */ safeCall),
 /* harmony export */   "t": () => (/* binding */ toastController)
 /* harmony export */ });
-/* harmony import */ var C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
-/* harmony import */ var _ionic_global_04e268e7_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ionic-global-04e268e7.js */ 2107);
+/* harmony import */ var C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
+/* harmony import */ var _ionic_global_c95cf239_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ionic-global-c95cf239.js */ 8607);
 /* harmony import */ var _hardware_back_button_490df115_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./hardware-back-button-490df115.js */ 159);
-/* harmony import */ var _helpers_4d272360_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./helpers-4d272360.js */ 9158);
+/* harmony import */ var _helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./helpers-3b390e48.js */ 9234);
 
 
 /*!
@@ -18130,7 +18399,7 @@ const createController = tagName => {
     },
 
     getTop() {
-      return (0,C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return getOverlay(document, tagName);
       })();
     }
@@ -18174,14 +18443,27 @@ const createOverlay = (tagName, opts) => {
       })); // append the overlay element to the document body
 
       getAppRoot(document).appendChild(element);
-      return new Promise(resolve => (0,_helpers_4d272360_js__WEBPACK_IMPORTED_MODULE_3__.c)(element, resolve));
+      return new Promise(resolve => (0,_helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_3__.c)(element, resolve));
     });
   }
 
   return Promise.resolve();
 };
+/**
+ * This query string selects elements that
+ * are eligible to receive focus. We select
+ * interactive elements that meet the following
+ * criteria:
+ * 1. Element does not have a negative tabindex
+ * 2. Element does not have `hidden`
+ * 3. Element does not have `disabled` for non-Ionic components.
+ * 4. Element does not have `disabled` or `disabled="true"` for Ionic components.
+ * Note: We need this distinction because `disabled="false"` is
+ * valid usage for the disabled property on ion-button.
+ */
 
-const focusableQueryString = '[tabindex]:not([tabindex^="-"]), input:not([type=hidden]):not([tabindex^="-"]), textarea:not([tabindex^="-"]), button:not([tabindex^="-"]), select:not([tabindex^="-"]), .ion-focusable:not([tabindex^="-"])';
+
+const focusableQueryString = '[tabindex]:not([tabindex^="-"]):not([hidden]):not([disabled]), input:not([type=hidden]):not([tabindex^="-"]):not([hidden]):not([disabled]), textarea:not([tabindex^="-"]):not([hidden]):not([disabled]), button:not([tabindex^="-"]):not([hidden]):not([disabled]), select:not([tabindex^="-"]):not([hidden]):not([disabled]), .ion-focusable:not([tabindex^="-"]):not([hidden]):not([disabled]), .ion-focusable[disabled="false"]:not([tabindex^="-"]):not([hidden])';
 
 const focusFirstDescendant = (ref, overlay) => {
   let firstInput = ref.querySelector(focusableQueryString);
@@ -18193,7 +18475,7 @@ const focusFirstDescendant = (ref, overlay) => {
   }
 
   if (firstInput) {
-    (0,_helpers_4d272360_js__WEBPACK_IMPORTED_MODULE_3__.f)(firstInput);
+    (0,_helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_3__.f)(firstInput);
   } else {
     // Focus overlay instead of letting focus escape
     overlay.focus();
@@ -18282,7 +18564,7 @@ const trapKeyboardFocus = (ev, doc) => {
        * We do not want to focus the traps, so get the overlay
        * wrapper element as the traps live outside of the wrapper.
        */
-      const overlayRoot = (0,_helpers_4d272360_js__WEBPACK_IMPORTED_MODULE_3__.g)(lastOverlay);
+      const overlayRoot = (0,_helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_3__.g)(lastOverlay);
 
       if (!overlayRoot.contains(target)) {
         return;
@@ -18486,7 +18768,7 @@ const setRootAriaHidden = (hidden = false) => {
 };
 
 const present = /*#__PURE__*/function () {
-  var _ref = (0,C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (overlay, name, iosEnterAnimation, mdEnterAnimation, opts) {
+  var _ref = (0,C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (overlay, name, iosEnterAnimation, mdEnterAnimation, opts) {
     var _a, _b;
 
     if (overlay.presented) {
@@ -18497,9 +18779,9 @@ const present = /*#__PURE__*/function () {
     overlay.presented = true;
     overlay.willPresent.emit();
     (_a = overlay.willPresentShorthand) === null || _a === void 0 ? void 0 : _a.emit();
-    const mode = (0,_ionic_global_04e268e7_js__WEBPACK_IMPORTED_MODULE_1__.b)(overlay); // get the user's animation fn if one was provided
+    const mode = (0,_ionic_global_c95cf239_js__WEBPACK_IMPORTED_MODULE_1__.b)(overlay); // get the user's animation fn if one was provided
 
-    const animationBuilder = overlay.enterAnimation ? overlay.enterAnimation : _ionic_global_04e268e7_js__WEBPACK_IMPORTED_MODULE_1__.c.get(name, mode === 'ios' ? iosEnterAnimation : mdEnterAnimation);
+    const animationBuilder = overlay.enterAnimation ? overlay.enterAnimation : _ionic_global_c95cf239_js__WEBPACK_IMPORTED_MODULE_1__.c.get(name, mode === 'ios' ? iosEnterAnimation : mdEnterAnimation);
     const completed = yield overlayAnimation(overlay, animationBuilder, overlay.el, opts);
 
     if (completed) {
@@ -18549,7 +18831,7 @@ const present = /*#__PURE__*/function () {
 
 
 const focusPreviousElementOnDismiss = /*#__PURE__*/function () {
-  var _ref2 = (0,C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (overlayEl) {
+  var _ref2 = (0,C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (overlayEl) {
     let previousElement = document.activeElement;
 
     if (!previousElement) {
@@ -18573,7 +18855,7 @@ const focusPreviousElementOnDismiss = /*#__PURE__*/function () {
 }();
 
 const dismiss = /*#__PURE__*/function () {
-  var _ref3 = (0,C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (overlay, data, role, name, iosLeaveAnimation, mdLeaveAnimation, opts) {
+  var _ref3 = (0,C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (overlay, data, role, name, iosLeaveAnimation, mdLeaveAnimation, opts) {
     var _a, _b;
 
     if (!overlay.presented) {
@@ -18594,8 +18876,8 @@ const dismiss = /*#__PURE__*/function () {
         data,
         role
       });
-      const mode = (0,_ionic_global_04e268e7_js__WEBPACK_IMPORTED_MODULE_1__.b)(overlay);
-      const animationBuilder = overlay.leaveAnimation ? overlay.leaveAnimation : _ionic_global_04e268e7_js__WEBPACK_IMPORTED_MODULE_1__.c.get(name, mode === 'ios' ? iosLeaveAnimation : mdLeaveAnimation); // If dismissed via gesture, no need to play leaving animation again
+      const mode = (0,_ionic_global_c95cf239_js__WEBPACK_IMPORTED_MODULE_1__.b)(overlay);
+      const animationBuilder = overlay.leaveAnimation ? overlay.leaveAnimation : _ionic_global_c95cf239_js__WEBPACK_IMPORTED_MODULE_1__.c.get(name, mode === 'ios' ? iosLeaveAnimation : mdLeaveAnimation); // If dismissed via gesture, no need to play leaving animation again
 
       if (role !== 'gesture') {
         yield overlayAnimation(overlay, animationBuilder, overlay.el, opts);
@@ -18636,13 +18918,13 @@ const getAppRoot = doc => {
 };
 
 const overlayAnimation = /*#__PURE__*/function () {
-  var _ref4 = (0,C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (overlay, animationBuilder, baseEl, opts) {
+  var _ref4 = (0,C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (overlay, animationBuilder, baseEl, opts) {
     // Make overlay visible in case it's hidden
     baseEl.classList.remove('overlay-hidden');
     const aniRoot = overlay.el;
     const animation = animationBuilder(aniRoot, opts);
 
-    if (!overlay.animated || !_ionic_global_04e268e7_js__WEBPACK_IMPORTED_MODULE_1__.c.getBoolean('animated', true)) {
+    if (!overlay.animated || !_ionic_global_c95cf239_js__WEBPACK_IMPORTED_MODULE_1__.c.getBoolean('animated', true)) {
       animation.duration(0);
     }
 
@@ -18678,11 +18960,11 @@ const eventMethod = (element, eventName) => {
 
 const onceEvent = (element, eventName, callback) => {
   const handler = ev => {
-    (0,_helpers_4d272360_js__WEBPACK_IMPORTED_MODULE_3__.b)(element, eventName, handler);
+    (0,_helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_3__.b)(element, eventName, handler);
     callback(ev);
   };
 
-  (0,_helpers_4d272360_js__WEBPACK_IMPORTED_MODULE_3__.a)(element, eventName, handler);
+  (0,_helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_3__.a)(element, eventName, handler);
 };
 
 const isCancel = role => {
@@ -18701,7 +18983,7 @@ const defaultGate = h => h();
 
 const safeCall = (handler, arg) => {
   if (typeof handler === 'function') {
-    const jmp = _ionic_global_04e268e7_js__WEBPACK_IMPORTED_MODULE_1__.c.get('_zoneGate', defaultGate);
+    const jmp = _ionic_global_c95cf239_js__WEBPACK_IMPORTED_MODULE_1__.c.get('_zoneGate', defaultGate);
     return jmp(() => {
       try {
         return handler(arg);
@@ -18798,7 +19080,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "p": () => (/* binding */ patchBrowser),
 /* harmony export */   "r": () => (/* binding */ registerInstance)
 /* harmony export */ });
-/* harmony import */ var C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
+/* harmony import */ var C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
 
 const NAMESPACE = 'ionicpwaelements';
 let queueCongestion = 0;
@@ -20076,7 +20358,7 @@ const proxyComponent = (Cstr, cmpMeta, flags) => {
 };
 
 const initializeComponent = /*#__PURE__*/function () {
-  var _ref = (0,C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (elm, hostRef, cmpMeta, hmrVersionId, Cstr) {
+  var _ref = (0,C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (elm, hostRef, cmpMeta, hmrVersionId, Cstr) {
     // initializeComponent
     if ((hostRef.$flags$ & 32
     /* hasInitializedComponent */
@@ -24736,7 +25018,7 @@ function __generator(thisArg, body) {
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
             if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
             if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
@@ -24933,6 +25215,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "LowerCasePipe": () => (/* binding */ LowerCasePipe),
 /* harmony export */   "NgClass": () => (/* binding */ NgClass),
 /* harmony export */   "NgComponentOutlet": () => (/* binding */ NgComponentOutlet),
+/* harmony export */   "NgFor": () => (/* binding */ NgForOf),
 /* harmony export */   "NgForOf": () => (/* binding */ NgForOf),
 /* harmony export */   "NgForOfContext": () => (/* binding */ NgForOfContext),
 /* harmony export */   "NgIf": () => (/* binding */ NgIf),
@@ -25009,7 +25292,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ 2560);
 /**
- * @license Angular v14.2.0
+ * @license Angular v14.2.12
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -30864,7 +31147,7 @@ class I18nPluralPipe {
   /**
    * @param value the number to be formatted
    * @param pluralMap an object that mimics the ICU format, see
-   * http://userguide.icu-project.org/formatparse/messages.
+   * https://unicode-org.github.io/icu/userguide/format_parse/messages/.
    * @param locale a `string` defining the locale to use (uses the current {@link LOCALE_ID} by
    * default).
    */
@@ -31749,7 +32032,7 @@ function isPlatformWorkerUi(platformId) {
  */
 
 
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('14.2.0');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('14.2.12');
 /**
  * @license
  * Copyright Google LLC All Rights Reserved.
@@ -32043,9 +32326,9 @@ function assertDevMode(checkName) {
 // Assembles directive details string, useful for error messages.
 
 
-function imgDirectiveDetails(rawSrc, includeRawSrc = true) {
-  const rawSrcInfo = includeRawSrc ? `(activated on an <img> element with the \`rawSrc="${rawSrc}"\`) ` : '';
-  return `The NgOptimizedImage directive ${rawSrcInfo}has detected that`;
+function imgDirectiveDetails(ngSrc, includeNgSrc = true) {
+  const ngSrcInfo = includeNgSrc ? `(activated on an <img> element with the \`ngSrc="${ngSrc}"\`) ` : '';
+  return `The NgOptimizedImage directive ${ngSrcInfo}has detected that`;
 }
 /**
  * @license
@@ -32138,10 +32421,12 @@ const PRECONNECT_CHECK_BLOCKLIST = new _angular_core__WEBPACK_IMPORTED_MODULE_0_
 
 class PreconnectLinkChecker {
   constructor() {
+    this.document = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.inject)(DOCUMENT);
     /**
      * Set of <link rel="preconnect"> tags found on this page.
      * The `null` value indicates that there was no DOM query operation performed.
      */
+
     this.preconnectLinks = null;
     /*
      * Keep track of all already seen origin URLs to avoid repeating the same check.
@@ -32151,7 +32436,7 @@ class PreconnectLinkChecker {
     this.window = null;
     this.blocklist = new Set(INTERNAL_PRECONNECT_CHECK_BLOCKLIST);
     assertDevMode('preconnect link checker');
-    const win = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.inject)(DOCUMENT).defaultView;
+    const win = this.document.defaultView;
 
     if (typeof win !== 'undefined') {
       this.window = win;
@@ -32182,11 +32467,11 @@ class PreconnectLinkChecker {
    * given src.
    *
    * @param rewrittenSrc src formatted with loader
-   * @param rawSrc rawSrc value
+   * @param originalNgSrc ngSrc value
    */
 
 
-  assertPreconnect(rewrittenSrc, rawSrc) {
+  assertPreconnect(rewrittenSrc, originalNgSrc) {
     if (!this.window) return;
     const imgUrl = getUrl(rewrittenSrc, this.window);
     if (this.blocklist.has(imgUrl.hostname) || this.alreadySeen.has(imgUrl.origin)) return; // Register this origin as seen, so we don't check it again later.
@@ -32204,14 +32489,14 @@ class PreconnectLinkChecker {
     if (!this.preconnectLinks.has(imgUrl.origin)) {
       console.warn((0,_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵformatRuntimeError"])(2956
       /* RuntimeErrorCode.PRIORITY_IMG_MISSING_PRECONNECT_TAG */
-      , `${imgDirectiveDetails(rawSrc)} there is no preconnect tag present for this image. ` + `Preconnecting to the origin(s) that serve priority images ensures that these ` + `images are delivered as soon as possible. To fix this, please add the following ` + `element into the <head> of the document:\n` + `  <link rel="preconnect" href="${imgUrl.origin}">`));
+      , `${imgDirectiveDetails(originalNgSrc)} there is no preconnect tag present for this ` + `image. Preconnecting to the origin(s) that serve priority images ensures that these ` + `images are delivered as soon as possible. To fix this, please add the following ` + `element into the <head> of the document:\n` + `  <link rel="preconnect" href="${imgUrl.origin}">`));
     }
   }
 
   queryPreconnectLinks() {
     const preconnectUrls = new Set();
     const selector = 'link[rel=preconnect]';
-    const links = Array.from(document.querySelectorAll(selector));
+    const links = Array.from(this.document.querySelectorAll(selector));
 
     for (let link of links) {
       const url = getUrl(link.href, this.window);
@@ -32354,7 +32639,7 @@ function throwInvalidPathError(path, exampleUrls) {
 function throwUnexpectedAbsoluteUrlError(path, url) {
   throw new _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵRuntimeError"](2959
   /* RuntimeErrorCode.INVALID_LOADER_ARGUMENTS */
-  , ngDevMode && `Image loader has detected a \`<img>\` tag with an invalid \`rawSrc\` attribute: ${url}. ` + `This image loader expects \`rawSrc\` to be a relative URL - ` + `however the provided value is an absolute URL. ` + `To fix this, provide \`rawSrc\` as a path relative to the base URL ` + `configured for this loader (\`${path}\`).`);
+  , ngDevMode && `Image loader has detected a \`<img>\` tag with an invalid \`ngSrc\` attribute: ${url}. ` + `This image loader expects \`ngSrc\` to be a relative URL - ` + `however the provided value is an absolute URL. ` + `To fix this, provide \`ngSrc\` as a path relative to the base URL ` + `configured for this loader (\`${path}\`).`);
 }
 /**
  * @license
@@ -32535,7 +32820,7 @@ function createImgixUrl(path, config) {
 
 class LCPImageObserver {
   constructor() {
-    // Map of full image URLs -> original `rawSrc` values.
+    // Map of full image URLs -> original `ngSrc` values.
     this.images = new Map(); // Keep track of images for which `console.warn` was produced.
 
     this.alreadyWarned = new Set();
@@ -32569,9 +32854,9 @@ class LCPImageObserver {
       const imgSrc = lcpElement.element?.src ?? ''; // Exclude `data:` and `blob:` URLs, since they are not supported by the directive.
 
       if (imgSrc.startsWith('data:') || imgSrc.startsWith('blob:')) return;
-      const imgRawSrc = this.images.get(imgSrc);
+      const imgNgSrc = this.images.get(imgSrc);
 
-      if (imgRawSrc && !this.alreadyWarned.has(imgSrc)) {
+      if (imgNgSrc && !this.alreadyWarned.has(imgSrc)) {
         this.alreadyWarned.add(imgSrc);
         logMissingPriorityWarning(imgSrc);
       }
@@ -32583,9 +32868,9 @@ class LCPImageObserver {
     return observer;
   }
 
-  registerImage(rewrittenSrc, rawSrc) {
+  registerImage(rewrittenSrc, originalNgSrc) {
     if (!this.observer) return;
-    this.images.set(getUrl(rewrittenSrc, this.window).href, rawSrc);
+    this.images.set(getUrl(rewrittenSrc, this.window).href, originalNgSrc);
   }
 
   unregisterImage(rewrittenSrc) {
@@ -32623,8 +32908,8 @@ LCPImageObserver.ɵprov = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_
   }, null);
 })();
 
-function logMissingPriorityWarning(rawSrc) {
-  const directiveDetails = imgDirectiveDetails(rawSrc);
+function logMissingPriorityWarning(ngSrc) {
+  const directiveDetails = imgDirectiveDetails(ngSrc);
   console.warn((0,_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵformatRuntimeError"])(2955
   /* RuntimeErrorCode.LCP_IMG_MISSING_PRIORITY */
   , `${directiveDetails} this image is the Largest Contentful Paint (LCP) ` + `element but was not marked "priority". This image should be marked ` + `"priority" in order to prioritize its loading. ` + `To fix this, add the "priority" attribute.`));
@@ -32706,8 +32991,8 @@ const OVERSIZED_IMAGE_TOLERANCE = 1000;
  * Follow the steps below to enable and use the directive:
  * 1. Import it into the necessary NgModule or a standalone Component.
  * 2. Optionally provide an `ImageLoader` if you use an image hosting service.
- * 3. Update the necessary `<img>` tags in templates and replace `src` attributes with `rawSrc`.
- * Using a `rawSrc` allows the directive to control when the `src` gets set, which triggers an image
+ * 3. Update the necessary `<img>` tags in templates and replace `src` attributes with `ngSrc`.
+ * Using a `ngSrc` allows the directive to control when the `src` gets set, which triggers an image
  * download.
  *
  * Step 1: import the `NgOptimizedImage` directive.
@@ -32733,7 +33018,7 @@ const OVERSIZED_IMAGE_TOLERANCE = 1000;
  *
  * To use the **default loader**: no additional code changes are necessary. The URL returned by the
  * generic loader will always match the value of "src". In other words, this loader applies no
- * transformations to the resource URL and the value of the `rawSrc` attribute will be used as is.
+ * transformations to the resource URL and the value of the `ngSrc` attribute will be used as is.
  *
  * To use an existing loader for a **third-party image service**: add the provider factory for your
  * chosen service to the `providers` array. In the example below, the Imgix loader is used:
@@ -32773,10 +33058,10 @@ const OVERSIZED_IMAGE_TOLERANCE = 1000;
  * ],
  * ```
  *
- * Step 3: update `<img>` tags in templates to use `rawSrc` instead of `src`.
+ * Step 3: update `<img>` tags in templates to use `ngSrc` instead of `src`.
  *
  * ```
- * <img rawSrc="logo.png" width="200" height="100">
+ * <img ngSrc="logo.png" width="200" height="100">
  * ```
  *
  * @publicApi
@@ -32800,6 +33085,25 @@ class NgOptimizedImage {
 
     this._renderedSrc = null;
     this._priority = false;
+  }
+  /**
+   * Previously, the `rawSrc` attribute was used to activate the directive.
+   * The attribute was renamed to `ngSrc` and this input just produces an error,
+   * suggesting to switch to `ngSrc` instead.
+   *
+   * This error should be removed in v15.
+   *
+   * @nodoc
+   * @deprecated Use `ngSrc` instead.
+   */
+
+
+  set rawSrc(value) {
+    if (ngDevMode) {
+      throw new _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵRuntimeError"](2952
+      /* RuntimeErrorCode.INVALID_INPUT */
+      , `${imgDirectiveDetails(value, false)} the \`rawSrc\` attribute was used ` + `to activate the directive. Newer version of the directive uses the \`ngSrc\` ` + `attribute instead. Please replace \`rawSrc\` with \`ngSrc\` and ` + `\`rawSrcset\` with \`ngSrcset\` attributes in the template to ` + `enable image optimizations.`);
+    }
   }
   /**
    * The intrinsic width of the image in pixels.
@@ -32842,8 +33146,8 @@ class NgOptimizedImage {
 
   ngOnInit() {
     if (ngDevMode) {
-      assertNonEmptyInput(this, 'rawSrc', this.rawSrc);
-      assertValidRawSrcset(this, this.rawSrcset);
+      assertNonEmptyInput(this, 'ngSrc', this.ngSrc);
+      assertValidNgSrcset(this, this.ngSrcset);
       assertNoConflictingSrc(this);
       assertNoConflictingSrcset(this);
       assertNotBase64Image(this);
@@ -32854,7 +33158,7 @@ class NgOptimizedImage {
 
       if (this.priority) {
         const checker = this.injector.get(PreconnectLinkChecker);
-        checker.assertPreconnect(this.getRewrittenSrc(), this.rawSrc);
+        checker.assertPreconnect(this.getRewrittenSrc(), this.ngSrc);
       } else {
         // Monitor whether an image is an LCP element only in case
         // the `priority` attribute is missing. Otherwise, an image
@@ -32862,7 +33166,7 @@ class NgOptimizedImage {
         if (this.lcpObserver !== null) {
           const ngZone = this.injector.get(_angular_core__WEBPACK_IMPORTED_MODULE_0__.NgZone);
           ngZone.runOutsideAngular(() => {
-            this.lcpObserver.registerImage(this.getRewrittenSrc(), this.rawSrc);
+            this.lcpObserver.registerImage(this.getRewrittenSrc(), this.ngSrc);
           });
         }
       }
@@ -32882,14 +33186,14 @@ class NgOptimizedImage {
 
     this.setHostAttribute('src', this.getRewrittenSrc());
 
-    if (this.rawSrcset) {
+    if (this.ngSrcset) {
       this.setHostAttribute('srcset', this.getRewrittenSrcset());
     }
   }
 
   ngOnChanges(changes) {
     if (ngDevMode) {
-      assertNoPostInitInputChange(this, changes, ['rawSrc', 'rawSrcset', 'width', 'height', 'priority']);
+      assertNoPostInitInputChange(this, changes, ['ngSrc', 'ngSrcset', 'width', 'height', 'priority']);
     }
   }
 
@@ -32911,7 +33215,7 @@ class NgOptimizedImage {
     // attribute, the image requested may be too small for 2x+ screens.
     if (!this._renderedSrc) {
       const imgConfig = {
-        src: this.rawSrc
+        src: this.ngSrc
       }; // Cache calculated image src to reuse it later in the code.
 
       this._renderedSrc = this.imageLoader(imgConfig);
@@ -32921,12 +33225,12 @@ class NgOptimizedImage {
   }
 
   getRewrittenSrcset() {
-    const widthSrcSet = VALID_WIDTH_DESCRIPTOR_SRCSET.test(this.rawSrcset);
-    const finalSrcs = this.rawSrcset.split(',').filter(src => src !== '').map(srcStr => {
+    const widthSrcSet = VALID_WIDTH_DESCRIPTOR_SRCSET.test(this.ngSrcset);
+    const finalSrcs = this.ngSrcset.split(',').filter(src => src !== '').map(srcStr => {
       srcStr = srcStr.trim();
       const width = widthSrcSet ? parseFloat(srcStr) : parseFloat(srcStr) * this.width;
       return `${this.imageLoader({
-        src: this.rawSrc,
+        src: this.ngSrc,
         width
       })} ${srcStr}`;
     });
@@ -32953,10 +33257,11 @@ NgOptimizedImage.ɵfac = function NgOptimizedImage_Factory(t) {
 
 NgOptimizedImage.ɵdir = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineDirective"]({
   type: NgOptimizedImage,
-  selectors: [["img", "rawSrc", ""]],
+  selectors: [["img", "ngSrc", ""], ["img", "rawSrc", ""]],
   inputs: {
     rawSrc: "rawSrc",
-    rawSrcset: "rawSrcset",
+    ngSrc: "ngSrc",
+    ngSrcset: "ngSrcset",
     width: "width",
     height: "height",
     loading: "loading",
@@ -32973,13 +33278,16 @@ NgOptimizedImage.ɵdir = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0
     type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Directive,
     args: [{
       standalone: true,
-      selector: 'img[rawSrc]'
+      selector: 'img[ngSrc],img[rawSrc]'
     }]
   }], null, {
     rawSrc: [{
       type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Input
     }],
-    rawSrcset: [{
+    ngSrc: [{
+      type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Input
+    }],
+    ngSrcset: [{
       type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Input
     }],
     width: [{
@@ -33031,7 +33339,7 @@ function assertNoConflictingSrc(dir) {
   if (dir.src) {
     throw new _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵRuntimeError"](2950
     /* RuntimeErrorCode.UNEXPECTED_SRC_ATTR */
-    , `${imgDirectiveDetails(dir.rawSrc)} both \`src\` and \`rawSrc\` have been set. ` + `Supplying both of these attributes breaks lazy loading. ` + `The NgOptimizedImage directive sets \`src\` itself based on the value of \`rawSrc\`. ` + `To fix this, please remove the \`src\` attribute.`);
+    , `${imgDirectiveDetails(dir.ngSrc)} both \`src\` and \`ngSrc\` have been set. ` + `Supplying both of these attributes breaks lazy loading. ` + `The NgOptimizedImage directive sets \`src\` itself based on the value of \`ngSrc\`. ` + `To fix this, please remove the \`src\` attribute.`);
   }
 }
 /**
@@ -33043,39 +33351,39 @@ function assertNoConflictingSrcset(dir) {
   if (dir.srcset) {
     throw new _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵRuntimeError"](2951
     /* RuntimeErrorCode.UNEXPECTED_SRCSET_ATTR */
-    , `${imgDirectiveDetails(dir.rawSrc)} both \`srcset\` and \`rawSrcset\` have been set. ` + `Supplying both of these attributes breaks lazy loading. ` + `The NgOptimizedImage directive sets \`srcset\` itself based on the value of ` + `\`rawSrcset\`. To fix this, please remove the \`srcset\` attribute.`);
+    , `${imgDirectiveDetails(dir.ngSrc)} both \`srcset\` and \`ngSrcset\` have been set. ` + `Supplying both of these attributes breaks lazy loading. ` + `The NgOptimizedImage directive sets \`srcset\` itself based on the value of ` + `\`ngSrcset\`. To fix this, please remove the \`srcset\` attribute.`);
   }
 }
 /**
- * Verifies that the `rawSrc` is not a Base64-encoded image.
+ * Verifies that the `ngSrc` is not a Base64-encoded image.
  */
 
 
 function assertNotBase64Image(dir) {
-  let rawSrc = dir.rawSrc.trim();
+  let ngSrc = dir.ngSrc.trim();
 
-  if (rawSrc.startsWith('data:')) {
-    if (rawSrc.length > BASE64_IMG_MAX_LENGTH_IN_ERROR) {
-      rawSrc = rawSrc.substring(0, BASE64_IMG_MAX_LENGTH_IN_ERROR) + '...';
+  if (ngSrc.startsWith('data:')) {
+    if (ngSrc.length > BASE64_IMG_MAX_LENGTH_IN_ERROR) {
+      ngSrc = ngSrc.substring(0, BASE64_IMG_MAX_LENGTH_IN_ERROR) + '...';
     }
 
     throw new _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵRuntimeError"](2952
     /* RuntimeErrorCode.INVALID_INPUT */
-    , `${imgDirectiveDetails(dir.rawSrc, false)} \`rawSrc\` is a Base64-encoded string ` + `(${rawSrc}). NgOptimizedImage does not support Base64-encoded strings. ` + `To fix this, disable the NgOptimizedImage directive for this element ` + `by removing \`rawSrc\` and using a standard \`src\` attribute instead.`);
+    , `${imgDirectiveDetails(dir.ngSrc, false)} \`ngSrc\` is a Base64-encoded string ` + `(${ngSrc}). NgOptimizedImage does not support Base64-encoded strings. ` + `To fix this, disable the NgOptimizedImage directive for this element ` + `by removing \`ngSrc\` and using a standard \`src\` attribute instead.`);
   }
 }
 /**
- * Verifies that the `rawSrc` is not a Blob URL.
+ * Verifies that the `ngSrc` is not a Blob URL.
  */
 
 
 function assertNotBlobUrl(dir) {
-  const rawSrc = dir.rawSrc.trim();
+  const ngSrc = dir.ngSrc.trim();
 
-  if (rawSrc.startsWith('blob:')) {
+  if (ngSrc.startsWith('blob:')) {
     throw new _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵRuntimeError"](2952
     /* RuntimeErrorCode.INVALID_INPUT */
-    , `${imgDirectiveDetails(dir.rawSrc)} \`rawSrc\` was set to a blob URL (${rawSrc}). ` + `Blob URLs are not supported by the NgOptimizedImage directive. ` + `To fix this, disable the NgOptimizedImage directive for this element ` + `by removing \`rawSrc\` and using a regular \`src\` attribute instead.`);
+    , `${imgDirectiveDetails(dir.ngSrc)} \`ngSrc\` was set to a blob URL (${ngSrc}). ` + `Blob URLs are not supported by the NgOptimizedImage directive. ` + `To fix this, disable the NgOptimizedImage directive for this element ` + `by removing \`ngSrc\` and using a regular \`src\` attribute instead.`);
   }
 }
 /**
@@ -33090,17 +33398,17 @@ function assertNonEmptyInput(dir, name, value) {
   if (!isString || isEmptyString) {
     throw new _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵRuntimeError"](2952
     /* RuntimeErrorCode.INVALID_INPUT */
-    , `${imgDirectiveDetails(dir.rawSrc)} \`${name}\` has an invalid value ` + `(\`${value}\`). To fix this, change the value to a non-empty string.`);
+    , `${imgDirectiveDetails(dir.ngSrc)} \`${name}\` has an invalid value ` + `(\`${value}\`). To fix this, change the value to a non-empty string.`);
   }
 }
 /**
- * Verifies that the `rawSrcset` is in a valid format, e.g. "100w, 200w" or "1x, 2x".
+ * Verifies that the `ngSrcset` is in a valid format, e.g. "100w, 200w" or "1x, 2x".
  */
 
 
-function assertValidRawSrcset(dir, value) {
+function assertValidNgSrcset(dir, value) {
   if (value == null) return;
-  assertNonEmptyInput(dir, 'rawSrcset', value);
+  assertNonEmptyInput(dir, 'ngSrcset', value);
   const stringVal = value;
   const isValidWidthDescriptor = VALID_WIDTH_DESCRIPTOR_SRCSET.test(stringVal);
   const isValidDensityDescriptor = VALID_DENSITY_DESCRIPTOR_SRCSET.test(stringVal);
@@ -33114,7 +33422,7 @@ function assertValidRawSrcset(dir, value) {
   if (!isValidSrcset) {
     throw new _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵRuntimeError"](2952
     /* RuntimeErrorCode.INVALID_INPUT */
-    , `${imgDirectiveDetails(dir.rawSrc)} \`rawSrcset\` has an invalid value (\`${value}\`). ` + `To fix this, supply \`rawSrcset\` using a comma-separated list of one or more width ` + `descriptors (e.g. "100w, 200w") or density descriptors (e.g. "1x, 2x").`);
+    , `${imgDirectiveDetails(dir.ngSrc)} \`ngSrcset\` has an invalid value (\`${value}\`). ` + `To fix this, supply \`ngSrcset\` using a comma-separated list of one or more width ` + `descriptors (e.g. "100w, 200w") or density descriptors (e.g. "1x, 2x").`);
   }
 }
 
@@ -33124,7 +33432,7 @@ function assertUnderDensityCap(dir, value) {
   if (!underDensityCap) {
     throw new _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵRuntimeError"](2952
     /* RuntimeErrorCode.INVALID_INPUT */
-    , `${imgDirectiveDetails(dir.rawSrc)} the \`rawSrcset\` contains an unsupported image density:` + `\`${value}\`. NgOptimizedImage generally recommends a max image density of ` + `${RECOMMENDED_SRCSET_DENSITY_CAP}x but supports image densities up to ` + `${ABSOLUTE_SRCSET_DENSITY_CAP}x. The human eye cannot distinguish between image densities ` + `greater than ${RECOMMENDED_SRCSET_DENSITY_CAP}x - which makes them unnecessary for ` + `most use cases. Images that will be pinch-zoomed are typically the primary use case for ` + `${ABSOLUTE_SRCSET_DENSITY_CAP}x images. Please remove the high density descriptor and try again.`);
+    , `${imgDirectiveDetails(dir.ngSrc)} the \`ngSrcset\` contains an unsupported image density:` + `\`${value}\`. NgOptimizedImage generally recommends a max image density of ` + `${RECOMMENDED_SRCSET_DENSITY_CAP}x but supports image densities up to ` + `${ABSOLUTE_SRCSET_DENSITY_CAP}x. The human eye cannot distinguish between image densities ` + `greater than ${RECOMMENDED_SRCSET_DENSITY_CAP}x - which makes them unnecessary for ` + `most use cases. Images that will be pinch-zoomed are typically the primary use case for ` + `${ABSOLUTE_SRCSET_DENSITY_CAP}x images. Please remove the high density descriptor and try again.`);
   }
 }
 /**
@@ -33136,7 +33444,7 @@ function assertUnderDensityCap(dir, value) {
 function postInitInputChangeError(dir, inputName) {
   return new _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵRuntimeError"](2953
   /* RuntimeErrorCode.UNEXPECTED_INPUT_CHANGE */
-  , `${imgDirectiveDetails(dir.rawSrc)} \`${inputName}\` was updated after initialization. ` + `The NgOptimizedImage directive will not react to this input change. ` + `To fix this, switch \`${inputName}\` a static value or wrap the image element ` + `in an *ngIf that is gated on the necessary value.`);
+  , `${imgDirectiveDetails(dir.ngSrc)} \`${inputName}\` was updated after initialization. ` + `The NgOptimizedImage directive will not react to this input change. ` + `To fix this, switch \`${inputName}\` a static value or wrap the image element ` + `in an *ngIf that is gated on the necessary value.`);
 }
 /**
  * Verify that none of the listed inputs has changed.
@@ -33148,13 +33456,13 @@ function assertNoPostInitInputChange(dir, changes, inputs) {
     const isUpdated = changes.hasOwnProperty(input);
 
     if (isUpdated && !changes[input].isFirstChange()) {
-      if (input === 'rawSrc') {
-        // When the `rawSrc` input changes, we detect that only in the
-        // `ngOnChanges` hook, thus the `rawSrc` is already set. We use
-        // `rawSrc` in the error message, so we use a previous value, but
+      if (input === 'ngSrc') {
+        // When the `ngSrc` input changes, we detect that only in the
+        // `ngOnChanges` hook, thus the `ngSrc` is already set. We use
+        // `ngSrc` in the error message, so we use a previous value, but
         // not the updated one in it.
         dir = {
-          rawSrc: changes[input].previousValue
+          ngSrc: changes[input].previousValue
         };
       }
 
@@ -33174,7 +33482,7 @@ function assertGreaterThanZero(dir, inputValue, inputName) {
   if (!validNumber && !validString) {
     throw new _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵRuntimeError"](2952
     /* RuntimeErrorCode.INVALID_INPUT */
-    , `${imgDirectiveDetails(dir.rawSrc)} \`${inputName}\` has an invalid value ` + `(\`${inputValue}\`). To fix this, provide \`${inputName}\` ` + `as a number greater than 0.`);
+    , `${imgDirectiveDetails(dir.ngSrc)} \`${inputName}\` has an invalid value ` + `(\`${inputValue}\`). To fix this, provide \`${inputName}\` ` + `as a number greater than 0.`);
   }
 }
 /**
@@ -33211,13 +33519,13 @@ function assertNoImageDistortion(dir, img, renderer) {
     if (inaccurateDimensions) {
       console.warn((0,_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵformatRuntimeError"])(2952
       /* RuntimeErrorCode.INVALID_INPUT */
-      , `${imgDirectiveDetails(dir.rawSrc)} the aspect ratio of the image does not match ` + `the aspect ratio indicated by the width and height attributes. ` + `Intrinsic image size: ${intrinsicWidth}w x ${intrinsicHeight}h ` + `(aspect-ratio: ${intrinsicAspectRatio}). Supplied width and height attributes: ` + `${suppliedWidth}w x ${suppliedHeight}h (aspect-ratio: ${suppliedAspectRatio}). ` + `To fix this, update the width and height attributes.`));
+      , `${imgDirectiveDetails(dir.ngSrc)} the aspect ratio of the image does not match ` + `the aspect ratio indicated by the width and height attributes. ` + `\nIntrinsic image size: ${intrinsicWidth}w x ${intrinsicHeight}h ` + `(aspect-ratio: ${intrinsicAspectRatio}). \nSupplied width and height attributes: ` + `${suppliedWidth}w x ${suppliedHeight}h (aspect-ratio: ${suppliedAspectRatio}). ` + `\nTo fix this, update the width and height attributes.`));
     } else if (stylingDistortion) {
       console.warn((0,_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵformatRuntimeError"])(2952
       /* RuntimeErrorCode.INVALID_INPUT */
-      , `${imgDirectiveDetails(dir.rawSrc)} the aspect ratio of the rendered image ` + `does not match the image's intrinsic aspect ratio. ` + `Intrinsic image size: ${intrinsicWidth}w x ${intrinsicHeight}h ` + `(aspect-ratio: ${intrinsicAspectRatio}). Rendered image size: ` + `${renderedWidth}w x ${renderedHeight}h (aspect-ratio: ` + `${renderedAspectRatio}). This issue can occur if "width" and "height" ` + `attributes are added to an image without updating the corresponding ` + `image styling. To fix this, adjust image styling. In most cases, ` + `adding "height: auto" or "width: auto" to the image styling will fix ` + `this issue.`));
-    } else if (!dir.rawSrcset && nonZeroRenderedDimensions) {
-      // If `rawSrcset` hasn't been set, sanity check the intrinsic size.
+      , `${imgDirectiveDetails(dir.ngSrc)} the aspect ratio of the rendered image ` + `does not match the image's intrinsic aspect ratio. ` + `\nIntrinsic image size: ${intrinsicWidth}w x ${intrinsicHeight}h ` + `(aspect-ratio: ${intrinsicAspectRatio}). \nRendered image size: ` + `${renderedWidth}w x ${renderedHeight}h (aspect-ratio: ` + `${renderedAspectRatio}). \nThis issue can occur if "width" and "height" ` + `attributes are added to an image without updating the corresponding ` + `image styling. To fix this, adjust image styling. In most cases, ` + `adding "height: auto" or "width: auto" to the image styling will fix ` + `this issue.`));
+    } else if (!dir.ngSrcset && nonZeroRenderedDimensions) {
+      // If `ngSrcset` hasn't been set, sanity check the intrinsic size.
       const recommendedWidth = RECOMMENDED_SRCSET_DENSITY_CAP * renderedWidth;
       const recommendedHeight = RECOMMENDED_SRCSET_DENSITY_CAP * renderedHeight;
       const oversizedWidth = intrinsicWidth - recommendedWidth >= OVERSIZED_IMAGE_TOLERANCE;
@@ -33226,7 +33534,7 @@ function assertNoImageDistortion(dir, img, renderer) {
       if (oversizedWidth || oversizedHeight) {
         console.warn((0,_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵformatRuntimeError"])(2960
         /* RuntimeErrorCode.OVERSIZED_IMAGE */
-        , `${imgDirectiveDetails(dir.rawSrc)} the intrinsic image is significantly ` + `larger than necessary. ` + `\nRendered image size: ${renderedWidth}w x ${renderedHeight}h. ` + `\nIntrinsic image size: ${intrinsicWidth}w x ${intrinsicHeight}h. ` + `\nRecommended intrinsic image size: ${recommendedWidth}w x ${recommendedHeight}h. ` + `\nNote: Recommended intrinsic image size is calculated assuming a maximum DPR of ` + `${RECOMMENDED_SRCSET_DENSITY_CAP}. To improve loading time, resize the image ` + `or consider using the "rawSrcset" and "sizes" attributes.`));
+        , `${imgDirectiveDetails(dir.ngSrc)} the intrinsic image is significantly ` + `larger than necessary. ` + `\nRendered image size: ${renderedWidth}w x ${renderedHeight}h. ` + `\nIntrinsic image size: ${intrinsicWidth}w x ${intrinsicHeight}h. ` + `\nRecommended intrinsic image size: ${recommendedWidth}w x ${recommendedHeight}h. ` + `\nNote: Recommended intrinsic image size is calculated assuming a maximum DPR of ` + `${RECOMMENDED_SRCSET_DENSITY_CAP}. To improve loading time, resize the image ` + `or consider using the "ngSrcset" and "sizes" attributes.`));
       }
     }
   });
@@ -33244,7 +33552,7 @@ function assertNonEmptyWidthAndHeight(dir) {
   if (missingAttributes.length > 0) {
     throw new _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵRuntimeError"](2954
     /* RuntimeErrorCode.REQUIRED_INPUT_MISSING */
-    , `${imgDirectiveDetails(dir.rawSrc)} these required attributes ` + `are missing: ${missingAttributes.map(attr => `"${attr}"`).join(', ')}. ` + `Including "width" and "height" attributes will prevent image-related layout shifts. ` + `To fix this, include "width" and "height" attributes on the image tag.`);
+    , `${imgDirectiveDetails(dir.ngSrc)} these required attributes ` + `are missing: ${missingAttributes.map(attr => `"${attr}"`).join(', ')}. ` + `Including "width" and "height" attributes will prevent image-related layout shifts. ` + `To fix this, include "width" and "height" attributes on the image tag.`);
   }
 }
 /**
@@ -33257,7 +33565,7 @@ function assertValidLoadingInput(dir) {
   if (dir.loading && dir.priority) {
     throw new _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵRuntimeError"](2952
     /* RuntimeErrorCode.INVALID_INPUT */
-    , `${imgDirectiveDetails(dir.rawSrc)} the \`loading\` attribute ` + `was used on an image that was marked "priority". ` + `Setting \`loading\` on priority images is not allowed ` + `because these images will always be eagerly loaded. ` + `To fix this, remove the “loading” attribute from the priority image.`);
+    , `${imgDirectiveDetails(dir.ngSrc)} the \`loading\` attribute ` + `was used on an image that was marked "priority". ` + `Setting \`loading\` on priority images is not allowed ` + `because these images will always be eagerly loaded. ` + `To fix this, remove the “loading” attribute from the priority image.`);
   }
 
   const validInputs = ['auto', 'eager', 'lazy'];
@@ -33265,7 +33573,7 @@ function assertValidLoadingInput(dir) {
   if (typeof dir.loading === 'string' && !validInputs.includes(dir.loading)) {
     throw new _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵRuntimeError"](2952
     /* RuntimeErrorCode.INVALID_INPUT */
-    , `${imgDirectiveDetails(dir.rawSrc)} the \`loading\` attribute ` + `has an invalid value (\`${dir.loading}\`). ` + `To fix this, provide a valid value ("lazy", "eager", or "auto").`);
+    , `${imgDirectiveDetails(dir.ngSrc)} the \`loading\` attribute ` + `has an invalid value (\`${dir.loading}\`). ` + `To fix this, provide a valid value ("lazy", "eager", or "auto").`);
   }
 }
 /**
@@ -33351,7 +33659,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ 9151);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ 6942);
 /**
- * @license Angular v14.2.0
+ * @license Angular v14.2.12
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -36392,7 +36700,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "visitAll": () => (/* binding */ visitAll)
 /* harmony export */ });
 /**
- * @license Angular v14.2.0
+ * @license Angular v14.2.12
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -40552,6 +40860,10 @@ Identifiers.trustConstantHtml = {
 };
 Identifiers.trustConstantResourceUrl = {
   name: 'ɵɵtrustConstantResourceUrl',
+  moduleName: CORE
+};
+Identifiers.validateIframeAttribute = {
+  name: 'ɵɵvalidateIframeAttribute',
   moduleName: CORE
 };
 /**
@@ -46344,6 +46656,68 @@ class BuiltinFunctionCall extends Call {
     this.converter = converter;
   }
 
+}
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+// =================================================================================================
+// =================================================================================================
+// =========== S T O P   -  S T O P   -  S T O P   -  S T O P   -  S T O P   -  S T O P  ===========
+// =================================================================================================
+// =================================================================================================
+//
+//        DO NOT EDIT THIS LIST OF SECURITY SENSITIVE PROPERTIES WITHOUT A SECURITY REVIEW!
+//                               Reach out to mprobst for details.
+//
+// =================================================================================================
+
+/** Map from tagName|propertyName to SecurityContext. Properties applying to all tags use '*'. */
+
+
+let _SECURITY_SCHEMA;
+
+function SECURITY_SCHEMA() {
+  if (!_SECURITY_SCHEMA) {
+    _SECURITY_SCHEMA = {}; // Case is insignificant below, all element and attribute names are lower-cased for lookup.
+
+    registerContext(SecurityContext.HTML, ['iframe|srcdoc', '*|innerHTML', '*|outerHTML']);
+    registerContext(SecurityContext.STYLE, ['*|style']); // NB: no SCRIPT contexts here, they are never allowed due to the parser stripping them.
+
+    registerContext(SecurityContext.URL, ['*|formAction', 'area|href', 'area|ping', 'audio|src', 'a|href', 'a|ping', 'blockquote|cite', 'body|background', 'del|cite', 'form|action', 'img|src', 'input|src', 'ins|cite', 'q|cite', 'source|src', 'track|src', 'video|poster', 'video|src']);
+    registerContext(SecurityContext.RESOURCE_URL, ['applet|code', 'applet|codebase', 'base|href', 'embed|src', 'frame|src', 'head|profile', 'html|manifest', 'iframe|src', 'link|href', 'media|src', 'object|codebase', 'object|data', 'script|src']);
+  }
+
+  return _SECURITY_SCHEMA;
+}
+
+function registerContext(ctx, specs) {
+  for (const spec of specs) _SECURITY_SCHEMA[spec.toLowerCase()] = ctx;
+}
+/**
+ * The set of security-sensitive attributes of an `<iframe>` that *must* be
+ * applied as a static attribute only. This ensures that all security-sensitive
+ * attributes are taken into account while creating an instance of an `<iframe>`
+ * at runtime.
+ *
+ * Note: avoid using this set directly, use the `isIframeSecuritySensitiveAttr` function
+ * in the code instead.
+ */
+
+
+const IFRAME_SECURITY_SENSITIVE_ATTRS = new Set(['sandbox', 'allow', 'allowfullscreen', 'referrerpolicy', 'csp', 'fetchpriority']);
+/**
+ * Checks whether a given attribute name might represent a security-sensitive
+ * attribute of an <iframe>.
+ */
+
+function isIframeSecuritySensitiveAttr(attrName) {
+  // The `setAttribute` DOM API is case-insensitive, so we lowercase the value
+  // before checking it against a known security-sensitive attributes.
+  return IFRAME_SECURITY_SENSITIVE_ATTRS.has(attrName.toLowerCase());
 }
 /**
  * @license
@@ -54353,46 +54727,6 @@ function mapLiteral(obj, quoted = false) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-// =================================================================================================
-// =================================================================================================
-// =========== S T O P   -  S T O P   -  S T O P   -  S T O P   -  S T O P   -  S T O P  ===========
-// =================================================================================================
-// =================================================================================================
-//
-//        DO NOT EDIT THIS LIST OF SECURITY SENSITIVE PROPERTIES WITHOUT A SECURITY REVIEW!
-//                               Reach out to mprobst for details.
-//
-// =================================================================================================
-
-/** Map from tagName|propertyName to SecurityContext. Properties applying to all tags use '*'. */
-
-
-let _SECURITY_SCHEMA;
-
-function SECURITY_SCHEMA() {
-  if (!_SECURITY_SCHEMA) {
-    _SECURITY_SCHEMA = {}; // Case is insignificant below, all element and attribute names are lower-cased for lookup.
-
-    registerContext(SecurityContext.HTML, ['iframe|srcdoc', '*|innerHTML', '*|outerHTML']);
-    registerContext(SecurityContext.STYLE, ['*|style']); // NB: no SCRIPT contexts here, they are never allowed due to the parser stripping them.
-
-    registerContext(SecurityContext.URL, ['*|formAction', 'area|href', 'area|ping', 'audio|src', 'a|href', 'a|ping', 'blockquote|cite', 'body|background', 'del|cite', 'form|action', 'img|src', 'img|srcset', 'input|src', 'ins|cite', 'q|cite', 'source|src', 'source|srcset', 'track|src', 'video|poster', 'video|src']);
-    registerContext(SecurityContext.RESOURCE_URL, ['applet|code', 'applet|codebase', 'base|href', 'embed|src', 'frame|src', 'head|profile', 'html|manifest', 'iframe|src', 'link|href', 'media|src', 'object|codebase', 'object|data', 'script|src']);
-  }
-
-  return _SECURITY_SCHEMA;
-}
-
-function registerContext(ctx, specs) {
-  for (const spec of specs) _SECURITY_SCHEMA[spec.toLowerCase()] = ctx;
-}
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 
 class ElementSchemaRegistry {}
@@ -54468,46 +54802,49 @@ const OBJECT = 'object';
 const SCHEMA = ['[Element]|textContent,%classList,className,id,innerHTML,*beforecopy,*beforecut,*beforepaste,*copy,*cut,*paste,*search,*selectstart,*webkitfullscreenchange,*webkitfullscreenerror,*wheel,outerHTML,#scrollLeft,#scrollTop,slot' +
 /* added manually to avoid breaking changes */
 ',*message,*mozfullscreenchange,*mozfullscreenerror,*mozpointerlockchange,*mozpointerlockerror,*webglcontextcreationerror,*webglcontextlost,*webglcontextrestored', '[HTMLElement]^[Element]|accessKey,contentEditable,dir,!draggable,!hidden,innerText,lang,*abort,*auxclick,*blur,*cancel,*canplay,*canplaythrough,*change,*click,*close,*contextmenu,*cuechange,*dblclick,*drag,*dragend,*dragenter,*dragleave,*dragover,*dragstart,*drop,*durationchange,*emptied,*ended,*error,*focus,*gotpointercapture,*input,*invalid,*keydown,*keypress,*keyup,*load,*loadeddata,*loadedmetadata,*loadstart,*lostpointercapture,*mousedown,*mouseenter,*mouseleave,*mousemove,*mouseout,*mouseover,*mouseup,*mousewheel,*pause,*play,*playing,*pointercancel,*pointerdown,*pointerenter,*pointerleave,*pointermove,*pointerout,*pointerover,*pointerup,*progress,*ratechange,*reset,*resize,*scroll,*seeked,*seeking,*select,*show,*stalled,*submit,*suspend,*timeupdate,*toggle,*volumechange,*waiting,outerText,!spellcheck,%style,#tabIndex,title,!translate', 'abbr,address,article,aside,b,bdi,bdo,cite,code,dd,dfn,dt,em,figcaption,figure,footer,header,i,kbd,main,mark,nav,noscript,rb,rp,rt,rtc,ruby,s,samp,section,small,strong,sub,sup,u,var,wbr^[HTMLElement]|accessKey,contentEditable,dir,!draggable,!hidden,innerText,lang,*abort,*auxclick,*blur,*cancel,*canplay,*canplaythrough,*change,*click,*close,*contextmenu,*cuechange,*dblclick,*drag,*dragend,*dragenter,*dragleave,*dragover,*dragstart,*drop,*durationchange,*emptied,*ended,*error,*focus,*gotpointercapture,*input,*invalid,*keydown,*keypress,*keyup,*load,*loadeddata,*loadedmetadata,*loadstart,*lostpointercapture,*mousedown,*mouseenter,*mouseleave,*mousemove,*mouseout,*mouseover,*mouseup,*mousewheel,*pause,*play,*playing,*pointercancel,*pointerdown,*pointerenter,*pointerleave,*pointermove,*pointerout,*pointerover,*pointerup,*progress,*ratechange,*reset,*resize,*scroll,*seeked,*seeking,*select,*show,*stalled,*submit,*suspend,*timeupdate,*toggle,*volumechange,*waiting,outerText,!spellcheck,%style,#tabIndex,title,!translate', 'media^[HTMLElement]|!autoplay,!controls,%controlsList,%crossOrigin,#currentTime,!defaultMuted,#defaultPlaybackRate,!disableRemotePlayback,!loop,!muted,*encrypted,*waitingforkey,#playbackRate,preload,src,%srcObject,#volume', ':svg:^[HTMLElement]|*abort,*auxclick,*blur,*cancel,*canplay,*canplaythrough,*change,*click,*close,*contextmenu,*cuechange,*dblclick,*drag,*dragend,*dragenter,*dragleave,*dragover,*dragstart,*drop,*durationchange,*emptied,*ended,*error,*focus,*gotpointercapture,*input,*invalid,*keydown,*keypress,*keyup,*load,*loadeddata,*loadedmetadata,*loadstart,*lostpointercapture,*mousedown,*mouseenter,*mouseleave,*mousemove,*mouseout,*mouseover,*mouseup,*mousewheel,*pause,*play,*playing,*pointercancel,*pointerdown,*pointerenter,*pointerleave,*pointermove,*pointerout,*pointerover,*pointerup,*progress,*ratechange,*reset,*resize,*scroll,*seeked,*seeking,*select,*show,*stalled,*submit,*suspend,*timeupdate,*toggle,*volumechange,*waiting,%style,#tabIndex', ':svg:graphics^:svg:|', ':svg:animation^:svg:|*begin,*end,*repeat', ':svg:geometry^:svg:|', ':svg:componentTransferFunction^:svg:|', ':svg:gradient^:svg:|', ':svg:textContent^:svg:graphics|', ':svg:textPositioning^:svg:textContent|', 'a^[HTMLElement]|charset,coords,download,hash,host,hostname,href,hreflang,name,password,pathname,ping,port,protocol,referrerPolicy,rel,rev,search,shape,target,text,type,username', 'area^[HTMLElement]|alt,coords,download,hash,host,hostname,href,!noHref,password,pathname,ping,port,protocol,referrerPolicy,rel,search,shape,target,username', 'audio^media|', 'br^[HTMLElement]|clear', 'base^[HTMLElement]|href,target', 'body^[HTMLElement]|aLink,background,bgColor,link,*beforeunload,*blur,*error,*focus,*hashchange,*languagechange,*load,*message,*offline,*online,*pagehide,*pageshow,*popstate,*rejectionhandled,*resize,*scroll,*storage,*unhandledrejection,*unload,text,vLink', 'button^[HTMLElement]|!autofocus,!disabled,formAction,formEnctype,formMethod,!formNoValidate,formTarget,name,type,value', 'canvas^[HTMLElement]|#height,#width', 'content^[HTMLElement]|select', 'dl^[HTMLElement]|!compact', 'datalist^[HTMLElement]|', 'details^[HTMLElement]|!open', 'dialog^[HTMLElement]|!open,returnValue', 'dir^[HTMLElement]|!compact', 'div^[HTMLElement]|align', 'embed^[HTMLElement]|align,height,name,src,type,width', 'fieldset^[HTMLElement]|!disabled,name', 'font^[HTMLElement]|color,face,size', 'form^[HTMLElement]|acceptCharset,action,autocomplete,encoding,enctype,method,name,!noValidate,target', 'frame^[HTMLElement]|frameBorder,longDesc,marginHeight,marginWidth,name,!noResize,scrolling,src', 'frameset^[HTMLElement]|cols,*beforeunload,*blur,*error,*focus,*hashchange,*languagechange,*load,*message,*offline,*online,*pagehide,*pageshow,*popstate,*rejectionhandled,*resize,*scroll,*storage,*unhandledrejection,*unload,rows', 'hr^[HTMLElement]|align,color,!noShade,size,width', 'head^[HTMLElement]|', 'h1,h2,h3,h4,h5,h6^[HTMLElement]|align', 'html^[HTMLElement]|version', 'iframe^[HTMLElement]|align,!allowFullscreen,frameBorder,height,longDesc,marginHeight,marginWidth,name,referrerPolicy,%sandbox,scrolling,src,srcdoc,width', 'img^[HTMLElement]|align,alt,border,%crossOrigin,#height,#hspace,!isMap,longDesc,lowsrc,name,referrerPolicy,sizes,src,srcset,useMap,#vspace,#width', 'input^[HTMLElement]|accept,align,alt,autocapitalize,autocomplete,!autofocus,!checked,!defaultChecked,defaultValue,dirName,!disabled,%files,formAction,formEnctype,formMethod,!formNoValidate,formTarget,#height,!incremental,!indeterminate,max,#maxLength,min,#minLength,!multiple,name,pattern,placeholder,!readOnly,!required,selectionDirection,#selectionEnd,#selectionStart,#size,src,step,type,useMap,value,%valueAsDate,#valueAsNumber,#width', 'li^[HTMLElement]|type,#value', 'label^[HTMLElement]|htmlFor', 'legend^[HTMLElement]|align', 'link^[HTMLElement]|as,charset,%crossOrigin,!disabled,href,hreflang,integrity,media,referrerPolicy,rel,%relList,rev,%sizes,target,type', 'map^[HTMLElement]|name', 'marquee^[HTMLElement]|behavior,bgColor,direction,height,#hspace,#loop,#scrollAmount,#scrollDelay,!trueSpeed,#vspace,width', 'menu^[HTMLElement]|!compact', 'meta^[HTMLElement]|content,httpEquiv,name,scheme', 'meter^[HTMLElement]|#high,#low,#max,#min,#optimum,#value', 'ins,del^[HTMLElement]|cite,dateTime', 'ol^[HTMLElement]|!compact,!reversed,#start,type', 'object^[HTMLElement]|align,archive,border,code,codeBase,codeType,data,!declare,height,#hspace,name,standby,type,useMap,#vspace,width', 'optgroup^[HTMLElement]|!disabled,label', 'option^[HTMLElement]|!defaultSelected,!disabled,label,!selected,text,value', 'output^[HTMLElement]|defaultValue,%htmlFor,name,value', 'p^[HTMLElement]|align', 'param^[HTMLElement]|name,type,value,valueType', 'picture^[HTMLElement]|', 'pre^[HTMLElement]|#width', 'progress^[HTMLElement]|#max,#value', 'q,blockquote,cite^[HTMLElement]|', 'script^[HTMLElement]|!async,charset,%crossOrigin,!defer,event,htmlFor,integrity,src,text,type', 'select^[HTMLElement]|autocomplete,!autofocus,!disabled,#length,!multiple,name,!required,#selectedIndex,#size,value', 'shadow^[HTMLElement]|', 'slot^[HTMLElement]|name', 'source^[HTMLElement]|media,sizes,src,srcset,type', 'span^[HTMLElement]|', 'style^[HTMLElement]|!disabled,media,type', 'caption^[HTMLElement]|align', 'th,td^[HTMLElement]|abbr,align,axis,bgColor,ch,chOff,#colSpan,headers,height,!noWrap,#rowSpan,scope,vAlign,width', 'col,colgroup^[HTMLElement]|align,ch,chOff,#span,vAlign,width', 'table^[HTMLElement]|align,bgColor,border,%caption,cellPadding,cellSpacing,frame,rules,summary,%tFoot,%tHead,width', 'tr^[HTMLElement]|align,bgColor,ch,chOff,vAlign', 'tfoot,thead,tbody^[HTMLElement]|align,ch,chOff,vAlign', 'template^[HTMLElement]|', 'textarea^[HTMLElement]|autocapitalize,autocomplete,!autofocus,#cols,defaultValue,dirName,!disabled,#maxLength,#minLength,name,placeholder,!readOnly,!required,#rows,selectionDirection,#selectionEnd,#selectionStart,value,wrap', 'title^[HTMLElement]|text', 'track^[HTMLElement]|!default,kind,label,src,srclang', 'ul^[HTMLElement]|!compact,type', 'unknown^[HTMLElement]|', 'video^media|#height,poster,#width', ':svg:a^:svg:graphics|', ':svg:animate^:svg:animation|', ':svg:animateMotion^:svg:animation|', ':svg:animateTransform^:svg:animation|', ':svg:circle^:svg:geometry|', ':svg:clipPath^:svg:graphics|', ':svg:defs^:svg:graphics|', ':svg:desc^:svg:|', ':svg:discard^:svg:|', ':svg:ellipse^:svg:geometry|', ':svg:feBlend^:svg:|', ':svg:feColorMatrix^:svg:|', ':svg:feComponentTransfer^:svg:|', ':svg:feComposite^:svg:|', ':svg:feConvolveMatrix^:svg:|', ':svg:feDiffuseLighting^:svg:|', ':svg:feDisplacementMap^:svg:|', ':svg:feDistantLight^:svg:|', ':svg:feDropShadow^:svg:|', ':svg:feFlood^:svg:|', ':svg:feFuncA^:svg:componentTransferFunction|', ':svg:feFuncB^:svg:componentTransferFunction|', ':svg:feFuncG^:svg:componentTransferFunction|', ':svg:feFuncR^:svg:componentTransferFunction|', ':svg:feGaussianBlur^:svg:|', ':svg:feImage^:svg:|', ':svg:feMerge^:svg:|', ':svg:feMergeNode^:svg:|', ':svg:feMorphology^:svg:|', ':svg:feOffset^:svg:|', ':svg:fePointLight^:svg:|', ':svg:feSpecularLighting^:svg:|', ':svg:feSpotLight^:svg:|', ':svg:feTile^:svg:|', ':svg:feTurbulence^:svg:|', ':svg:filter^:svg:|', ':svg:foreignObject^:svg:graphics|', ':svg:g^:svg:graphics|', ':svg:image^:svg:graphics|', ':svg:line^:svg:geometry|', ':svg:linearGradient^:svg:gradient|', ':svg:mpath^:svg:|', ':svg:marker^:svg:|', ':svg:mask^:svg:|', ':svg:metadata^:svg:|', ':svg:path^:svg:geometry|', ':svg:pattern^:svg:|', ':svg:polygon^:svg:geometry|', ':svg:polyline^:svg:geometry|', ':svg:radialGradient^:svg:gradient|', ':svg:rect^:svg:geometry|', ':svg:svg^:svg:graphics|#currentScale,#zoomAndPan', ':svg:script^:svg:|type', ':svg:set^:svg:animation|', ':svg:stop^:svg:|', ':svg:style^:svg:|!disabled,media,title,type', ':svg:switch^:svg:graphics|', ':svg:symbol^:svg:|', ':svg:tspan^:svg:textPositioning|', ':svg:text^:svg:textPositioning|', ':svg:textPath^:svg:textContent|', ':svg:title^:svg:|', ':svg:use^:svg:graphics|', ':svg:view^:svg:|#zoomAndPan', 'data^[HTMLElement]|value', 'keygen^[HTMLElement]|!autofocus,challenge,!disabled,form,keytype,name', 'menuitem^[HTMLElement]|type,label,icon,!disabled,!checked,radiogroup,!default', 'summary^[HTMLElement]|', 'time^[HTMLElement]|dateTime', ':svg:cursor^:svg:|'];
-const _ATTR_TO_PROP = {
+
+const _ATTR_TO_PROP = new Map(Object.entries({
   'class': 'className',
   'for': 'htmlFor',
   'formaction': 'formAction',
   'innerHtml': 'innerHTML',
   'readonly': 'readOnly',
   'tabindex': 'tabIndex'
-}; // Invert _ATTR_TO_PROP.
+})); // Invert _ATTR_TO_PROP.
 
-const _PROP_TO_ATTR = Object.keys(_ATTR_TO_PROP).reduce((inverted, attr) => {
-  inverted[_ATTR_TO_PROP[attr]] = attr;
+
+const _PROP_TO_ATTR = Array.from(_ATTR_TO_PROP).reduce((inverted, [propertyName, attributeName]) => {
+  inverted.set(propertyName, attributeName);
   return inverted;
-}, {});
+}, new Map());
 
 class DomElementSchemaRegistry extends ElementSchemaRegistry {
   constructor() {
     super();
-    this._schema = {}; // We don't allow binding to events for security reasons. Allowing event bindings would almost
+    this._schema = new Map(); // We don't allow binding to events for security reasons. Allowing event bindings would almost
     // certainly introduce bad XSS vulnerabilities. Instead, we store events in a separate schema.
 
-    this._eventSchema = {};
+    this._eventSchema = new Map();
     SCHEMA.forEach(encodedType => {
-      const type = {};
+      const type = new Map();
       const events = new Set();
       const [strType, strProperties] = encodedType.split('|');
       const properties = strProperties.split(',');
       const [typeNames, superName] = strType.split('^');
       typeNames.split(',').forEach(tag => {
-        this._schema[tag.toLowerCase()] = type;
-        this._eventSchema[tag.toLowerCase()] = events;
+        this._schema.set(tag.toLowerCase(), type);
+
+        this._eventSchema.set(tag.toLowerCase(), events);
       });
 
-      const superType = superName && this._schema[superName.toLowerCase()];
+      const superType = superName && this._schema.get(superName.toLowerCase());
 
       if (superType) {
-        Object.keys(superType).forEach(prop => {
-          type[prop] = superType[prop];
-        });
+        for (const [prop, value] of superType) {
+          type.set(prop, value);
+        }
 
-        for (const superEvent of this._eventSchema[superName.toLowerCase()]) {
+        for (const superEvent of this._eventSchema.get(superName.toLowerCase())) {
           events.add(superEvent);
         }
       }
@@ -54520,19 +54857,19 @@ class DomElementSchemaRegistry extends ElementSchemaRegistry {
               break;
 
             case '!':
-              type[property.substring(1)] = BOOLEAN;
+              type.set(property.substring(1), BOOLEAN);
               break;
 
             case '#':
-              type[property.substring(1)] = NUMBER;
+              type.set(property.substring(1), NUMBER);
               break;
 
             case '%':
-              type[property.substring(1)] = OBJECT;
+              type.set(property.substring(1), OBJECT);
               break;
 
             default:
-              type[property] = STRING;
+              type.set(property, STRING);
           }
         }
       });
@@ -54556,9 +54893,9 @@ class DomElementSchemaRegistry extends ElementSchemaRegistry {
       }
     }
 
-    const elementProperties = this._schema[tagName.toLowerCase()] || this._schema['unknown'];
+    const elementProperties = this._schema.get(tagName.toLowerCase()) || this._schema.get('unknown');
 
-    return !!elementProperties[propName];
+    return elementProperties.has(propName);
   }
 
   hasElement(tagName, schemaMetas) {
@@ -54577,7 +54914,7 @@ class DomElementSchemaRegistry extends ElementSchemaRegistry {
       }
     }
 
-    return !!this._schema[tagName.toLowerCase()];
+    return this._schema.has(tagName.toLowerCase());
   }
   /**
    * securityContext returns the security context for the given property on the given DOM tag.
@@ -54612,7 +54949,7 @@ class DomElementSchemaRegistry extends ElementSchemaRegistry {
   }
 
   getMappedPropName(propName) {
-    return _ATTR_TO_PROP[propName] || propName;
+    return _ATTR_TO_PROP.get(propName) ?? propName;
   }
 
   getDefaultComponentElementName() {
@@ -54648,18 +54985,18 @@ class DomElementSchemaRegistry extends ElementSchemaRegistry {
   }
 
   allKnownElementNames() {
-    return Object.keys(this._schema);
+    return Array.from(this._schema.keys());
   }
 
   allKnownAttributesOfElement(tagName) {
-    const elementProperties = this._schema[tagName.toLowerCase()] || this._schema['unknown']; // Convert properties to attributes.
+    const elementProperties = this._schema.get(tagName.toLowerCase()) || this._schema.get('unknown'); // Convert properties to attributes.
 
 
-    return Object.keys(elementProperties).map(prop => _PROP_TO_ATTR[prop] ?? prop);
+    return Array.from(elementProperties.keys()).map(prop => _PROP_TO_ATTR.get(prop) ?? prop);
   }
 
   allKnownEventsOfElement(tagName) {
-    return Array.from(this._eventSchema[tagName.toLowerCase()] ?? []);
+    return Array.from(this._eventSchema.get(tagName.toLowerCase()) ?? []);
   }
 
   normalizeAnimationStyleProperty(propName) {
@@ -57844,8 +58181,21 @@ class TemplateDefinitionBuilder {
           const isAttributeBinding = inputType === 1
           /* BindingType.Attribute */
           ;
-          const sanitizationRef = resolveSanitizationFn(input.securityContext, isAttributeBinding);
-          if (sanitizationRef) params.push(sanitizationRef);
+          let sanitizationRef = resolveSanitizationFn(input.securityContext, isAttributeBinding);
+
+          if (!sanitizationRef) {
+            // If there was no sanitization function found based on the security context
+            // of an attribute/property - check whether this attribute/property is
+            // one of the security-sensitive <iframe> attributes (and that the current
+            // element is actually an <iframe>).
+            if (isIframeElement(element.name) && isIframeSecuritySensitiveAttr(input.name)) {
+              sanitizationRef = importExpr(Identifiers.validateIframeAttribute);
+            }
+          }
+
+          if (sanitizationRef) {
+            params.push(sanitizationRef);
+          }
 
           if (attrNamespace) {
             const namespaceLiteral = literal(attrNamespace);
@@ -59165,6 +59515,10 @@ function isTextNode(node) {
   return node instanceof Text$3 || node instanceof BoundText || node instanceof Icu$1;
 }
 
+function isIframeElement(tagName) {
+  return tagName.toLowerCase() === 'iframe';
+}
+
 function hasTextChildrenOnly(children) {
   return children.every(isTextNode);
 }
@@ -59743,6 +60097,19 @@ function createHostBindingsFunction(hostBindingsMetadata, typeSourceSpan, bindin
 
     if (sanitizerFn) {
       instructionParams.push(sanitizerFn);
+    } else {
+      // If there was no sanitization function found based on the security context
+      // of an attribute/property binding - check whether this attribute/property is
+      // one of the security-sensitive <iframe> attributes.
+      // Note: for host bindings defined on a directive, we do not try to find all
+      // possible places where it can be matched, so we can not determine whether
+      // the host element is an <iframe>. In this case, if an attribute/binding
+      // name is in the `IFRAME_SECURITY_SENSITIVE_ATTRS` set - append a validation
+      // function, which would be invoked at runtime and would have access to the
+      // underlying DOM element, check if it's an <iframe> and if so - runs extra checks.
+      if (isIframeSecuritySensitiveAttr(bindingName)) {
+        instructionParams.push(importExpr(Identifiers.validateIframeAttribute));
+      }
     }
 
     updateVariables.push(...bindingExpr.stmts);
@@ -60648,7 +61015,7 @@ function publishFacade(global) {
  */
 
 
-const VERSION = new Version('14.2.0');
+const VERSION = new Version('14.2.12');
 /**
  * @license
  * Copyright Google LLC All Rights Reserved.
@@ -63250,7 +63617,7 @@ const MINIMUM_PARTIAL_LINKER_VERSION$6 = '12.0.0';
 function compileDeclareClassMetadata(metadata) {
   const definitionMap = new DefinitionMap();
   definitionMap.set('minVersion', literal(MINIMUM_PARTIAL_LINKER_VERSION$6));
-  definitionMap.set('version', literal('14.2.0'));
+  definitionMap.set('version', literal('14.2.12'));
   definitionMap.set('ngImport', importExpr(Identifiers.core));
   definitionMap.set('type', metadata.type);
   definitionMap.set('decorators', metadata.decorators);
@@ -63391,7 +63758,7 @@ function compileDeclareDirectiveFromMetadata(meta) {
 function createDirectiveDefinitionMap(meta) {
   const definitionMap = new DefinitionMap();
   definitionMap.set('minVersion', literal(MINIMUM_PARTIAL_LINKER_VERSION$5));
-  definitionMap.set('version', literal('14.2.0')); // e.g. `type: MyDirective`
+  definitionMap.set('version', literal('14.2.12')); // e.g. `type: MyDirective`
 
   definitionMap.set('type', meta.internalType);
 
@@ -63651,7 +64018,7 @@ const MINIMUM_PARTIAL_LINKER_VERSION$4 = '12.0.0';
 function compileDeclareFactoryFunction(meta) {
   const definitionMap = new DefinitionMap();
   definitionMap.set('minVersion', literal(MINIMUM_PARTIAL_LINKER_VERSION$4));
-  definitionMap.set('version', literal('14.2.0'));
+  definitionMap.set('version', literal('14.2.12'));
   definitionMap.set('ngImport', importExpr(Identifiers.core));
   definitionMap.set('type', meta.internalType);
   definitionMap.set('deps', compileDependencies(meta.deps));
@@ -63702,7 +64069,7 @@ function compileDeclareInjectableFromMetadata(meta) {
 function createInjectableDefinitionMap(meta) {
   const definitionMap = new DefinitionMap();
   definitionMap.set('minVersion', literal(MINIMUM_PARTIAL_LINKER_VERSION$3));
-  definitionMap.set('version', literal('14.2.0'));
+  definitionMap.set('version', literal('14.2.12'));
   definitionMap.set('ngImport', importExpr(Identifiers.core));
   definitionMap.set('type', meta.internalType); // Only generate providedIn property if it has a non-null value
 
@@ -63776,7 +64143,7 @@ function compileDeclareInjectorFromMetadata(meta) {
 function createInjectorDefinitionMap(meta) {
   const definitionMap = new DefinitionMap();
   definitionMap.set('minVersion', literal(MINIMUM_PARTIAL_LINKER_VERSION$2));
-  definitionMap.set('version', literal('14.2.0'));
+  definitionMap.set('version', literal('14.2.12'));
   definitionMap.set('ngImport', importExpr(Identifiers.core));
   definitionMap.set('type', meta.internalType);
   definitionMap.set('providers', meta.providers);
@@ -63824,7 +64191,7 @@ function compileDeclareNgModuleFromMetadata(meta) {
 function createNgModuleDefinitionMap(meta) {
   const definitionMap = new DefinitionMap();
   definitionMap.set('minVersion', literal(MINIMUM_PARTIAL_LINKER_VERSION$1));
-  definitionMap.set('version', literal('14.2.0'));
+  definitionMap.set('version', literal('14.2.12'));
   definitionMap.set('ngImport', importExpr(Identifiers.core));
   definitionMap.set('type', meta.internalType); // We only generate the keys in the metadata if the arrays contain values.
   // We must wrap the arrays inside a function if any of the values are a forward reference to a
@@ -63897,7 +64264,7 @@ function compileDeclarePipeFromMetadata(meta) {
 function createPipeDefinitionMap(meta) {
   const definitionMap = new DefinitionMap();
   definitionMap.set('minVersion', literal(MINIMUM_PARTIAL_LINKER_VERSION));
-  definitionMap.set('version', literal('14.2.0'));
+  definitionMap.set('version', literal('14.2.12'));
   definitionMap.set('ngImport', importExpr(Identifiers.core)); // e.g. `type: MyPipe`
 
   definitionMap.set('type', meta.internalType);
@@ -64327,6 +64694,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ɵɵtextInterpolateV": () => (/* binding */ ɵɵtextInterpolateV),
 /* harmony export */   "ɵɵtrustConstantHtml": () => (/* binding */ ɵɵtrustConstantHtml),
 /* harmony export */   "ɵɵtrustConstantResourceUrl": () => (/* binding */ ɵɵtrustConstantResourceUrl),
+/* harmony export */   "ɵɵvalidateIframeAttribute": () => (/* binding */ ɵɵvalidateIframeAttribute),
 /* harmony export */   "ɵɵviewQuery": () => (/* binding */ ɵɵviewQuery)
 /* harmony export */ });
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs */ 2218);
@@ -64335,7 +64703,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ 8623);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ 4514);
 /**
- * @license Angular v14.2.0
+ * @license Angular v14.2.12
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -68162,7 +68530,7 @@ function injectAttributeImpl(tNode, attrNameToInject) {
 }
 
 function notFoundValueOrThrow(notFoundValue, token, flags) {
-  if (flags & InjectFlags.Optional) {
+  if (flags & InjectFlags.Optional || notFoundValue !== undefined) {
     return notFoundValue;
   } else {
     throwProviderNotFoundError(token, 'NodeInjector');
@@ -70478,56 +70846,2110 @@ function setAllowDuplicateNgModuleIdsForTest(allowDuplicates) {
  */
 
 /**
- * Most of the use of `document` in Angular is from within the DI system so it is possible to simply
- * inject the `DOCUMENT` token and are done.
+ * Defines a schema that allows an NgModule to contain the following:
+ * - Non-Angular elements named with dash case (`-`).
+ * - Element properties named with dash case (`-`).
+ * Dash case is the naming convention for custom elements.
  *
- * Ivy is special because it does not rely upon the DI and must get hold of the document some other
- * way.
- *
- * The solution is to define `getDocument()` and `setDocument()` top-level functions for ivy.
- * Wherever ivy needs the global document, it calls `getDocument()` instead.
- *
- * When running ivy outside of a browser environment, it is necessary to call `setDocument()` to
- * tell ivy what the global `document` is.
- *
- * Angular does this for us in each of the standard platforms (`Browser`, `Server`, and `WebWorker`)
- * by calling `setDocument()` when providing the `DOCUMENT` token.
+ * @publicApi
  */
 
 
-let DOCUMENT = undefined;
+const CUSTOM_ELEMENTS_SCHEMA = {
+  name: 'custom-elements'
+};
 /**
- * Tell ivy what the `document` is for this platform.
+ * Defines a schema that allows any property on any element.
  *
- * It is only necessary to call this if the current platform is not a browser.
+ * This schema allows you to ignore the errors related to any unknown elements or properties in a
+ * template. The usage of this schema is generally discouraged because it prevents useful validation
+ * and may hide real errors in your template. Consider using the `CUSTOM_ELEMENTS_SCHEMA` instead.
  *
- * @param document The object representing the global `document` in this environment.
+ * @publicApi
  */
 
-function setDocument(document) {
-  DOCUMENT = document;
+const NO_ERRORS_SCHEMA = {
+  name: 'no-errors-schema'
+};
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+let shouldThrowErrorOnUnknownElement = false;
+/**
+ * Sets a strict mode for JIT-compiled components to throw an error on unknown elements,
+ * instead of just logging the error.
+ * (for AOT-compiled ones this check happens at build time).
+ */
+
+function ɵsetUnknownElementStrictMode(shouldThrow) {
+  shouldThrowErrorOnUnknownElement = shouldThrow;
 }
 /**
- * Access the object that represents the `document` for this platform.
- *
- * Ivy calls this whenever it needs to access the `document` object.
- * For example to create the renderer or to do sanitization.
+ * Gets the current value of the strict mode.
  */
 
 
-function getDocument() {
-  if (DOCUMENT !== undefined) {
-    return DOCUMENT;
-  } else if (typeof document !== 'undefined') {
-    return document;
-  } // No "document" can be found. This should only happen if we are running ivy outside Angular and
-  // the current platform is not a browser. Since this is not a supported scenario at the moment
-  // this should not happen in Angular apps.
-  // Once we support running ivy outside of Angular we will need to publish `setDocument()` as a
-  // public API. Meanwhile we just return `undefined` and let the application fail.
+function ɵgetUnknownElementStrictMode() {
+  return shouldThrowErrorOnUnknownElement;
+}
+
+let shouldThrowErrorOnUnknownProperty = false;
+/**
+ * Sets a strict mode for JIT-compiled components to throw an error on unknown properties,
+ * instead of just logging the error.
+ * (for AOT-compiled ones this check happens at build time).
+ */
+
+function ɵsetUnknownPropertyStrictMode(shouldThrow) {
+  shouldThrowErrorOnUnknownProperty = shouldThrow;
+}
+/**
+ * Gets the current value of the strict mode.
+ */
 
 
-  return undefined;
+function ɵgetUnknownPropertyStrictMode() {
+  return shouldThrowErrorOnUnknownProperty;
+}
+/**
+ * Validates that the element is known at runtime and produces
+ * an error if it's not the case.
+ * This check is relevant for JIT-compiled components (for AOT-compiled
+ * ones this check happens at build time).
+ *
+ * The element is considered known if either:
+ * - it's a known HTML element
+ * - it's a known custom element
+ * - the element matches any directive
+ * - the element is allowed by one of the schemas
+ *
+ * @param element Element to validate
+ * @param lView An `LView` that represents a current component that is being rendered
+ * @param tagName Name of the tag to check
+ * @param schemas Array of schemas
+ * @param hasDirectives Boolean indicating that the element matches any directive
+ */
+
+
+function validateElementIsKnown(element, lView, tagName, schemas, hasDirectives) {
+  // If `schemas` is set to `null`, that's an indication that this Component was compiled in AOT
+  // mode where this check happens at compile time. In JIT mode, `schemas` is always present and
+  // defined as an array (as an empty array in case `schemas` field is not defined) and we should
+  // execute the check below.
+  if (schemas === null) return; // If the element matches any directive, it's considered as valid.
+
+  if (!hasDirectives && tagName !== null) {
+    // The element is unknown if it's an instance of HTMLUnknownElement, or it isn't registered
+    // as a custom element. Note that unknown elements with a dash in their name won't be instances
+    // of HTMLUnknownElement in browsers that support web components.
+    const isUnknown = // Note that we can't check for `typeof HTMLUnknownElement === 'function'`,
+    // because while most browsers return 'function', IE returns 'object'.
+    typeof HTMLUnknownElement !== 'undefined' && HTMLUnknownElement && element instanceof HTMLUnknownElement || typeof customElements !== 'undefined' && tagName.indexOf('-') > -1 && !customElements.get(tagName);
+
+    if (isUnknown && !matchingSchemas(schemas, tagName)) {
+      const isHostStandalone = isHostComponentStandalone(lView);
+      const templateLocation = getTemplateLocationDetails(lView);
+      const schemas = `'${isHostStandalone ? '@Component' : '@NgModule'}.schemas'`;
+      let message = `'${tagName}' is not a known element${templateLocation}:\n`;
+      message += `1. If '${tagName}' is an Angular component, then verify that it is ${isHostStandalone ? 'included in the \'@Component.imports\' of this component' : 'a part of an @NgModule where this component is declared'}.\n`;
+
+      if (tagName && tagName.indexOf('-') > -1) {
+        message += `2. If '${tagName}' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the ${schemas} of this component to suppress this message.`;
+      } else {
+        message += `2. To allow any element add 'NO_ERRORS_SCHEMA' to the ${schemas} of this component.`;
+      }
+
+      if (shouldThrowErrorOnUnknownElement) {
+        throw new RuntimeError(304
+        /* RuntimeErrorCode.UNKNOWN_ELEMENT */
+        , message);
+      } else {
+        console.error(formatRuntimeError(304
+        /* RuntimeErrorCode.UNKNOWN_ELEMENT */
+        , message));
+      }
+    }
+  }
+}
+/**
+ * Validates that the property of the element is known at runtime and returns
+ * false if it's not the case.
+ * This check is relevant for JIT-compiled components (for AOT-compiled
+ * ones this check happens at build time).
+ *
+ * The property is considered known if either:
+ * - it's a known property of the element
+ * - the element is allowed by one of the schemas
+ * - the property is used for animations
+ *
+ * @param element Element to validate
+ * @param propName Name of the property to check
+ * @param tagName Name of the tag hosting the property
+ * @param schemas Array of schemas
+ */
+
+
+function isPropertyValid(element, propName, tagName, schemas) {
+  // If `schemas` is set to `null`, that's an indication that this Component was compiled in AOT
+  // mode where this check happens at compile time. In JIT mode, `schemas` is always present and
+  // defined as an array (as an empty array in case `schemas` field is not defined) and we should
+  // execute the check below.
+  if (schemas === null) return true; // The property is considered valid if the element matches the schema, it exists on the element,
+  // or it is synthetic, and we are in a browser context (web worker nodes should be skipped).
+
+  if (matchingSchemas(schemas, tagName) || propName in element || isAnimationProp(propName)) {
+    return true;
+  } // Note: `typeof Node` returns 'function' in most browsers, but on IE it is 'object' so we
+  // need to account for both here, while being careful with `typeof null` also returning 'object'.
+
+
+  return typeof Node === 'undefined' || Node === null || !(element instanceof Node);
+}
+/**
+ * Logs or throws an error that a property is not supported on an element.
+ *
+ * @param propName Name of the invalid property
+ * @param tagName Name of the tag hosting the property
+ * @param nodeType Type of the node hosting the property
+ * @param lView An `LView` that represents a current component
+ */
+
+
+function handleUnknownPropertyError(propName, tagName, nodeType, lView) {
+  // Special-case a situation when a structural directive is applied to
+  // an `<ng-template>` element, for example: `<ng-template *ngIf="true">`.
+  // In this case the compiler generates the `ɵɵtemplate` instruction with
+  // the `null` as the tagName. The directive matching logic at runtime relies
+  // on this effect (see `isInlineTemplate`), thus using the 'ng-template' as
+  // a default value of the `tNode.value` is not feasible at this moment.
+  if (!tagName && nodeType === 4
+  /* TNodeType.Container */
+  ) {
+    tagName = 'ng-template';
+  }
+
+  const isHostStandalone = isHostComponentStandalone(lView);
+  const templateLocation = getTemplateLocationDetails(lView);
+  let message = `Can't bind to '${propName}' since it isn't a known property of '${tagName}'${templateLocation}.`;
+  const schemas = `'${isHostStandalone ? '@Component' : '@NgModule'}.schemas'`;
+  const importLocation = isHostStandalone ? 'included in the \'@Component.imports\' of this component' : 'a part of an @NgModule where this component is declared';
+
+  if (KNOWN_CONTROL_FLOW_DIRECTIVES.has(propName)) {
+    // Most likely this is a control flow directive (such as `*ngIf`) used in
+    // a template, but the directive or the `CommonModule` is not imported.
+    const correspondingImport = KNOWN_CONTROL_FLOW_DIRECTIVES.get(propName);
+    message += `\nIf the '${propName}' is an Angular control flow directive, ` + `please make sure that either the '${correspondingImport}' directive or the 'CommonModule' is ${importLocation}.`;
+  } else {
+    // May be an Angular component, which is not imported/declared?
+    message += `\n1. If '${tagName}' is an Angular component and it has the ` + `'${propName}' input, then verify that it is ${importLocation}.`; // May be a Web Component?
+
+    if (tagName && tagName.indexOf('-') > -1) {
+      message += `\n2. If '${tagName}' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' ` + `to the ${schemas} of this component to suppress this message.`;
+      message += `\n3. To allow any property add 'NO_ERRORS_SCHEMA' to ` + `the ${schemas} of this component.`;
+    } else {
+      // If it's expected, the error can be suppressed by the `NO_ERRORS_SCHEMA` schema.
+      message += `\n2. To allow any property add 'NO_ERRORS_SCHEMA' to ` + `the ${schemas} of this component.`;
+    }
+  }
+
+  reportUnknownPropertyError(message);
+}
+
+function reportUnknownPropertyError(message) {
+  if (shouldThrowErrorOnUnknownProperty) {
+    throw new RuntimeError(303
+    /* RuntimeErrorCode.UNKNOWN_BINDING */
+    , message);
+  } else {
+    console.error(formatRuntimeError(303
+    /* RuntimeErrorCode.UNKNOWN_BINDING */
+    , message));
+  }
+}
+/**
+ * WARNING: this is a **dev-mode only** function (thus should always be guarded by the `ngDevMode`)
+ * and must **not** be used in production bundles. The function makes megamorphic reads, which might
+ * be too slow for production mode and also it relies on the constructor function being available.
+ *
+ * Gets a reference to the host component def (where a current component is declared).
+ *
+ * @param lView An `LView` that represents a current component that is being rendered.
+ */
+
+
+function getDeclarationComponentDef(lView) {
+  !ngDevMode && throwError('Must never be called in production mode');
+  const declarationLView = lView[DECLARATION_COMPONENT_VIEW];
+  const context = declarationLView[CONTEXT]; // Unable to obtain a context.
+
+  if (!context) return null;
+  return context.constructor ? getComponentDef(context.constructor) : null;
+}
+/**
+ * WARNING: this is a **dev-mode only** function (thus should always be guarded by the `ngDevMode`)
+ * and must **not** be used in production bundles. The function makes megamorphic reads, which might
+ * be too slow for production mode.
+ *
+ * Checks if the current component is declared inside of a standalone component template.
+ *
+ * @param lView An `LView` that represents a current component that is being rendered.
+ */
+
+
+function isHostComponentStandalone(lView) {
+  !ngDevMode && throwError('Must never be called in production mode');
+  const componentDef = getDeclarationComponentDef(lView); // Treat host component as non-standalone if we can't obtain the def.
+
+  return !!componentDef?.standalone;
+}
+/**
+ * WARNING: this is a **dev-mode only** function (thus should always be guarded by the `ngDevMode`)
+ * and must **not** be used in production bundles. The function makes megamorphic reads, which might
+ * be too slow for production mode.
+ *
+ * Constructs a string describing the location of the host component template. The function is used
+ * in dev mode to produce error messages.
+ *
+ * @param lView An `LView` that represents a current component that is being rendered.
+ */
+
+
+function getTemplateLocationDetails(lView) {
+  !ngDevMode && throwError('Must never be called in production mode');
+  const hostComponentDef = getDeclarationComponentDef(lView);
+  const componentClassName = hostComponentDef?.type?.name;
+  return componentClassName ? ` (used in the '${componentClassName}' component template)` : '';
+}
+/**
+ * The set of known control flow directives and their corresponding imports.
+ * We use this set to produce a more precises error message with a note
+ * that the `CommonModule` should also be included.
+ */
+
+
+const KNOWN_CONTROL_FLOW_DIRECTIVES = new Map([['ngIf', 'NgIf'], ['ngFor', 'NgFor'], ['ngSwitchCase', 'NgSwitchCase'], ['ngSwitchDefault', 'NgSwitchDefault']]);
+/**
+ * Returns true if the tag name is allowed by specified schemas.
+ * @param schemas Array of schemas
+ * @param tagName Name of the tag
+ */
+
+function matchingSchemas(schemas, tagName) {
+  if (schemas !== null) {
+    for (let i = 0; i < schemas.length; i++) {
+      const schema = schemas[i];
+
+      if (schema === NO_ERRORS_SCHEMA || schema === CUSTOM_ELEMENTS_SCHEMA && tagName && tagName.indexOf('-') > -1) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+/**
+ * Flags for renderer-specific style modifiers.
+ * @publicApi
+ */
+
+
+var RendererStyleFlags2;
+
+(function (RendererStyleFlags2) {
+  // TODO(misko): This needs to be refactored into a separate file so that it can be imported from
+  // `node_manipulation.ts` Currently doing the import cause resolution order to change and fails
+  // the tests. The work around is to have hard coded value in `node_manipulation.ts` for now.
+
+  /**
+   * Marks a style as important.
+   */
+  RendererStyleFlags2[RendererStyleFlags2["Important"] = 1] = "Important";
+  /**
+   * Marks a style as using dash case naming (this-is-dash-case).
+   */
+
+  RendererStyleFlags2[RendererStyleFlags2["DashCase"] = 2] = "DashCase";
+})(RendererStyleFlags2 || (RendererStyleFlags2 = {}));
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+/**
+ * Disallowed strings in the comment.
+ *
+ * see: https://html.spec.whatwg.org/multipage/syntax.html#comments
+ */
+
+
+const COMMENT_DISALLOWED = /^>|^->|<!--|-->|--!>|<!-$/g;
+/**
+ * Delimiter in the disallowed strings which needs to be wrapped with zero with character.
+ */
+
+const COMMENT_DELIMITER = /(<|>)/;
+const COMMENT_DELIMITER_ESCAPED = '\u200B$1\u200B';
+/**
+ * Escape the content of comment strings so that it can be safely inserted into a comment node.
+ *
+ * The issue is that HTML does not specify any way to escape comment end text inside the comment.
+ * Consider: `<!-- The way you close a comment is with ">", and "->" at the beginning or by "-->" or
+ * "--!>" at the end. -->`. Above the `"-->"` is meant to be text not an end to the comment. This
+ * can be created programmatically through DOM APIs. (`<!--` are also disallowed.)
+ *
+ * see: https://html.spec.whatwg.org/multipage/syntax.html#comments
+ *
+ * ```
+ * div.innerHTML = div.innerHTML
+ * ```
+ *
+ * One would expect that the above code would be safe to do, but it turns out that because comment
+ * text is not escaped, the comment may contain text which will prematurely close the comment
+ * opening up the application for XSS attack. (In SSR we programmatically create comment nodes which
+ * may contain such text and expect them to be safe.)
+ *
+ * This function escapes the comment text by looking for comment delimiters (`<` and `>`) and
+ * surrounding them with `_>_` where the `_` is a zero width space `\u200B`. The result is that if a
+ * comment contains any of the comment start/end delimiters (such as `<!--`, `-->` or `--!>`) the
+ * text it will render normally but it will not cause the HTML parser to close/open the comment.
+ *
+ * @param value text to make safe for comment node by escaping the comment open/close character
+ *     sequence.
+ */
+
+function escapeCommentText(value) {
+  return value.replace(COMMENT_DISALLOWED, text => text.replace(COMMENT_DELIMITER, COMMENT_DELIMITER_ESCAPED));
+}
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+// Keeps track of the currently-active LViews.
+
+
+const TRACKED_LVIEWS = new Map(); // Used for generating unique IDs for LViews.
+
+let uniqueIdCounter = 0;
+/** Gets a unique ID that can be assigned to an LView. */
+
+function getUniqueLViewId() {
+  return uniqueIdCounter++;
+}
+/** Starts tracking an LView. */
+
+
+function registerLView(lView) {
+  ngDevMode && assertNumber(lView[ID], 'LView must have an ID in order to be registered');
+  TRACKED_LVIEWS.set(lView[ID], lView);
+}
+/** Gets an LView by its unique ID. */
+
+
+function getLViewById(id) {
+  ngDevMode && assertNumber(id, 'ID used for LView lookup must be a number');
+  return TRACKED_LVIEWS.get(id) || null;
+}
+/** Stops tracking an LView. */
+
+
+function unregisterLView(lView) {
+  ngDevMode && assertNumber(lView[ID], 'Cannot stop tracking an LView that does not have an ID');
+  TRACKED_LVIEWS.delete(lView[ID]);
+}
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+/**
+ * The internal view context which is specific to a given DOM element, directive or
+ * component instance. Each value in here (besides the LView and element node details)
+ * can be present, null or undefined. If undefined then it implies the value has not been
+ * looked up yet, otherwise, if null, then a lookup was executed and nothing was found.
+ *
+ * Each value will get filled when the respective value is examined within the getContext
+ * function. The component, element and each directive instance will share the same instance
+ * of the context.
+ */
+
+
+class LContext {
+  constructor(
+  /**
+   * ID of the component's parent view data.
+   */
+  lViewId,
+  /**
+   * The index instance of the node.
+   */
+  nodeIndex,
+  /**
+   * The instance of the DOM node that is attached to the lNode.
+   */
+  native) {
+    this.lViewId = lViewId;
+    this.nodeIndex = nodeIndex;
+    this.native = native;
+  }
+  /** Component's parent view data. */
+
+
+  get lView() {
+    return getLViewById(this.lViewId);
+  }
+
+}
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+/**
+ * Returns the matching `LContext` data for a given DOM node, directive or component instance.
+ *
+ * This function will examine the provided DOM element, component, or directive instance\'s
+ * monkey-patched property to derive the `LContext` data. Once called then the monkey-patched
+ * value will be that of the newly created `LContext`.
+ *
+ * If the monkey-patched value is the `LView` instance then the context value for that
+ * target will be created and the monkey-patch reference will be updated. Therefore when this
+ * function is called it may mutate the provided element\'s, component\'s or any of the associated
+ * directive\'s monkey-patch values.
+ *
+ * If the monkey-patch value is not detected then the code will walk up the DOM until an element
+ * is found which contains a monkey-patch reference. When that occurs then the provided element
+ * will be updated with a new context (which is then returned). If the monkey-patch value is not
+ * detected for a component/directive instance then it will throw an error (all components and
+ * directives should be automatically monkey-patched by ivy).
+ *
+ * @param target Component, Directive or DOM Node.
+ */
+
+
+function getLContext(target) {
+  let mpValue = readPatchedData(target);
+
+  if (mpValue) {
+    // only when it's an array is it considered an LView instance
+    // ... otherwise it's an already constructed LContext instance
+    if (isLView(mpValue)) {
+      const lView = mpValue;
+      let nodeIndex;
+      let component = undefined;
+      let directives = undefined;
+
+      if (isComponentInstance(target)) {
+        nodeIndex = findViaComponent(lView, target);
+
+        if (nodeIndex == -1) {
+          throw new Error('The provided component was not found in the application');
+        }
+
+        component = target;
+      } else if (isDirectiveInstance(target)) {
+        nodeIndex = findViaDirective(lView, target);
+
+        if (nodeIndex == -1) {
+          throw new Error('The provided directive was not found in the application');
+        }
+
+        directives = getDirectivesAtNodeIndex(nodeIndex, lView, false);
+      } else {
+        nodeIndex = findViaNativeElement(lView, target);
+
+        if (nodeIndex == -1) {
+          return null;
+        }
+      } // the goal is not to fill the entire context full of data because the lookups
+      // are expensive. Instead, only the target data (the element, component, container, ICU
+      // expression or directive details) are filled into the context. If called multiple times
+      // with different target values then the missing target data will be filled in.
+
+
+      const native = unwrapRNode(lView[nodeIndex]);
+      const existingCtx = readPatchedData(native);
+      const context = existingCtx && !Array.isArray(existingCtx) ? existingCtx : createLContext(lView, nodeIndex, native); // only when the component has been discovered then update the monkey-patch
+
+      if (component && context.component === undefined) {
+        context.component = component;
+        attachPatchData(context.component, context);
+      } // only when the directives have been discovered then update the monkey-patch
+
+
+      if (directives && context.directives === undefined) {
+        context.directives = directives;
+
+        for (let i = 0; i < directives.length; i++) {
+          attachPatchData(directives[i], context);
+        }
+      }
+
+      attachPatchData(context.native, context);
+      mpValue = context;
+    }
+  } else {
+    const rElement = target;
+    ngDevMode && assertDomNode(rElement); // if the context is not found then we need to traverse upwards up the DOM
+    // to find the nearest element that has already been monkey patched with data
+
+    let parent = rElement;
+
+    while (parent = parent.parentNode) {
+      const parentContext = readPatchedData(parent);
+
+      if (parentContext) {
+        const lView = Array.isArray(parentContext) ? parentContext : parentContext.lView; // the edge of the app was also reached here through another means
+        // (maybe because the DOM was changed manually).
+
+        if (!lView) {
+          return null;
+        }
+
+        const index = findViaNativeElement(lView, rElement);
+
+        if (index >= 0) {
+          const native = unwrapRNode(lView[index]);
+          const context = createLContext(lView, index, native);
+          attachPatchData(native, context);
+          mpValue = context;
+          break;
+        }
+      }
+    }
+  }
+
+  return mpValue || null;
+}
+/**
+ * Creates an empty instance of a `LContext` context
+ */
+
+
+function createLContext(lView, nodeIndex, native) {
+  return new LContext(lView[ID], nodeIndex, native);
+}
+/**
+ * Takes a component instance and returns the view for that component.
+ *
+ * @param componentInstance
+ * @returns The component's view
+ */
+
+
+function getComponentViewByInstance(componentInstance) {
+  let patchedData = readPatchedData(componentInstance);
+  let lView;
+
+  if (isLView(patchedData)) {
+    const contextLView = patchedData;
+    const nodeIndex = findViaComponent(contextLView, componentInstance);
+    lView = getComponentLViewByIndex(nodeIndex, contextLView);
+    const context = createLContext(contextLView, nodeIndex, lView[HOST]);
+    context.component = componentInstance;
+    attachPatchData(componentInstance, context);
+    attachPatchData(context.native, context);
+  } else {
+    const context = patchedData;
+    const contextLView = context.lView;
+    ngDevMode && assertLView(contextLView);
+    lView = getComponentLViewByIndex(context.nodeIndex, contextLView);
+  }
+
+  return lView;
+}
+/**
+ * This property will be monkey-patched on elements, components and directives.
+ */
+
+
+const MONKEY_PATCH_KEY_NAME = '__ngContext__';
+/**
+ * Assigns the given data to the given target (which could be a component,
+ * directive or DOM node instance) using monkey-patching.
+ */
+
+function attachPatchData(target, data) {
+  ngDevMode && assertDefined(target, 'Target expected'); // Only attach the ID of the view in order to avoid memory leaks (see #41047). We only do this
+  // for `LView`, because we have control over when an `LView` is created and destroyed, whereas
+  // we can't know when to remove an `LContext`.
+
+  if (isLView(data)) {
+    target[MONKEY_PATCH_KEY_NAME] = data[ID];
+    registerLView(data);
+  } else {
+    target[MONKEY_PATCH_KEY_NAME] = data;
+  }
+}
+/**
+ * Returns the monkey-patch value data present on the target (which could be
+ * a component, directive or a DOM node).
+ */
+
+
+function readPatchedData(target) {
+  ngDevMode && assertDefined(target, 'Target expected');
+  const data = target[MONKEY_PATCH_KEY_NAME];
+  return typeof data === 'number' ? getLViewById(data) : data || null;
+}
+
+function readPatchedLView(target) {
+  const value = readPatchedData(target);
+
+  if (value) {
+    return isLView(value) ? value : value.lView;
+  }
+
+  return null;
+}
+
+function isComponentInstance(instance) {
+  return instance && instance.constructor && instance.constructor.ɵcmp;
+}
+
+function isDirectiveInstance(instance) {
+  return instance && instance.constructor && instance.constructor.ɵdir;
+}
+/**
+ * Locates the element within the given LView and returns the matching index
+ */
+
+
+function findViaNativeElement(lView, target) {
+  const tView = lView[TVIEW];
+
+  for (let i = HEADER_OFFSET; i < tView.bindingStartIndex; i++) {
+    if (unwrapRNode(lView[i]) === target) {
+      return i;
+    }
+  }
+
+  return -1;
+}
+/**
+ * Locates the next tNode (child, sibling or parent).
+ */
+
+
+function traverseNextElement(tNode) {
+  if (tNode.child) {
+    return tNode.child;
+  } else if (tNode.next) {
+    return tNode.next;
+  } else {
+    // Let's take the following template: <div><span>text</span></div><component/>
+    // After checking the text node, we need to find the next parent that has a "next" TNode,
+    // in this case the parent `div`, so that we can find the component.
+    while (tNode.parent && !tNode.parent.next) {
+      tNode = tNode.parent;
+    }
+
+    return tNode.parent && tNode.parent.next;
+  }
+}
+/**
+ * Locates the component within the given LView and returns the matching index
+ */
+
+
+function findViaComponent(lView, componentInstance) {
+  const componentIndices = lView[TVIEW].components;
+
+  if (componentIndices) {
+    for (let i = 0; i < componentIndices.length; i++) {
+      const elementComponentIndex = componentIndices[i];
+      const componentView = getComponentLViewByIndex(elementComponentIndex, lView);
+
+      if (componentView[CONTEXT] === componentInstance) {
+        return elementComponentIndex;
+      }
+    }
+  } else {
+    const rootComponentView = getComponentLViewByIndex(HEADER_OFFSET, lView);
+    const rootComponent = rootComponentView[CONTEXT];
+
+    if (rootComponent === componentInstance) {
+      // we are dealing with the root element here therefore we know that the
+      // element is the very first element after the HEADER data in the lView
+      return HEADER_OFFSET;
+    }
+  }
+
+  return -1;
+}
+/**
+ * Locates the directive within the given LView and returns the matching index
+ */
+
+
+function findViaDirective(lView, directiveInstance) {
+  // if a directive is monkey patched then it will (by default)
+  // have a reference to the LView of the current view. The
+  // element bound to the directive being search lives somewhere
+  // in the view data. We loop through the nodes and check their
+  // list of directives for the instance.
+  let tNode = lView[TVIEW].firstChild;
+
+  while (tNode) {
+    const directiveIndexStart = tNode.directiveStart;
+    const directiveIndexEnd = tNode.directiveEnd;
+
+    for (let i = directiveIndexStart; i < directiveIndexEnd; i++) {
+      if (lView[i] === directiveInstance) {
+        return tNode.index;
+      }
+    }
+
+    tNode = traverseNextElement(tNode);
+  }
+
+  return -1;
+}
+/**
+ * Returns a list of directives extracted from the given view based on the
+ * provided list of directive index values.
+ *
+ * @param nodeIndex The node index
+ * @param lView The target view data
+ * @param includeComponents Whether or not to include components in returned directives
+ */
+
+
+function getDirectivesAtNodeIndex(nodeIndex, lView, includeComponents) {
+  const tNode = lView[TVIEW].data[nodeIndex];
+  let directiveStartIndex = tNode.directiveStart;
+  if (directiveStartIndex == 0) return EMPTY_ARRAY;
+  const directiveEndIndex = tNode.directiveEnd;
+  if (!includeComponents && tNode.flags & 2
+  /* TNodeFlags.isComponentHost */
+  ) directiveStartIndex++;
+  return lView.slice(directiveStartIndex, directiveEndIndex);
+}
+
+function getComponentAtNodeIndex(nodeIndex, lView) {
+  const tNode = lView[TVIEW].data[nodeIndex];
+  let directiveStartIndex = tNode.directiveStart;
+  return tNode.flags & 2
+  /* TNodeFlags.isComponentHost */
+  ? lView[directiveStartIndex] : null;
+}
+/**
+ * Returns a map of local references (local reference name => element or directive instance) that
+ * exist on a given element.
+ */
+
+
+function discoverLocalRefs(lView, nodeIndex) {
+  const tNode = lView[TVIEW].data[nodeIndex];
+
+  if (tNode && tNode.localNames) {
+    const result = {};
+    let localIndex = tNode.index + 1;
+
+    for (let i = 0; i < tNode.localNames.length; i += 2) {
+      result[tNode.localNames[i]] = lView[localIndex];
+      localIndex++;
+    }
+
+    return result;
+  }
+
+  return null;
+}
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+let _icuContainerIterate;
+/**
+ * Iterator which provides ability to visit all of the `TIcuContainerNode` root `RNode`s.
+ */
+
+
+function icuContainerIterate(tIcuContainerNode, lView) {
+  return _icuContainerIterate(tIcuContainerNode, lView);
+}
+/**
+ * Ensures that `IcuContainerVisitor`'s implementation is present.
+ *
+ * This function is invoked when i18n instruction comes across an ICU. The purpose is to allow the
+ * bundler to tree shake ICU logic and only load it if ICU instruction is executed.
+ */
+
+
+function ensureIcuContainerVisitorLoaded(loader) {
+  if (_icuContainerIterate === undefined) {
+    // Do not inline this function. We want to keep `ensureIcuContainerVisitorLoaded` light, so it
+    // can be inlined into call-site.
+    _icuContainerIterate = loader();
+  }
+}
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+// Note: This hack is necessary so we don't erroneously get a circular dependency
+// failure based on types.
+
+
+const unusedValueExportToPlacateAjd$4 = 1;
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+// Note: This hack is necessary so we don't erroneously get a circular dependency
+// failure based on types.
+
+const unusedValueExportToPlacateAjd$3 = 1;
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+/**
+ * Gets the parent LView of the passed LView, if the PARENT is an LContainer, will get the parent of
+ * that LContainer, which is an LView
+ * @param lView the lView whose parent to get
+ */
+
+function getLViewParent(lView) {
+  ngDevMode && assertLView(lView);
+  const parent = lView[PARENT];
+  return isLContainer(parent) ? parent[PARENT] : parent;
+}
+/**
+ * Retrieve the root view from any component or `LView` by walking the parent `LView` until
+ * reaching the root `LView`.
+ *
+ * @param componentOrLView any component or `LView`
+ */
+
+
+function getRootView(componentOrLView) {
+  ngDevMode && assertDefined(componentOrLView, 'component');
+  let lView = isLView(componentOrLView) ? componentOrLView : readPatchedLView(componentOrLView);
+
+  while (lView && !(lView[FLAGS] & 256
+  /* LViewFlags.IsRoot */
+  )) {
+    lView = getLViewParent(lView);
+  }
+
+  ngDevMode && assertLView(lView);
+  return lView;
+}
+/**
+ * Returns the context information associated with the application where the target is situated. It
+ * does this by walking the parent views until it gets to the root view, then getting the context
+ * off of that.
+ *
+ * @param viewOrComponent the `LView` or component to get the root context for.
+ */
+
+
+function getRootContext(viewOrComponent) {
+  const rootView = getRootView(viewOrComponent);
+  ngDevMode && assertDefined(rootView[CONTEXT], 'Root view has no context. Perhaps it is disconnected?');
+  return rootView[CONTEXT];
+}
+/**
+ * Gets the first `LContainer` in the LView or `null` if none exists.
+ */
+
+
+function getFirstLContainer(lView) {
+  return getNearestLContainer(lView[CHILD_HEAD]);
+}
+/**
+ * Gets the next `LContainer` that is a sibling of the given container.
+ */
+
+
+function getNextLContainer(container) {
+  return getNearestLContainer(container[NEXT]);
+}
+
+function getNearestLContainer(viewOrContainer) {
+  while (viewOrContainer !== null && !isLContainer(viewOrContainer)) {
+    viewOrContainer = viewOrContainer[NEXT];
+  }
+
+  return viewOrContainer;
+}
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+const unusedValueToPlacateAjd$2 = unusedValueExportToPlacateAjd$7 + unusedValueExportToPlacateAjd$5 + unusedValueExportToPlacateAjd$4 + unusedValueExportToPlacateAjd$3 + unusedValueExportToPlacateAjd$8;
+/**
+ * NOTE: for performance reasons, the possible actions are inlined within the function instead of
+ * being passed as an argument.
+ */
+
+function applyToElementOrContainer(action, renderer, parent, lNodeToHandle, beforeNode) {
+  // If this slot was allocated for a text node dynamically created by i18n, the text node itself
+  // won't be created until i18nApply() in the update block, so this node should be skipped.
+  // For more info, see "ICU expressions should work inside an ngTemplateOutlet inside an ngFor"
+  // in `i18n_spec.ts`.
+  if (lNodeToHandle != null) {
+    let lContainer;
+    let isComponent = false; // We are expecting an RNode, but in the case of a component or LContainer the `RNode` is
+    // wrapped in an array which needs to be unwrapped. We need to know if it is a component and if
+    // it has LContainer so that we can process all of those cases appropriately.
+
+    if (isLContainer(lNodeToHandle)) {
+      lContainer = lNodeToHandle;
+    } else if (isLView(lNodeToHandle)) {
+      isComponent = true;
+      ngDevMode && assertDefined(lNodeToHandle[HOST], 'HOST must be defined for a component LView');
+      lNodeToHandle = lNodeToHandle[HOST];
+    }
+
+    const rNode = unwrapRNode(lNodeToHandle);
+
+    if (action === 0
+    /* WalkTNodeTreeAction.Create */
+    && parent !== null) {
+      if (beforeNode == null) {
+        nativeAppendChild(renderer, parent, rNode);
+      } else {
+        nativeInsertBefore(renderer, parent, rNode, beforeNode || null, true);
+      }
+    } else if (action === 1
+    /* WalkTNodeTreeAction.Insert */
+    && parent !== null) {
+      nativeInsertBefore(renderer, parent, rNode, beforeNode || null, true);
+    } else if (action === 2
+    /* WalkTNodeTreeAction.Detach */
+    ) {
+      nativeRemoveNode(renderer, rNode, isComponent);
+    } else if (action === 3
+    /* WalkTNodeTreeAction.Destroy */
+    ) {
+      ngDevMode && ngDevMode.rendererDestroyNode++;
+      renderer.destroyNode(rNode);
+    }
+
+    if (lContainer != null) {
+      applyContainer(renderer, action, lContainer, parent, beforeNode);
+    }
+  }
+}
+
+function createTextNode(renderer, value) {
+  ngDevMode && ngDevMode.rendererCreateTextNode++;
+  ngDevMode && ngDevMode.rendererSetText++;
+  return renderer.createText(value);
+}
+
+function updateTextNode(renderer, rNode, value) {
+  ngDevMode && ngDevMode.rendererSetText++;
+  renderer.setValue(rNode, value);
+}
+
+function createCommentNode(renderer, value) {
+  ngDevMode && ngDevMode.rendererCreateComment++;
+  return renderer.createComment(escapeCommentText(value));
+}
+/**
+ * Creates a native element from a tag name, using a renderer.
+ * @param renderer A renderer to use
+ * @param name the tag name
+ * @param namespace Optional namespace for element.
+ * @returns the element created
+ */
+
+
+function createElementNode(renderer, name, namespace) {
+  ngDevMode && ngDevMode.rendererCreateElement++;
+  return renderer.createElement(name, namespace);
+}
+/**
+ * Removes all DOM elements associated with a view.
+ *
+ * Because some root nodes of the view may be containers, we sometimes need
+ * to propagate deeply into the nested containers to remove all elements in the
+ * views beneath it.
+ *
+ * @param tView The `TView' of the `LView` from which elements should be added or removed
+ * @param lView The view from which elements should be added or removed
+ */
+
+
+function removeViewFromContainer(tView, lView) {
+  const renderer = lView[RENDERER];
+  applyView(tView, lView, renderer, 2
+  /* WalkTNodeTreeAction.Detach */
+  , null, null);
+  lView[HOST] = null;
+  lView[T_HOST] = null;
+}
+/**
+ * Adds all DOM elements associated with a view.
+ *
+ * Because some root nodes of the view may be containers, we sometimes need
+ * to propagate deeply into the nested containers to add all elements in the
+ * views beneath it.
+ *
+ * @param tView The `TView' of the `LView` from which elements should be added or removed
+ * @param parentTNode The `TNode` where the `LView` should be attached to.
+ * @param renderer Current renderer to use for DOM manipulations.
+ * @param lView The view from which elements should be added or removed
+ * @param parentNativeNode The parent `RElement` where it should be inserted into.
+ * @param beforeNode The node before which elements should be added, if insert mode
+ */
+
+
+function addViewToContainer(tView, parentTNode, renderer, lView, parentNativeNode, beforeNode) {
+  lView[HOST] = parentNativeNode;
+  lView[T_HOST] = parentTNode;
+  applyView(tView, lView, renderer, 1
+  /* WalkTNodeTreeAction.Insert */
+  , parentNativeNode, beforeNode);
+}
+/**
+ * Detach a `LView` from the DOM by detaching its nodes.
+ *
+ * @param tView The `TView' of the `LView` to be detached
+ * @param lView the `LView` to be detached.
+ */
+
+
+function renderDetachView(tView, lView) {
+  applyView(tView, lView, lView[RENDERER], 2
+  /* WalkTNodeTreeAction.Detach */
+  , null, null);
+}
+/**
+ * Traverses down and up the tree of views and containers to remove listeners and
+ * call onDestroy callbacks.
+ *
+ * Notes:
+ *  - Because it's used for onDestroy calls, it needs to be bottom-up.
+ *  - Must process containers instead of their views to avoid splicing
+ *  when views are destroyed and re-added.
+ *  - Using a while loop because it's faster than recursion
+ *  - Destroy only called on movement to sibling or movement to parent (laterally or up)
+ *
+ *  @param rootView The view to destroy
+ */
+
+
+function destroyViewTree(rootView) {
+  // If the view has no children, we can clean it up and return early.
+  let lViewOrLContainer = rootView[CHILD_HEAD];
+
+  if (!lViewOrLContainer) {
+    return cleanUpView(rootView[TVIEW], rootView);
+  }
+
+  while (lViewOrLContainer) {
+    let next = null;
+
+    if (isLView(lViewOrLContainer)) {
+      // If LView, traverse down to child.
+      next = lViewOrLContainer[CHILD_HEAD];
+    } else {
+      ngDevMode && assertLContainer(lViewOrLContainer); // If container, traverse down to its first LView.
+
+      const firstView = lViewOrLContainer[CONTAINER_HEADER_OFFSET];
+      if (firstView) next = firstView;
+    }
+
+    if (!next) {
+      // Only clean up view when moving to the side or up, as destroy hooks
+      // should be called in order from the bottom up.
+      while (lViewOrLContainer && !lViewOrLContainer[NEXT] && lViewOrLContainer !== rootView) {
+        if (isLView(lViewOrLContainer)) {
+          cleanUpView(lViewOrLContainer[TVIEW], lViewOrLContainer);
+        }
+
+        lViewOrLContainer = lViewOrLContainer[PARENT];
+      }
+
+      if (lViewOrLContainer === null) lViewOrLContainer = rootView;
+
+      if (isLView(lViewOrLContainer)) {
+        cleanUpView(lViewOrLContainer[TVIEW], lViewOrLContainer);
+      }
+
+      next = lViewOrLContainer && lViewOrLContainer[NEXT];
+    }
+
+    lViewOrLContainer = next;
+  }
+}
+/**
+ * Inserts a view into a container.
+ *
+ * This adds the view to the container's array of active views in the correct
+ * position. It also adds the view's elements to the DOM if the container isn't a
+ * root node of another view (in that case, the view's elements will be added when
+ * the container's parent view is added later).
+ *
+ * @param tView The `TView' of the `LView` to insert
+ * @param lView The view to insert
+ * @param lContainer The container into which the view should be inserted
+ * @param index Which index in the container to insert the child view into
+ */
+
+
+function insertView(tView, lView, lContainer, index) {
+  ngDevMode && assertLView(lView);
+  ngDevMode && assertLContainer(lContainer);
+  const indexInContainer = CONTAINER_HEADER_OFFSET + index;
+  const containerLength = lContainer.length;
+
+  if (index > 0) {
+    // This is a new view, we need to add it to the children.
+    lContainer[indexInContainer - 1][NEXT] = lView;
+  }
+
+  if (index < containerLength - CONTAINER_HEADER_OFFSET) {
+    lView[NEXT] = lContainer[indexInContainer];
+    addToArray(lContainer, CONTAINER_HEADER_OFFSET + index, lView);
+  } else {
+    lContainer.push(lView);
+    lView[NEXT] = null;
+  }
+
+  lView[PARENT] = lContainer; // track views where declaration and insertion points are different
+
+  const declarationLContainer = lView[DECLARATION_LCONTAINER];
+
+  if (declarationLContainer !== null && lContainer !== declarationLContainer) {
+    trackMovedView(declarationLContainer, lView);
+  } // notify query that a new view has been added
+
+
+  const lQueries = lView[QUERIES];
+
+  if (lQueries !== null) {
+    lQueries.insertView(tView);
+  } // Sets the attached flag
+
+
+  lView[FLAGS] |= 64
+  /* LViewFlags.Attached */
+  ;
+}
+/**
+ * Track views created from the declaration container (TemplateRef) and inserted into a
+ * different LContainer.
+ */
+
+
+function trackMovedView(declarationContainer, lView) {
+  ngDevMode && assertDefined(lView, 'LView required');
+  ngDevMode && assertLContainer(declarationContainer);
+  const movedViews = declarationContainer[MOVED_VIEWS];
+  const insertedLContainer = lView[PARENT];
+  ngDevMode && assertLContainer(insertedLContainer);
+  const insertedComponentLView = insertedLContainer[PARENT][DECLARATION_COMPONENT_VIEW];
+  ngDevMode && assertDefined(insertedComponentLView, 'Missing insertedComponentLView');
+  const declaredComponentLView = lView[DECLARATION_COMPONENT_VIEW];
+  ngDevMode && assertDefined(declaredComponentLView, 'Missing declaredComponentLView');
+
+  if (declaredComponentLView !== insertedComponentLView) {
+    // At this point the declaration-component is not same as insertion-component; this means that
+    // this is a transplanted view. Mark the declared lView as having transplanted views so that
+    // those views can participate in CD.
+    declarationContainer[HAS_TRANSPLANTED_VIEWS] = true;
+  }
+
+  if (movedViews === null) {
+    declarationContainer[MOVED_VIEWS] = [lView];
+  } else {
+    movedViews.push(lView);
+  }
+}
+
+function detachMovedView(declarationContainer, lView) {
+  ngDevMode && assertLContainer(declarationContainer);
+  ngDevMode && assertDefined(declarationContainer[MOVED_VIEWS], 'A projected view should belong to a non-empty projected views collection');
+  const movedViews = declarationContainer[MOVED_VIEWS];
+  const declarationViewIndex = movedViews.indexOf(lView);
+  const insertionLContainer = lView[PARENT];
+  ngDevMode && assertLContainer(insertionLContainer); // If the view was marked for refresh but then detached before it was checked (where the flag
+  // would be cleared and the counter decremented), we need to decrement the view counter here
+  // instead.
+
+  if (lView[FLAGS] & 512
+  /* LViewFlags.RefreshTransplantedView */
+  ) {
+    lView[FLAGS] &= ~512
+    /* LViewFlags.RefreshTransplantedView */
+    ;
+    updateTransplantedViewCount(insertionLContainer, -1);
+  }
+
+  movedViews.splice(declarationViewIndex, 1);
+}
+/**
+ * Detaches a view from a container.
+ *
+ * This method removes the view from the container's array of active views. It also
+ * removes the view's elements from the DOM.
+ *
+ * @param lContainer The container from which to detach a view
+ * @param removeIndex The index of the view to detach
+ * @returns Detached LView instance.
+ */
+
+
+function detachView(lContainer, removeIndex) {
+  if (lContainer.length <= CONTAINER_HEADER_OFFSET) return;
+  const indexInContainer = CONTAINER_HEADER_OFFSET + removeIndex;
+  const viewToDetach = lContainer[indexInContainer];
+
+  if (viewToDetach) {
+    const declarationLContainer = viewToDetach[DECLARATION_LCONTAINER];
+
+    if (declarationLContainer !== null && declarationLContainer !== lContainer) {
+      detachMovedView(declarationLContainer, viewToDetach);
+    }
+
+    if (removeIndex > 0) {
+      lContainer[indexInContainer - 1][NEXT] = viewToDetach[NEXT];
+    }
+
+    const removedLView = removeFromArray(lContainer, CONTAINER_HEADER_OFFSET + removeIndex);
+    removeViewFromContainer(viewToDetach[TVIEW], viewToDetach); // notify query that a view has been removed
+
+    const lQueries = removedLView[QUERIES];
+
+    if (lQueries !== null) {
+      lQueries.detachView(removedLView[TVIEW]);
+    }
+
+    viewToDetach[PARENT] = null;
+    viewToDetach[NEXT] = null; // Unsets the attached flag
+
+    viewToDetach[FLAGS] &= ~64
+    /* LViewFlags.Attached */
+    ;
+  }
+
+  return viewToDetach;
+}
+/**
+ * A standalone function which destroys an LView,
+ * conducting clean up (e.g. removing listeners, calling onDestroys).
+ *
+ * @param tView The `TView' of the `LView` to be destroyed
+ * @param lView The view to be destroyed.
+ */
+
+
+function destroyLView(tView, lView) {
+  if (!(lView[FLAGS] & 128
+  /* LViewFlags.Destroyed */
+  )) {
+    const renderer = lView[RENDERER];
+
+    if (renderer.destroyNode) {
+      applyView(tView, lView, renderer, 3
+      /* WalkTNodeTreeAction.Destroy */
+      , null, null);
+    }
+
+    destroyViewTree(lView);
+  }
+}
+/**
+ * Calls onDestroys hooks for all directives and pipes in a given view and then removes all
+ * listeners. Listeners are removed as the last step so events delivered in the onDestroys hooks
+ * can be propagated to @Output listeners.
+ *
+ * @param tView `TView` for the `LView` to clean up.
+ * @param lView The LView to clean up
+ */
+
+
+function cleanUpView(tView, lView) {
+  if (!(lView[FLAGS] & 128
+  /* LViewFlags.Destroyed */
+  )) {
+    // Usually the Attached flag is removed when the view is detached from its parent, however
+    // if it's a root view, the flag won't be unset hence why we're also removing on destroy.
+    lView[FLAGS] &= ~64
+    /* LViewFlags.Attached */
+    ; // Mark the LView as destroyed *before* executing the onDestroy hooks. An onDestroy hook
+    // runs arbitrary user code, which could include its own `viewRef.destroy()` (or similar). If
+    // We don't flag the view as destroyed before the hooks, this could lead to an infinite loop.
+    // This also aligns with the ViewEngine behavior. It also means that the onDestroy hook is
+    // really more of an "afterDestroy" hook if you think about it.
+
+    lView[FLAGS] |= 128
+    /* LViewFlags.Destroyed */
+    ;
+    executeOnDestroys(tView, lView);
+    processCleanups(tView, lView); // For component views only, the local renderer is destroyed at clean up time.
+
+    if (lView[TVIEW].type === 1
+    /* TViewType.Component */
+    ) {
+      ngDevMode && ngDevMode.rendererDestroy++;
+      lView[RENDERER].destroy();
+    }
+
+    const declarationContainer = lView[DECLARATION_LCONTAINER]; // we are dealing with an embedded view that is still inserted into a container
+
+    if (declarationContainer !== null && isLContainer(lView[PARENT])) {
+      // and this is a projected view
+      if (declarationContainer !== lView[PARENT]) {
+        detachMovedView(declarationContainer, lView);
+      } // For embedded views still attached to a container: remove query result from this view.
+
+
+      const lQueries = lView[QUERIES];
+
+      if (lQueries !== null) {
+        lQueries.detachView(tView);
+      }
+    } // Unregister the view once everything else has been cleaned up.
+
+
+    unregisterLView(lView);
+  }
+}
+/** Removes listeners and unsubscribes from output subscriptions */
+
+
+function processCleanups(tView, lView) {
+  const tCleanup = tView.cleanup;
+  const lCleanup = lView[CLEANUP]; // `LCleanup` contains both share information with `TCleanup` as well as instance specific
+  // information appended at the end. We need to know where the end of the `TCleanup` information
+  // is, and we track this with `lastLCleanupIndex`.
+
+  let lastLCleanupIndex = -1;
+
+  if (tCleanup !== null) {
+    for (let i = 0; i < tCleanup.length - 1; i += 2) {
+      if (typeof tCleanup[i] === 'string') {
+        // This is a native DOM listener
+        const idxOrTargetGetter = tCleanup[i + 1];
+        const target = typeof idxOrTargetGetter === 'function' ? idxOrTargetGetter(lView) : unwrapRNode(lView[idxOrTargetGetter]);
+        const listener = lCleanup[lastLCleanupIndex = tCleanup[i + 2]];
+        const useCaptureOrSubIdx = tCleanup[i + 3];
+
+        if (typeof useCaptureOrSubIdx === 'boolean') {
+          // native DOM listener registered with Renderer3
+          target.removeEventListener(tCleanup[i], listener, useCaptureOrSubIdx);
+        } else {
+          if (useCaptureOrSubIdx >= 0) {
+            // unregister
+            lCleanup[lastLCleanupIndex = useCaptureOrSubIdx]();
+          } else {
+            // Subscription
+            lCleanup[lastLCleanupIndex = -useCaptureOrSubIdx].unsubscribe();
+          }
+        }
+
+        i += 2;
+      } else {
+        // This is a cleanup function that is grouped with the index of its context
+        const context = lCleanup[lastLCleanupIndex = tCleanup[i + 1]];
+        tCleanup[i].call(context);
+      }
+    }
+  }
+
+  if (lCleanup !== null) {
+    for (let i = lastLCleanupIndex + 1; i < lCleanup.length; i++) {
+      const instanceCleanupFn = lCleanup[i];
+      ngDevMode && assertFunction(instanceCleanupFn, 'Expecting instance cleanup function.');
+      instanceCleanupFn();
+    }
+
+    lView[CLEANUP] = null;
+  }
+}
+/** Calls onDestroy hooks for this view */
+
+
+function executeOnDestroys(tView, lView) {
+  let destroyHooks;
+
+  if (tView != null && (destroyHooks = tView.destroyHooks) != null) {
+    for (let i = 0; i < destroyHooks.length; i += 2) {
+      const context = lView[destroyHooks[i]]; // Only call the destroy hook if the context has been requested.
+
+      if (!(context instanceof NodeInjectorFactory)) {
+        const toCall = destroyHooks[i + 1];
+
+        if (Array.isArray(toCall)) {
+          for (let j = 0; j < toCall.length; j += 2) {
+            const callContext = context[toCall[j]];
+            const hook = toCall[j + 1];
+            profiler(4
+            /* ProfilerEvent.LifecycleHookStart */
+            , callContext, hook);
+
+            try {
+              hook.call(callContext);
+            } finally {
+              profiler(5
+              /* ProfilerEvent.LifecycleHookEnd */
+              , callContext, hook);
+            }
+          }
+        } else {
+          profiler(4
+          /* ProfilerEvent.LifecycleHookStart */
+          , context, toCall);
+
+          try {
+            toCall.call(context);
+          } finally {
+            profiler(5
+            /* ProfilerEvent.LifecycleHookEnd */
+            , context, toCall);
+          }
+        }
+      }
+    }
+  }
+}
+/**
+ * Returns a native element if a node can be inserted into the given parent.
+ *
+ * There are two reasons why we may not be able to insert a element immediately.
+ * - Projection: When creating a child content element of a component, we have to skip the
+ *   insertion because the content of a component will be projected.
+ *   `<component><content>delayed due to projection</content></component>`
+ * - Parent container is disconnected: This can happen when we are inserting a view into
+ *   parent container, which itself is disconnected. For example the parent container is part
+ *   of a View which has not be inserted or is made for projection but has not been inserted
+ *   into destination.
+ *
+ * @param tView: Current `TView`.
+ * @param tNode: `TNode` for which we wish to retrieve render parent.
+ * @param lView: Current `LView`.
+ */
+
+
+function getParentRElement(tView, tNode, lView) {
+  return getClosestRElement(tView, tNode.parent, lView);
+}
+/**
+ * Get closest `RElement` or `null` if it can't be found.
+ *
+ * If `TNode` is `TNodeType.Element` => return `RElement` at `LView[tNode.index]` location.
+ * If `TNode` is `TNodeType.ElementContainer|IcuContain` => return the parent (recursively).
+ * If `TNode` is `null` then return host `RElement`:
+ *   - return `null` if projection
+ *   - return `null` if parent container is disconnected (we have no parent.)
+ *
+ * @param tView: Current `TView`.
+ * @param tNode: `TNode` for which we wish to retrieve `RElement` (or `null` if host element is
+ *     needed).
+ * @param lView: Current `LView`.
+ * @returns `null` if the `RElement` can't be determined at this time (no parent / projection)
+ */
+
+
+function getClosestRElement(tView, tNode, lView) {
+  let parentTNode = tNode; // Skip over element and ICU containers as those are represented by a comment node and
+  // can't be used as a render parent.
+
+  while (parentTNode !== null && parentTNode.type & (8
+  /* TNodeType.ElementContainer */
+  | 32
+  /* TNodeType.Icu */
+  )) {
+    tNode = parentTNode;
+    parentTNode = tNode.parent;
+  } // If the parent tNode is null, then we are inserting across views: either into an embedded view
+  // or a component view.
+
+
+  if (parentTNode === null) {
+    // We are inserting a root element of the component view into the component host element and
+    // it should always be eager.
+    return lView[HOST];
+  } else {
+    ngDevMode && assertTNodeType(parentTNode, 3
+    /* TNodeType.AnyRNode */
+    | 4
+    /* TNodeType.Container */
+    );
+
+    if (parentTNode.flags & 2
+    /* TNodeFlags.isComponentHost */
+    ) {
+      ngDevMode && assertTNodeForLView(parentTNode, lView);
+      const encapsulation = tView.data[parentTNode.directiveStart].encapsulation; // We've got a parent which is an element in the current view. We just need to verify if the
+      // parent element is not a component. Component's content nodes are not inserted immediately
+      // because they will be projected, and so doing insert at this point would be wasteful.
+      // Since the projection would then move it to its final destination. Note that we can't
+      // make this assumption when using the Shadow DOM, because the native projection placeholders
+      // (<content> or <slot>) have to be in place as elements are being inserted.
+
+      if (encapsulation === ViewEncapsulation$1.None || encapsulation === ViewEncapsulation$1.Emulated) {
+        return null;
+      }
+    }
+
+    return getNativeByTNode(parentTNode, lView);
+  }
+}
+/**
+ * Inserts a native node before another native node for a given parent.
+ * This is a utility function that can be used when native nodes were determined.
+ */
+
+
+function nativeInsertBefore(renderer, parent, child, beforeNode, isMove) {
+  ngDevMode && ngDevMode.rendererInsertBefore++;
+  renderer.insertBefore(parent, child, beforeNode, isMove);
+}
+
+function nativeAppendChild(renderer, parent, child) {
+  ngDevMode && ngDevMode.rendererAppendChild++;
+  ngDevMode && assertDefined(parent, 'parent node must be defined');
+  renderer.appendChild(parent, child);
+}
+
+function nativeAppendOrInsertBefore(renderer, parent, child, beforeNode, isMove) {
+  if (beforeNode !== null) {
+    nativeInsertBefore(renderer, parent, child, beforeNode, isMove);
+  } else {
+    nativeAppendChild(renderer, parent, child);
+  }
+}
+/** Removes a node from the DOM given its native parent. */
+
+
+function nativeRemoveChild(renderer, parent, child, isHostElement) {
+  renderer.removeChild(parent, child, isHostElement);
+}
+/** Checks if an element is a `<template>` node. */
+
+
+function isTemplateNode(node) {
+  return node.tagName === 'TEMPLATE' && node.content !== undefined;
+}
+/**
+ * Returns a native parent of a given native node.
+ */
+
+
+function nativeParentNode(renderer, node) {
+  return renderer.parentNode(node);
+}
+/**
+ * Returns a native sibling of a given native node.
+ */
+
+
+function nativeNextSibling(renderer, node) {
+  return renderer.nextSibling(node);
+}
+/**
+ * Find a node in front of which `currentTNode` should be inserted.
+ *
+ * This method determines the `RNode` in front of which we should insert the `currentRNode`. This
+ * takes `TNode.insertBeforeIndex` into account if i18n code has been invoked.
+ *
+ * @param parentTNode parent `TNode`
+ * @param currentTNode current `TNode` (The node which we would like to insert into the DOM)
+ * @param lView current `LView`
+ */
+
+
+function getInsertInFrontOfRNode(parentTNode, currentTNode, lView) {
+  return _getInsertInFrontOfRNodeWithI18n(parentTNode, currentTNode, lView);
+}
+/**
+ * Find a node in front of which `currentTNode` should be inserted. (Does not take i18n into
+ * account)
+ *
+ * This method determines the `RNode` in front of which we should insert the `currentRNode`. This
+ * does not take `TNode.insertBeforeIndex` into account.
+ *
+ * @param parentTNode parent `TNode`
+ * @param currentTNode current `TNode` (The node which we would like to insert into the DOM)
+ * @param lView current `LView`
+ */
+
+
+function getInsertInFrontOfRNodeWithNoI18n(parentTNode, currentTNode, lView) {
+  if (parentTNode.type & (8
+  /* TNodeType.ElementContainer */
+  | 32
+  /* TNodeType.Icu */
+  )) {
+    return getNativeByTNode(parentTNode, lView);
+  }
+
+  return null;
+}
+/**
+ * Tree shakable boundary for `getInsertInFrontOfRNodeWithI18n` function.
+ *
+ * This function will only be set if i18n code runs.
+ */
+
+
+let _getInsertInFrontOfRNodeWithI18n = getInsertInFrontOfRNodeWithNoI18n;
+/**
+ * Tree shakable boundary for `processI18nInsertBefore` function.
+ *
+ * This function will only be set if i18n code runs.
+ */
+
+let _processI18nInsertBefore;
+
+function setI18nHandling(getInsertInFrontOfRNodeWithI18n, processI18nInsertBefore) {
+  _getInsertInFrontOfRNodeWithI18n = getInsertInFrontOfRNodeWithI18n;
+  _processI18nInsertBefore = processI18nInsertBefore;
+}
+/**
+ * Appends the `child` native node (or a collection of nodes) to the `parent`.
+ *
+ * @param tView The `TView' to be appended
+ * @param lView The current LView
+ * @param childRNode The native child (or children) that should be appended
+ * @param childTNode The TNode of the child element
+ */
+
+
+function appendChild(tView, lView, childRNode, childTNode) {
+  const parentRNode = getParentRElement(tView, childTNode, lView);
+  const renderer = lView[RENDERER];
+  const parentTNode = childTNode.parent || lView[T_HOST];
+  const anchorNode = getInsertInFrontOfRNode(parentTNode, childTNode, lView);
+
+  if (parentRNode != null) {
+    if (Array.isArray(childRNode)) {
+      for (let i = 0; i < childRNode.length; i++) {
+        nativeAppendOrInsertBefore(renderer, parentRNode, childRNode[i], anchorNode, false);
+      }
+    } else {
+      nativeAppendOrInsertBefore(renderer, parentRNode, childRNode, anchorNode, false);
+    }
+  }
+
+  _processI18nInsertBefore !== undefined && _processI18nInsertBefore(renderer, childTNode, lView, childRNode, parentRNode);
+}
+/**
+ * Returns the first native node for a given LView, starting from the provided TNode.
+ *
+ * Native nodes are returned in the order in which those appear in the native tree (DOM).
+ */
+
+
+function getFirstNativeNode(lView, tNode) {
+  if (tNode !== null) {
+    ngDevMode && assertTNodeType(tNode, 3
+    /* TNodeType.AnyRNode */
+    | 12
+    /* TNodeType.AnyContainer */
+    | 32
+    /* TNodeType.Icu */
+    | 16
+    /* TNodeType.Projection */
+    );
+    const tNodeType = tNode.type;
+
+    if (tNodeType & 3
+    /* TNodeType.AnyRNode */
+    ) {
+      return getNativeByTNode(tNode, lView);
+    } else if (tNodeType & 4
+    /* TNodeType.Container */
+    ) {
+      return getBeforeNodeForView(-1, lView[tNode.index]);
+    } else if (tNodeType & 8
+    /* TNodeType.ElementContainer */
+    ) {
+      const elIcuContainerChild = tNode.child;
+
+      if (elIcuContainerChild !== null) {
+        return getFirstNativeNode(lView, elIcuContainerChild);
+      } else {
+        const rNodeOrLContainer = lView[tNode.index];
+
+        if (isLContainer(rNodeOrLContainer)) {
+          return getBeforeNodeForView(-1, rNodeOrLContainer);
+        } else {
+          return unwrapRNode(rNodeOrLContainer);
+        }
+      }
+    } else if (tNodeType & 32
+    /* TNodeType.Icu */
+    ) {
+      let nextRNode = icuContainerIterate(tNode, lView);
+      let rNode = nextRNode(); // If the ICU container has no nodes, than we use the ICU anchor as the node.
+
+      return rNode || unwrapRNode(lView[tNode.index]);
+    } else {
+      const projectionNodes = getProjectionNodes(lView, tNode);
+
+      if (projectionNodes !== null) {
+        if (Array.isArray(projectionNodes)) {
+          return projectionNodes[0];
+        }
+
+        const parentView = getLViewParent(lView[DECLARATION_COMPONENT_VIEW]);
+        ngDevMode && assertParentView(parentView);
+        return getFirstNativeNode(parentView, projectionNodes);
+      } else {
+        return getFirstNativeNode(lView, tNode.next);
+      }
+    }
+  }
+
+  return null;
+}
+
+function getProjectionNodes(lView, tNode) {
+  if (tNode !== null) {
+    const componentView = lView[DECLARATION_COMPONENT_VIEW];
+    const componentHost = componentView[T_HOST];
+    const slotIdx = tNode.projection;
+    ngDevMode && assertProjectionSlots(lView);
+    return componentHost.projection[slotIdx];
+  }
+
+  return null;
+}
+
+function getBeforeNodeForView(viewIndexInContainer, lContainer) {
+  const nextViewIndex = CONTAINER_HEADER_OFFSET + viewIndexInContainer + 1;
+
+  if (nextViewIndex < lContainer.length) {
+    const lView = lContainer[nextViewIndex];
+    const firstTNodeOfView = lView[TVIEW].firstChild;
+
+    if (firstTNodeOfView !== null) {
+      return getFirstNativeNode(lView, firstTNodeOfView);
+    }
+  }
+
+  return lContainer[NATIVE];
+}
+/**
+ * Removes a native node itself using a given renderer. To remove the node we are looking up its
+ * parent from the native tree as not all platforms / browsers support the equivalent of
+ * node.remove().
+ *
+ * @param renderer A renderer to be used
+ * @param rNode The native node that should be removed
+ * @param isHostElement A flag indicating if a node to be removed is a host of a component.
+ */
+
+
+function nativeRemoveNode(renderer, rNode, isHostElement) {
+  ngDevMode && ngDevMode.rendererRemoveNode++;
+  const nativeParent = nativeParentNode(renderer, rNode);
+
+  if (nativeParent) {
+    nativeRemoveChild(renderer, nativeParent, rNode, isHostElement);
+  }
+}
+/**
+ * Performs the operation of `action` on the node. Typically this involves inserting or removing
+ * nodes on the LView or projection boundary.
+ */
+
+
+function applyNodes(renderer, action, tNode, lView, parentRElement, beforeNode, isProjection) {
+  while (tNode != null) {
+    ngDevMode && assertTNodeForLView(tNode, lView);
+    ngDevMode && assertTNodeType(tNode, 3
+    /* TNodeType.AnyRNode */
+    | 12
+    /* TNodeType.AnyContainer */
+    | 16
+    /* TNodeType.Projection */
+    | 32
+    /* TNodeType.Icu */
+    );
+    const rawSlotValue = lView[tNode.index];
+    const tNodeType = tNode.type;
+
+    if (isProjection) {
+      if (action === 0
+      /* WalkTNodeTreeAction.Create */
+      ) {
+        rawSlotValue && attachPatchData(unwrapRNode(rawSlotValue), lView);
+        tNode.flags |= 4
+        /* TNodeFlags.isProjected */
+        ;
+      }
+    }
+
+    if ((tNode.flags & 64
+    /* TNodeFlags.isDetached */
+    ) !== 64
+    /* TNodeFlags.isDetached */
+    ) {
+      if (tNodeType & 8
+      /* TNodeType.ElementContainer */
+      ) {
+        applyNodes(renderer, action, tNode.child, lView, parentRElement, beforeNode, false);
+        applyToElementOrContainer(action, renderer, parentRElement, rawSlotValue, beforeNode);
+      } else if (tNodeType & 32
+      /* TNodeType.Icu */
+      ) {
+        const nextRNode = icuContainerIterate(tNode, lView);
+        let rNode;
+
+        while (rNode = nextRNode()) {
+          applyToElementOrContainer(action, renderer, parentRElement, rNode, beforeNode);
+        }
+
+        applyToElementOrContainer(action, renderer, parentRElement, rawSlotValue, beforeNode);
+      } else if (tNodeType & 16
+      /* TNodeType.Projection */
+      ) {
+        applyProjectionRecursive(renderer, action, lView, tNode, parentRElement, beforeNode);
+      } else {
+        ngDevMode && assertTNodeType(tNode, 3
+        /* TNodeType.AnyRNode */
+        | 4
+        /* TNodeType.Container */
+        );
+        applyToElementOrContainer(action, renderer, parentRElement, rawSlotValue, beforeNode);
+      }
+    }
+
+    tNode = isProjection ? tNode.projectionNext : tNode.next;
+  }
+}
+
+function applyView(tView, lView, renderer, action, parentRElement, beforeNode) {
+  applyNodes(renderer, action, tView.firstChild, lView, parentRElement, beforeNode, false);
+}
+/**
+ * `applyProjection` performs operation on the projection.
+ *
+ * Inserting a projection requires us to locate the projected nodes from the parent component. The
+ * complication is that those nodes themselves could be re-projected from their parent component.
+ *
+ * @param tView The `TView` of `LView` which needs to be inserted, detached, destroyed
+ * @param lView The `LView` which needs to be inserted, detached, destroyed.
+ * @param tProjectionNode node to project
+ */
+
+
+function applyProjection(tView, lView, tProjectionNode) {
+  const renderer = lView[RENDERER];
+  const parentRNode = getParentRElement(tView, tProjectionNode, lView);
+  const parentTNode = tProjectionNode.parent || lView[T_HOST];
+  let beforeNode = getInsertInFrontOfRNode(parentTNode, tProjectionNode, lView);
+  applyProjectionRecursive(renderer, 0
+  /* WalkTNodeTreeAction.Create */
+  , lView, tProjectionNode, parentRNode, beforeNode);
+}
+/**
+ * `applyProjectionRecursive` performs operation on the projection specified by `action` (insert,
+ * detach, destroy)
+ *
+ * Inserting a projection requires us to locate the projected nodes from the parent component. The
+ * complication is that those nodes themselves could be re-projected from their parent component.
+ *
+ * @param renderer Render to use
+ * @param action action to perform (insert, detach, destroy)
+ * @param lView The LView which needs to be inserted, detached, destroyed.
+ * @param tProjectionNode node to project
+ * @param parentRElement parent DOM element for insertion/removal.
+ * @param beforeNode Before which node the insertions should happen.
+ */
+
+
+function applyProjectionRecursive(renderer, action, lView, tProjectionNode, parentRElement, beforeNode) {
+  const componentLView = lView[DECLARATION_COMPONENT_VIEW];
+  const componentNode = componentLView[T_HOST];
+  ngDevMode && assertEqual(typeof tProjectionNode.projection, 'number', 'expecting projection index');
+  const nodeToProjectOrRNodes = componentNode.projection[tProjectionNode.projection];
+
+  if (Array.isArray(nodeToProjectOrRNodes)) {
+    // This should not exist, it is a bit of a hack. When we bootstrap a top level node and we
+    // need to support passing projectable nodes, so we cheat and put them in the TNode
+    // of the Host TView. (Yes we put instance info at the T Level). We can get away with it
+    // because we know that that TView is not shared and therefore it will not be a problem.
+    // This should be refactored and cleaned up.
+    for (let i = 0; i < nodeToProjectOrRNodes.length; i++) {
+      const rNode = nodeToProjectOrRNodes[i];
+      applyToElementOrContainer(action, renderer, parentRElement, rNode, beforeNode);
+    }
+  } else {
+    let nodeToProject = nodeToProjectOrRNodes;
+    const projectedComponentLView = componentLView[PARENT];
+    applyNodes(renderer, action, nodeToProject, projectedComponentLView, parentRElement, beforeNode, true);
+  }
+}
+/**
+ * `applyContainer` performs an operation on the container and its views as specified by
+ * `action` (insert, detach, destroy)
+ *
+ * Inserting a Container is complicated by the fact that the container may have Views which
+ * themselves have containers or projections.
+ *
+ * @param renderer Renderer to use
+ * @param action action to perform (insert, detach, destroy)
+ * @param lContainer The LContainer which needs to be inserted, detached, destroyed.
+ * @param parentRElement parent DOM element for insertion/removal.
+ * @param beforeNode Before which node the insertions should happen.
+ */
+
+
+function applyContainer(renderer, action, lContainer, parentRElement, beforeNode) {
+  ngDevMode && assertLContainer(lContainer);
+  const anchor = lContainer[NATIVE]; // LContainer has its own before node.
+
+  const native = unwrapRNode(lContainer); // An LContainer can be created dynamically on any node by injecting ViewContainerRef.
+  // Asking for a ViewContainerRef on an element will result in a creation of a separate anchor
+  // node (comment in the DOM) that will be different from the LContainer's host node. In this
+  // particular case we need to execute action on 2 nodes:
+  // - container's host node (this is done in the executeActionOnElementOrContainer)
+  // - container's host node (this is done here)
+
+  if (anchor !== native) {
+    // This is very strange to me (Misko). I would expect that the native is same as anchor. I
+    // don't see a reason why they should be different, but they are.
+    //
+    // If they are we need to process the second anchor as well.
+    applyToElementOrContainer(action, renderer, parentRElement, anchor, beforeNode);
+  }
+
+  for (let i = CONTAINER_HEADER_OFFSET; i < lContainer.length; i++) {
+    const lView = lContainer[i];
+    applyView(lView[TVIEW], lView, renderer, action, parentRElement, anchor);
+  }
+}
+/**
+ * Writes class/style to element.
+ *
+ * @param renderer Renderer to use.
+ * @param isClassBased `true` if it should be written to `class` (`false` to write to `style`)
+ * @param rNode The Node to write to.
+ * @param prop Property to write to. This would be the class/style name.
+ * @param value Value to write. If `null`/`undefined`/`false` this is considered a remove (set/add
+ *        otherwise).
+ */
+
+
+function applyStyling(renderer, isClassBased, rNode, prop, value) {
+  if (isClassBased) {
+    // We actually want JS true/false here because any truthy value should add the class
+    if (!value) {
+      ngDevMode && ngDevMode.rendererRemoveClass++;
+      renderer.removeClass(rNode, prop);
+    } else {
+      ngDevMode && ngDevMode.rendererAddClass++;
+      renderer.addClass(rNode, prop);
+    }
+  } else {
+    let flags = prop.indexOf('-') === -1 ? undefined : RendererStyleFlags2.DashCase;
+
+    if (value == null
+    /** || value === undefined */
+    ) {
+      ngDevMode && ngDevMode.rendererRemoveStyle++;
+      renderer.removeStyle(rNode, prop, flags);
+    } else {
+      // A value is important if it ends with `!important`. The style
+      // parser strips any semicolons at the end of the value.
+      const isImportant = typeof value === 'string' ? value.endsWith('!important') : false;
+
+      if (isImportant) {
+        // !important has to be stripped from the value for it to be valid.
+        value = value.slice(0, -10);
+        flags |= RendererStyleFlags2.Important;
+      }
+
+      ngDevMode && ngDevMode.rendererSetStyle++;
+      renderer.setStyle(rNode, prop, value, flags);
+    }
+  }
+}
+/**
+ * Write `cssText` to `RElement`.
+ *
+ * This function does direct write without any reconciliation. Used for writing initial values, so
+ * that static styling values do not pull in the style parser.
+ *
+ * @param renderer Renderer to use
+ * @param element The element which needs to be updated.
+ * @param newValue The new class list to write.
+ */
+
+
+function writeDirectStyle(renderer, element, newValue) {
+  ngDevMode && assertString(newValue, '\'newValue\' should be a string');
+  renderer.setAttribute(element, 'style', newValue);
+  ngDevMode && ngDevMode.rendererSetStyle++;
+}
+/**
+ * Write `className` to `RElement`.
+ *
+ * This function does direct write without any reconciliation. Used for writing initial values, so
+ * that static styling values do not pull in the style parser.
+ *
+ * @param renderer Renderer to use
+ * @param element The element which needs to be updated.
+ * @param newValue The new class list to write.
+ */
+
+
+function writeDirectClass(renderer, element, newValue) {
+  ngDevMode && assertString(newValue, '\'newValue\' should be a string');
+
+  if (newValue === '') {
+    // There are tests in `google3` which expect `element.getAttribute('class')` to be `null`.
+    renderer.removeAttribute(element, 'class');
+  } else {
+    renderer.setAttribute(element, 'class', newValue);
+  }
+
+  ngDevMode && ngDevMode.rendererSetClassName++;
 }
 /**
  * @license
@@ -70663,6 +73085,109 @@ function newTrustedFunctionForDev(...args) {
   return fn.bind(_global); // When Trusted Types support in Function constructors is widely available,
   // the implementation of this function can be simplified to:
   // return new Function(...args.map(a => trustedScriptFromString(a)));
+}
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+/**
+ * Validation function invoked at runtime for each binding that might potentially
+ * represent a security-sensitive attribute of an <iframe>.
+ * See `IFRAME_SECURITY_SENSITIVE_ATTRS` in the
+ * `packages/compiler/src/schema/dom_security_schema.ts` script for the full list
+ * of such attributes.
+ *
+ * @codeGenApi
+ */
+
+
+function ɵɵvalidateIframeAttribute(attrValue, tagName, attrName) {
+  const lView = getLView();
+  const tNode = getSelectedTNode();
+  const element = getNativeByTNode(tNode, lView); // Restrict any dynamic bindings of security-sensitive attributes/properties
+  // on an <iframe> for security reasons.
+
+  if (tNode.type === 2
+  /* TNodeType.Element */
+  && tagName.toLowerCase() === 'iframe') {
+    const iframe = element; // Unset previously applied `src` and `srcdoc` if we come across a situation when
+    // a security-sensitive attribute is set later via an attribute/property binding.
+
+    iframe.src = '';
+    iframe.srcdoc = trustedHTMLFromString(''); // Also remove the <iframe> from the document.
+
+    nativeRemoveNode(lView[RENDERER], iframe);
+    const errorMessage = ngDevMode && `Angular has detected that the \`${attrName}\` was applied ` + `as a binding to an <iframe>${getTemplateLocationDetails(lView)}. ` + `For security reasons, the \`${attrName}\` can be set on an <iframe> ` + `as a static attribute only. \n` + `To fix this, switch the \`${attrName}\` binding to a static attribute ` + `in a template or in host bindings section.`;
+    throw new RuntimeError(-910
+    /* RuntimeErrorCode.UNSAFE_IFRAME_ATTRS */
+    , errorMessage);
+  }
+
+  return attrValue;
+}
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+/**
+ * Most of the use of `document` in Angular is from within the DI system so it is possible to simply
+ * inject the `DOCUMENT` token and are done.
+ *
+ * Ivy is special because it does not rely upon the DI and must get hold of the document some other
+ * way.
+ *
+ * The solution is to define `getDocument()` and `setDocument()` top-level functions for ivy.
+ * Wherever ivy needs the global document, it calls `getDocument()` instead.
+ *
+ * When running ivy outside of a browser environment, it is necessary to call `setDocument()` to
+ * tell ivy what the global `document` is.
+ *
+ * Angular does this for us in each of the standard platforms (`Browser`, `Server`, and `WebWorker`)
+ * by calling `setDocument()` when providing the `DOCUMENT` token.
+ */
+
+
+let DOCUMENT = undefined;
+/**
+ * Tell ivy what the `document` is for this platform.
+ *
+ * It is only necessary to call this if the current platform is not a browser.
+ *
+ * @param document The object representing the global `document` in this environment.
+ */
+
+function setDocument(document) {
+  DOCUMENT = document;
+}
+/**
+ * Access the object that represents the `document` for this platform.
+ *
+ * Ivy calls this whenever it needs to access the `document` object.
+ * For example to create the renderer or to do sanitization.
+ */
+
+
+function getDocument() {
+  if (DOCUMENT !== undefined) {
+    return DOCUMENT;
+  } else if (typeof document !== 'undefined') {
+    return document;
+  } // No "document" can be found. This should only happen if we are running ivy outside Angular and
+  // the current platform is not a browser. Since this is not a supported scenario at the moment
+  // this should not happen in Angular apps.
+  // Once we support running ivy outside of Angular we will need to publish `setDocument()` as a
+  // public API. Meanwhile we just return `undefined` and let the application fail.
+
+
+  return undefined;
 }
 /**
  * @license
@@ -71102,11 +73627,6 @@ function _sanitizeUrl(url) {
 
   return 'unsafe:' + url;
 }
-
-function sanitizeSrcset(srcset) {
-  srcset = String(srcset);
-  return srcset.split(',').map(srcset => _sanitizeUrl(srcset.trim())).join(', ');
-}
 /**
  * @license
  * Copyright Google LLC All Rights Reserved.
@@ -71153,10 +73673,8 @@ const BLOCK_ELEMENTS = merge(OPTIONAL_END_TAG_BLOCK_ELEMENTS, tagSet('address,ar
 const INLINE_ELEMENTS = merge(OPTIONAL_END_TAG_INLINE_ELEMENTS, tagSet('a,abbr,acronym,audio,b,' + 'bdi,bdo,big,br,cite,code,del,dfn,em,font,i,img,ins,kbd,label,map,mark,picture,q,ruby,rp,rt,s,' + 'samp,small,source,span,strike,strong,sub,sup,time,track,tt,u,var,video'));
 const VALID_ELEMENTS = merge(VOID_ELEMENTS, BLOCK_ELEMENTS, INLINE_ELEMENTS, OPTIONAL_END_TAG_ELEMENTS); // Attributes that have href and hence need to be sanitized
 
-const URI_ATTRS = tagSet('background,cite,href,itemtype,longdesc,poster,src,xlink:href'); // Attributes that have special href set hence need to be sanitized
-
-const SRCSET_ATTRS = tagSet('srcset');
-const HTML_ATTRS = tagSet('abbr,accesskey,align,alt,autoplay,axis,bgcolor,border,cellpadding,cellspacing,class,clear,color,cols,colspan,' + 'compact,controls,coords,datetime,default,dir,download,face,headers,height,hidden,hreflang,hspace,' + 'ismap,itemscope,itemprop,kind,label,lang,language,loop,media,muted,nohref,nowrap,open,preload,rel,rev,role,rows,rowspan,rules,' + 'scope,scrolling,shape,size,sizes,span,srclang,start,summary,tabindex,target,title,translate,type,usemap,' + 'valign,value,vspace,width'); // Accessibility attributes as per WAI-ARIA 1.1 (W3C Working Draft 14 December 2018)
+const URI_ATTRS = tagSet('background,cite,href,itemtype,longdesc,poster,src,xlink:href');
+const HTML_ATTRS = tagSet('abbr,accesskey,align,alt,autoplay,axis,bgcolor,border,cellpadding,cellspacing,class,clear,color,cols,colspan,' + 'compact,controls,coords,datetime,default,dir,download,face,headers,height,hidden,hreflang,hspace,' + 'ismap,itemscope,itemprop,kind,label,lang,language,loop,media,muted,nohref,nowrap,open,preload,rel,rev,role,rows,rowspan,rules,' + 'scope,scrolling,shape,size,sizes,span,srclang,srcset,start,summary,tabindex,target,title,translate,type,usemap,' + 'valign,value,vspace,width'); // Accessibility attributes as per WAI-ARIA 1.1 (W3C Working Draft 14 December 2018)
 
 const ARIA_ATTRS = tagSet('aria-activedescendant,aria-atomic,aria-autocomplete,aria-busy,aria-checked,aria-colcount,aria-colindex,' + 'aria-colspan,aria-controls,aria-current,aria-describedby,aria-details,aria-disabled,aria-dropeffect,' + 'aria-errormessage,aria-expanded,aria-flowto,aria-grabbed,aria-haspopup,aria-hidden,aria-invalid,' + 'aria-keyshortcuts,aria-label,aria-labelledby,aria-level,aria-live,aria-modal,aria-multiline,' + 'aria-multiselectable,aria-orientation,aria-owns,aria-placeholder,aria-posinset,aria-pressed,aria-readonly,' + 'aria-relevant,aria-required,aria-roledescription,aria-rowcount,aria-rowindex,aria-rowspan,aria-selected,' + 'aria-setsize,aria-sort,aria-valuemax,aria-valuemin,aria-valuenow,aria-valuetext'); // NB: This currently consciously doesn't support SVG. SVG sanitization has had several security
 // issues in the past, so it seems safer to leave it out if possible. If support for binding SVG via
@@ -71165,7 +73683,7 @@ const ARIA_ATTRS = tagSet('aria-activedescendant,aria-atomic,aria-autocomplete,a
 // can be sanitized, but they increase security surface area without a legitimate use case, so they
 // are left out here.
 
-const VALID_ATTRS = merge(URI_ATTRS, SRCSET_ATTRS, HTML_ATTRS, ARIA_ATTRS); // Elements whose content should not be traversed/preserved, if the elements themselves are invalid.
+const VALID_ATTRS = merge(URI_ATTRS, HTML_ATTRS, ARIA_ATTRS); // Elements whose content should not be traversed/preserved, if the elements themselves are invalid.
 //
 // Typically, `<invalid>Some content</invalid>` would traverse (and in this case preserve)
 // `Some content`, but strip `invalid-element` opening/closing tags. For some elements, though, we
@@ -71261,7 +73779,6 @@ class SanitizingHtmlSerializer {
       let value = elAttr.value; // TODO(martinprobst): Special case image URIs for data:image/...
 
       if (URI_ATTRS[lower]) value = _sanitizeUrl(value);
-      if (SRCSET_ATTRS[lower]) value = sanitizeSrcset(value);
       this.buf.push(' ', attrName, '="', encodeEntities(value), '"');
     }
 
@@ -72773,7 +75290,7 @@ class Version {
  */
 
 
-const VERSION = new Version('14.2.0');
+const VERSION = new Version('14.2.12');
 /**
  * @license
  * Copyright Google LLC All Rights Reserved.
@@ -72807,321 +75324,6 @@ const NOT_FOUND_CHECK_ONLY_ELEMENT_INJECTOR = {};
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-
-/**
- * Defines a schema that allows an NgModule to contain the following:
- * - Non-Angular elements named with dash case (`-`).
- * - Element properties named with dash case (`-`).
- * Dash case is the naming convention for custom elements.
- *
- * @publicApi
- */
-
-const CUSTOM_ELEMENTS_SCHEMA = {
-  name: 'custom-elements'
-};
-/**
- * Defines a schema that allows any property on any element.
- *
- * This schema allows you to ignore the errors related to any unknown elements or properties in a
- * template. The usage of this schema is generally discouraged because it prevents useful validation
- * and may hide real errors in your template. Consider using the `CUSTOM_ELEMENTS_SCHEMA` instead.
- *
- * @publicApi
- */
-
-const NO_ERRORS_SCHEMA = {
-  name: 'no-errors-schema'
-};
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-let shouldThrowErrorOnUnknownElement = false;
-/**
- * Sets a strict mode for JIT-compiled components to throw an error on unknown elements,
- * instead of just logging the error.
- * (for AOT-compiled ones this check happens at build time).
- */
-
-function ɵsetUnknownElementStrictMode(shouldThrow) {
-  shouldThrowErrorOnUnknownElement = shouldThrow;
-}
-/**
- * Gets the current value of the strict mode.
- */
-
-
-function ɵgetUnknownElementStrictMode() {
-  return shouldThrowErrorOnUnknownElement;
-}
-
-let shouldThrowErrorOnUnknownProperty = false;
-/**
- * Sets a strict mode for JIT-compiled components to throw an error on unknown properties,
- * instead of just logging the error.
- * (for AOT-compiled ones this check happens at build time).
- */
-
-function ɵsetUnknownPropertyStrictMode(shouldThrow) {
-  shouldThrowErrorOnUnknownProperty = shouldThrow;
-}
-/**
- * Gets the current value of the strict mode.
- */
-
-
-function ɵgetUnknownPropertyStrictMode() {
-  return shouldThrowErrorOnUnknownProperty;
-}
-/**
- * Validates that the element is known at runtime and produces
- * an error if it's not the case.
- * This check is relevant for JIT-compiled components (for AOT-compiled
- * ones this check happens at build time).
- *
- * The element is considered known if either:
- * - it's a known HTML element
- * - it's a known custom element
- * - the element matches any directive
- * - the element is allowed by one of the schemas
- *
- * @param element Element to validate
- * @param lView An `LView` that represents a current component that is being rendered
- * @param tagName Name of the tag to check
- * @param schemas Array of schemas
- * @param hasDirectives Boolean indicating that the element matches any directive
- */
-
-
-function validateElementIsKnown(element, lView, tagName, schemas, hasDirectives) {
-  // If `schemas` is set to `null`, that's an indication that this Component was compiled in AOT
-  // mode where this check happens at compile time. In JIT mode, `schemas` is always present and
-  // defined as an array (as an empty array in case `schemas` field is not defined) and we should
-  // execute the check below.
-  if (schemas === null) return; // If the element matches any directive, it's considered as valid.
-
-  if (!hasDirectives && tagName !== null) {
-    // The element is unknown if it's an instance of HTMLUnknownElement, or it isn't registered
-    // as a custom element. Note that unknown elements with a dash in their name won't be instances
-    // of HTMLUnknownElement in browsers that support web components.
-    const isUnknown = // Note that we can't check for `typeof HTMLUnknownElement === 'function'`,
-    // because while most browsers return 'function', IE returns 'object'.
-    typeof HTMLUnknownElement !== 'undefined' && HTMLUnknownElement && element instanceof HTMLUnknownElement || typeof customElements !== 'undefined' && tagName.indexOf('-') > -1 && !customElements.get(tagName);
-
-    if (isUnknown && !matchingSchemas(schemas, tagName)) {
-      const isHostStandalone = isHostComponentStandalone(lView);
-      const templateLocation = getTemplateLocationDetails(lView);
-      const schemas = `'${isHostStandalone ? '@Component' : '@NgModule'}.schemas'`;
-      let message = `'${tagName}' is not a known element${templateLocation}:\n`;
-      message += `1. If '${tagName}' is an Angular component, then verify that it is ${isHostStandalone ? 'included in the \'@Component.imports\' of this component' : 'a part of an @NgModule where this component is declared'}.\n`;
-
-      if (tagName && tagName.indexOf('-') > -1) {
-        message += `2. If '${tagName}' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the ${schemas} of this component to suppress this message.`;
-      } else {
-        message += `2. To allow any element add 'NO_ERRORS_SCHEMA' to the ${schemas} of this component.`;
-      }
-
-      if (shouldThrowErrorOnUnknownElement) {
-        throw new RuntimeError(304
-        /* RuntimeErrorCode.UNKNOWN_ELEMENT */
-        , message);
-      } else {
-        console.error(formatRuntimeError(304
-        /* RuntimeErrorCode.UNKNOWN_ELEMENT */
-        , message));
-      }
-    }
-  }
-}
-/**
- * Validates that the property of the element is known at runtime and returns
- * false if it's not the case.
- * This check is relevant for JIT-compiled components (for AOT-compiled
- * ones this check happens at build time).
- *
- * The property is considered known if either:
- * - it's a known property of the element
- * - the element is allowed by one of the schemas
- * - the property is used for animations
- *
- * @param element Element to validate
- * @param propName Name of the property to check
- * @param tagName Name of the tag hosting the property
- * @param schemas Array of schemas
- */
-
-
-function isPropertyValid(element, propName, tagName, schemas) {
-  // If `schemas` is set to `null`, that's an indication that this Component was compiled in AOT
-  // mode where this check happens at compile time. In JIT mode, `schemas` is always present and
-  // defined as an array (as an empty array in case `schemas` field is not defined) and we should
-  // execute the check below.
-  if (schemas === null) return true; // The property is considered valid if the element matches the schema, it exists on the element,
-  // or it is synthetic, and we are in a browser context (web worker nodes should be skipped).
-
-  if (matchingSchemas(schemas, tagName) || propName in element || isAnimationProp(propName)) {
-    return true;
-  } // Note: `typeof Node` returns 'function' in most browsers, but on IE it is 'object' so we
-  // need to account for both here, while being careful with `typeof null` also returning 'object'.
-
-
-  return typeof Node === 'undefined' || Node === null || !(element instanceof Node);
-}
-/**
- * Logs or throws an error that a property is not supported on an element.
- *
- * @param propName Name of the invalid property
- * @param tagName Name of the tag hosting the property
- * @param nodeType Type of the node hosting the property
- * @param lView An `LView` that represents a current component
- */
-
-
-function handleUnknownPropertyError(propName, tagName, nodeType, lView) {
-  // Special-case a situation when a structural directive is applied to
-  // an `<ng-template>` element, for example: `<ng-template *ngIf="true">`.
-  // In this case the compiler generates the `ɵɵtemplate` instruction with
-  // the `null` as the tagName. The directive matching logic at runtime relies
-  // on this effect (see `isInlineTemplate`), thus using the 'ng-template' as
-  // a default value of the `tNode.value` is not feasible at this moment.
-  if (!tagName && nodeType === 4
-  /* TNodeType.Container */
-  ) {
-    tagName = 'ng-template';
-  }
-
-  const isHostStandalone = isHostComponentStandalone(lView);
-  const templateLocation = getTemplateLocationDetails(lView);
-  let message = `Can't bind to '${propName}' since it isn't a known property of '${tagName}'${templateLocation}.`;
-  const schemas = `'${isHostStandalone ? '@Component' : '@NgModule'}.schemas'`;
-  const importLocation = isHostStandalone ? 'included in the \'@Component.imports\' of this component' : 'a part of an @NgModule where this component is declared';
-
-  if (KNOWN_CONTROL_FLOW_DIRECTIVES.has(propName)) {
-    // Most likely this is a control flow directive (such as `*ngIf`) used in
-    // a template, but the directive or the `CommonModule` is not imported.
-    const correspondingImport = KNOWN_CONTROL_FLOW_DIRECTIVES.get(propName);
-    message += `\nIf the '${propName}' is an Angular control flow directive, ` + `please make sure that either the '${correspondingImport}' directive or the 'CommonModule' is ${importLocation}.`;
-  } else {
-    // May be an Angular component, which is not imported/declared?
-    message += `\n1. If '${tagName}' is an Angular component and it has the ` + `'${propName}' input, then verify that it is ${importLocation}.`; // May be a Web Component?
-
-    if (tagName && tagName.indexOf('-') > -1) {
-      message += `\n2. If '${tagName}' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' ` + `to the ${schemas} of this component to suppress this message.`;
-      message += `\n3. To allow any property add 'NO_ERRORS_SCHEMA' to ` + `the ${schemas} of this component.`;
-    } else {
-      // If it's expected, the error can be suppressed by the `NO_ERRORS_SCHEMA` schema.
-      message += `\n2. To allow any property add 'NO_ERRORS_SCHEMA' to ` + `the ${schemas} of this component.`;
-    }
-  }
-
-  reportUnknownPropertyError(message);
-}
-
-function reportUnknownPropertyError(message) {
-  if (shouldThrowErrorOnUnknownProperty) {
-    throw new RuntimeError(303
-    /* RuntimeErrorCode.UNKNOWN_BINDING */
-    , message);
-  } else {
-    console.error(formatRuntimeError(303
-    /* RuntimeErrorCode.UNKNOWN_BINDING */
-    , message));
-  }
-}
-/**
- * WARNING: this is a **dev-mode only** function (thus should always be guarded by the `ngDevMode`)
- * and must **not** be used in production bundles. The function makes megamorphic reads, which might
- * be too slow for production mode and also it relies on the constructor function being available.
- *
- * Gets a reference to the host component def (where a current component is declared).
- *
- * @param lView An `LView` that represents a current component that is being rendered.
- */
-
-
-function getDeclarationComponentDef(lView) {
-  !ngDevMode && throwError('Must never be called in production mode');
-  const declarationLView = lView[DECLARATION_COMPONENT_VIEW];
-  const context = declarationLView[CONTEXT]; // Unable to obtain a context.
-
-  if (!context) return null;
-  return context.constructor ? getComponentDef(context.constructor) : null;
-}
-/**
- * WARNING: this is a **dev-mode only** function (thus should always be guarded by the `ngDevMode`)
- * and must **not** be used in production bundles. The function makes megamorphic reads, which might
- * be too slow for production mode.
- *
- * Checks if the current component is declared inside of a standalone component template.
- *
- * @param lView An `LView` that represents a current component that is being rendered.
- */
-
-
-function isHostComponentStandalone(lView) {
-  !ngDevMode && throwError('Must never be called in production mode');
-  const componentDef = getDeclarationComponentDef(lView); // Treat host component as non-standalone if we can't obtain the def.
-
-  return !!componentDef?.standalone;
-}
-/**
- * WARNING: this is a **dev-mode only** function (thus should always be guarded by the `ngDevMode`)
- * and must **not** be used in production bundles. The function makes megamorphic reads, which might
- * be too slow for production mode.
- *
- * Constructs a string describing the location of the host component template. The function is used
- * in dev mode to produce error messages.
- *
- * @param lView An `LView` that represents a current component that is being rendered.
- */
-
-
-function getTemplateLocationDetails(lView) {
-  !ngDevMode && throwError('Must never be called in production mode');
-  const hostComponentDef = getDeclarationComponentDef(lView);
-  const componentClassName = hostComponentDef?.type?.name;
-  return componentClassName ? ` (used in the '${componentClassName}' component template)` : '';
-}
-/**
- * The set of known control flow directives and their corresponding imports.
- * We use this set to produce a more precises error message with a note
- * that the `CommonModule` should also be included.
- */
-
-
-const KNOWN_CONTROL_FLOW_DIRECTIVES = new Map([['ngIf', 'NgIf'], ['ngFor', 'NgForOf'], ['ngSwitchCase', 'NgSwitchCase'], ['ngSwitchDefault', 'NgSwitchDefault']]);
-/**
- * Returns true if the tag name is allowed by specified schemas.
- * @param schemas Array of schemas
- * @param tagName Name of the tag
- */
-
-function matchingSchemas(schemas, tagName) {
-  if (schemas !== null) {
-    for (let i = 0; i < schemas.length; i++) {
-      const schema = schemas[i];
-
-      if (schema === NO_ERRORS_SCHEMA || schema === CUSTOM_ELEMENTS_SCHEMA && tagName && tagName.indexOf('-') > -1) {
-        return true;
-      }
-    }
-  }
-
-  return false;
-}
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
 
 const ERROR_ORIGINAL_ERROR = 'ngOriginalError';
 
@@ -73209,59 +75411,6 @@ class ErrorHandler {
  * found in the LICENSE file at https://angular.io/license
  */
 
-/**
- * Disallowed strings in the comment.
- *
- * see: https://html.spec.whatwg.org/multipage/syntax.html#comments
- */
-
-
-const COMMENT_DISALLOWED = /^>|^->|<!--|-->|--!>|<!-$/g;
-/**
- * Delimiter in the disallowed strings which needs to be wrapped with zero with character.
- */
-
-const COMMENT_DELIMITER = /(<|>)/;
-const COMMENT_DELIMITER_ESCAPED = '\u200B$1\u200B';
-/**
- * Escape the content of comment strings so that it can be safely inserted into a comment node.
- *
- * The issue is that HTML does not specify any way to escape comment end text inside the comment.
- * Consider: `<!-- The way you close a comment is with ">", and "->" at the beginning or by "-->" or
- * "--!>" at the end. -->`. Above the `"-->"` is meant to be text not an end to the comment. This
- * can be created programmatically through DOM APIs. (`<!--` are also disallowed.)
- *
- * see: https://html.spec.whatwg.org/multipage/syntax.html#comments
- *
- * ```
- * div.innerHTML = div.innerHTML
- * ```
- *
- * One would expect that the above code would be safe to do, but it turns out that because comment
- * text is not escaped, the comment may contain text which will prematurely close the comment
- * opening up the application for XSS attack. (In SSR we programmatically create comment nodes which
- * may contain such text and expect them to be safe.)
- *
- * This function escapes the comment text by looking for comment delimiters (`<` and `>`) and
- * surrounding them with `_>_` where the `_` is a zero width space `\u200B`. The result is that if a
- * comment contains any of the comment start/end delimiters (such as `<!--`, `-->` or `--!>`) the
- * text it will render normally but it will not cause the HTML parser to close/open the comment.
- *
- * @param value text to make safe for comment node by escaping the comment open/close character
- *     sequence.
- */
-
-function escapeCommentText(value) {
-  return value.replace(COMMENT_DISALLOWED, text => text.replace(COMMENT_DELIMITER, COMMENT_DELIMITER_ESCAPED));
-}
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
 
 function normalizeDebugBindingName(name) {
   // Attribute names with `$` (eg `x-y$`) are valid per spec, but unsupported by some browsers
@@ -73282,450 +75431,6 @@ function normalizeDebugBindingValue(value) {
   } catch (e) {
     return '[ERROR] Exception while trying to serialize the value';
   }
-}
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-// Keeps track of the currently-active LViews.
-
-
-const TRACKED_LVIEWS = new Map(); // Used for generating unique IDs for LViews.
-
-let uniqueIdCounter = 0;
-/** Gets a unique ID that can be assigned to an LView. */
-
-function getUniqueLViewId() {
-  return uniqueIdCounter++;
-}
-/** Starts tracking an LView. */
-
-
-function registerLView(lView) {
-  ngDevMode && assertNumber(lView[ID], 'LView must have an ID in order to be registered');
-  TRACKED_LVIEWS.set(lView[ID], lView);
-}
-/** Gets an LView by its unique ID. */
-
-
-function getLViewById(id) {
-  ngDevMode && assertNumber(id, 'ID used for LView lookup must be a number');
-  return TRACKED_LVIEWS.get(id) || null;
-}
-/** Stops tracking an LView. */
-
-
-function unregisterLView(lView) {
-  ngDevMode && assertNumber(lView[ID], 'Cannot stop tracking an LView that does not have an ID');
-  TRACKED_LVIEWS.delete(lView[ID]);
-}
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * The internal view context which is specific to a given DOM element, directive or
- * component instance. Each value in here (besides the LView and element node details)
- * can be present, null or undefined. If undefined then it implies the value has not been
- * looked up yet, otherwise, if null, then a lookup was executed and nothing was found.
- *
- * Each value will get filled when the respective value is examined within the getContext
- * function. The component, element and each directive instance will share the same instance
- * of the context.
- */
-
-
-class LContext {
-  constructor(
-  /**
-   * ID of the component's parent view data.
-   */
-  lViewId,
-  /**
-   * The index instance of the node.
-   */
-  nodeIndex,
-  /**
-   * The instance of the DOM node that is attached to the lNode.
-   */
-  native) {
-    this.lViewId = lViewId;
-    this.nodeIndex = nodeIndex;
-    this.native = native;
-  }
-  /** Component's parent view data. */
-
-
-  get lView() {
-    return getLViewById(this.lViewId);
-  }
-
-}
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * Returns the matching `LContext` data for a given DOM node, directive or component instance.
- *
- * This function will examine the provided DOM element, component, or directive instance\'s
- * monkey-patched property to derive the `LContext` data. Once called then the monkey-patched
- * value will be that of the newly created `LContext`.
- *
- * If the monkey-patched value is the `LView` instance then the context value for that
- * target will be created and the monkey-patch reference will be updated. Therefore when this
- * function is called it may mutate the provided element\'s, component\'s or any of the associated
- * directive\'s monkey-patch values.
- *
- * If the monkey-patch value is not detected then the code will walk up the DOM until an element
- * is found which contains a monkey-patch reference. When that occurs then the provided element
- * will be updated with a new context (which is then returned). If the monkey-patch value is not
- * detected for a component/directive instance then it will throw an error (all components and
- * directives should be automatically monkey-patched by ivy).
- *
- * @param target Component, Directive or DOM Node.
- */
-
-
-function getLContext(target) {
-  let mpValue = readPatchedData(target);
-
-  if (mpValue) {
-    // only when it's an array is it considered an LView instance
-    // ... otherwise it's an already constructed LContext instance
-    if (isLView(mpValue)) {
-      const lView = mpValue;
-      let nodeIndex;
-      let component = undefined;
-      let directives = undefined;
-
-      if (isComponentInstance(target)) {
-        nodeIndex = findViaComponent(lView, target);
-
-        if (nodeIndex == -1) {
-          throw new Error('The provided component was not found in the application');
-        }
-
-        component = target;
-      } else if (isDirectiveInstance(target)) {
-        nodeIndex = findViaDirective(lView, target);
-
-        if (nodeIndex == -1) {
-          throw new Error('The provided directive was not found in the application');
-        }
-
-        directives = getDirectivesAtNodeIndex(nodeIndex, lView, false);
-      } else {
-        nodeIndex = findViaNativeElement(lView, target);
-
-        if (nodeIndex == -1) {
-          return null;
-        }
-      } // the goal is not to fill the entire context full of data because the lookups
-      // are expensive. Instead, only the target data (the element, component, container, ICU
-      // expression or directive details) are filled into the context. If called multiple times
-      // with different target values then the missing target data will be filled in.
-
-
-      const native = unwrapRNode(lView[nodeIndex]);
-      const existingCtx = readPatchedData(native);
-      const context = existingCtx && !Array.isArray(existingCtx) ? existingCtx : createLContext(lView, nodeIndex, native); // only when the component has been discovered then update the monkey-patch
-
-      if (component && context.component === undefined) {
-        context.component = component;
-        attachPatchData(context.component, context);
-      } // only when the directives have been discovered then update the monkey-patch
-
-
-      if (directives && context.directives === undefined) {
-        context.directives = directives;
-
-        for (let i = 0; i < directives.length; i++) {
-          attachPatchData(directives[i], context);
-        }
-      }
-
-      attachPatchData(context.native, context);
-      mpValue = context;
-    }
-  } else {
-    const rElement = target;
-    ngDevMode && assertDomNode(rElement); // if the context is not found then we need to traverse upwards up the DOM
-    // to find the nearest element that has already been monkey patched with data
-
-    let parent = rElement;
-
-    while (parent = parent.parentNode) {
-      const parentContext = readPatchedData(parent);
-
-      if (parentContext) {
-        const lView = Array.isArray(parentContext) ? parentContext : parentContext.lView; // the edge of the app was also reached here through another means
-        // (maybe because the DOM was changed manually).
-
-        if (!lView) {
-          return null;
-        }
-
-        const index = findViaNativeElement(lView, rElement);
-
-        if (index >= 0) {
-          const native = unwrapRNode(lView[index]);
-          const context = createLContext(lView, index, native);
-          attachPatchData(native, context);
-          mpValue = context;
-          break;
-        }
-      }
-    }
-  }
-
-  return mpValue || null;
-}
-/**
- * Creates an empty instance of a `LContext` context
- */
-
-
-function createLContext(lView, nodeIndex, native) {
-  return new LContext(lView[ID], nodeIndex, native);
-}
-/**
- * Takes a component instance and returns the view for that component.
- *
- * @param componentInstance
- * @returns The component's view
- */
-
-
-function getComponentViewByInstance(componentInstance) {
-  let patchedData = readPatchedData(componentInstance);
-  let lView;
-
-  if (isLView(patchedData)) {
-    const contextLView = patchedData;
-    const nodeIndex = findViaComponent(contextLView, componentInstance);
-    lView = getComponentLViewByIndex(nodeIndex, contextLView);
-    const context = createLContext(contextLView, nodeIndex, lView[HOST]);
-    context.component = componentInstance;
-    attachPatchData(componentInstance, context);
-    attachPatchData(context.native, context);
-  } else {
-    const context = patchedData;
-    const contextLView = context.lView;
-    ngDevMode && assertLView(contextLView);
-    lView = getComponentLViewByIndex(context.nodeIndex, contextLView);
-  }
-
-  return lView;
-}
-/**
- * This property will be monkey-patched on elements, components and directives.
- */
-
-
-const MONKEY_PATCH_KEY_NAME = '__ngContext__';
-/**
- * Assigns the given data to the given target (which could be a component,
- * directive or DOM node instance) using monkey-patching.
- */
-
-function attachPatchData(target, data) {
-  ngDevMode && assertDefined(target, 'Target expected'); // Only attach the ID of the view in order to avoid memory leaks (see #41047). We only do this
-  // for `LView`, because we have control over when an `LView` is created and destroyed, whereas
-  // we can't know when to remove an `LContext`.
-
-  if (isLView(data)) {
-    target[MONKEY_PATCH_KEY_NAME] = data[ID];
-    registerLView(data);
-  } else {
-    target[MONKEY_PATCH_KEY_NAME] = data;
-  }
-}
-/**
- * Returns the monkey-patch value data present on the target (which could be
- * a component, directive or a DOM node).
- */
-
-
-function readPatchedData(target) {
-  ngDevMode && assertDefined(target, 'Target expected');
-  const data = target[MONKEY_PATCH_KEY_NAME];
-  return typeof data === 'number' ? getLViewById(data) : data || null;
-}
-
-function readPatchedLView(target) {
-  const value = readPatchedData(target);
-
-  if (value) {
-    return isLView(value) ? value : value.lView;
-  }
-
-  return null;
-}
-
-function isComponentInstance(instance) {
-  return instance && instance.constructor && instance.constructor.ɵcmp;
-}
-
-function isDirectiveInstance(instance) {
-  return instance && instance.constructor && instance.constructor.ɵdir;
-}
-/**
- * Locates the element within the given LView and returns the matching index
- */
-
-
-function findViaNativeElement(lView, target) {
-  const tView = lView[TVIEW];
-
-  for (let i = HEADER_OFFSET; i < tView.bindingStartIndex; i++) {
-    if (unwrapRNode(lView[i]) === target) {
-      return i;
-    }
-  }
-
-  return -1;
-}
-/**
- * Locates the next tNode (child, sibling or parent).
- */
-
-
-function traverseNextElement(tNode) {
-  if (tNode.child) {
-    return tNode.child;
-  } else if (tNode.next) {
-    return tNode.next;
-  } else {
-    // Let's take the following template: <div><span>text</span></div><component/>
-    // After checking the text node, we need to find the next parent that has a "next" TNode,
-    // in this case the parent `div`, so that we can find the component.
-    while (tNode.parent && !tNode.parent.next) {
-      tNode = tNode.parent;
-    }
-
-    return tNode.parent && tNode.parent.next;
-  }
-}
-/**
- * Locates the component within the given LView and returns the matching index
- */
-
-
-function findViaComponent(lView, componentInstance) {
-  const componentIndices = lView[TVIEW].components;
-
-  if (componentIndices) {
-    for (let i = 0; i < componentIndices.length; i++) {
-      const elementComponentIndex = componentIndices[i];
-      const componentView = getComponentLViewByIndex(elementComponentIndex, lView);
-
-      if (componentView[CONTEXT] === componentInstance) {
-        return elementComponentIndex;
-      }
-    }
-  } else {
-    const rootComponentView = getComponentLViewByIndex(HEADER_OFFSET, lView);
-    const rootComponent = rootComponentView[CONTEXT];
-
-    if (rootComponent === componentInstance) {
-      // we are dealing with the root element here therefore we know that the
-      // element is the very first element after the HEADER data in the lView
-      return HEADER_OFFSET;
-    }
-  }
-
-  return -1;
-}
-/**
- * Locates the directive within the given LView and returns the matching index
- */
-
-
-function findViaDirective(lView, directiveInstance) {
-  // if a directive is monkey patched then it will (by default)
-  // have a reference to the LView of the current view. The
-  // element bound to the directive being search lives somewhere
-  // in the view data. We loop through the nodes and check their
-  // list of directives for the instance.
-  let tNode = lView[TVIEW].firstChild;
-
-  while (tNode) {
-    const directiveIndexStart = tNode.directiveStart;
-    const directiveIndexEnd = tNode.directiveEnd;
-
-    for (let i = directiveIndexStart; i < directiveIndexEnd; i++) {
-      if (lView[i] === directiveInstance) {
-        return tNode.index;
-      }
-    }
-
-    tNode = traverseNextElement(tNode);
-  }
-
-  return -1;
-}
-/**
- * Returns a list of directives extracted from the given view based on the
- * provided list of directive index values.
- *
- * @param nodeIndex The node index
- * @param lView The target view data
- * @param includeComponents Whether or not to include components in returned directives
- */
-
-
-function getDirectivesAtNodeIndex(nodeIndex, lView, includeComponents) {
-  const tNode = lView[TVIEW].data[nodeIndex];
-  let directiveStartIndex = tNode.directiveStart;
-  if (directiveStartIndex == 0) return EMPTY_ARRAY;
-  const directiveEndIndex = tNode.directiveEnd;
-  if (!includeComponents && tNode.flags & 2
-  /* TNodeFlags.isComponentHost */
-  ) directiveStartIndex++;
-  return lView.slice(directiveStartIndex, directiveEndIndex);
-}
-
-function getComponentAtNodeIndex(nodeIndex, lView) {
-  const tNode = lView[TVIEW].data[nodeIndex];
-  let directiveStartIndex = tNode.directiveStart;
-  return tNode.flags & 2
-  /* TNodeFlags.isComponentHost */
-  ? lView[directiveStartIndex] : null;
-}
-/**
- * Returns a map of local references (local reference name => element or directive instance) that
- * exist on a given element.
- */
-
-
-function discoverLocalRefs(lView, nodeIndex) {
-  const tNode = lView[TVIEW].data[nodeIndex];
-
-  if (tNode && tNode.localNames) {
-    const result = {};
-    let localIndex = tNode.index + 1;
-
-    for (let i = 0; i < tNode.localNames.length; i += 2) {
-      result[tNode.localNames[i]] = lView[localIndex];
-      localIndex++;
-    }
-
-    return result;
-  }
-
-  return null;
 }
 /**
  * @license
@@ -73918,1308 +75623,6 @@ function getExpressionChangedErrorDetails(lView, bindingIndex, oldValue, newValu
     oldValue,
     newValue
   };
-}
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * Flags for renderer-specific style modifiers.
- * @publicApi
- */
-
-
-var RendererStyleFlags2;
-
-(function (RendererStyleFlags2) {
-  // TODO(misko): This needs to be refactored into a separate file so that it can be imported from
-  // `node_manipulation.ts` Currently doing the import cause resolution order to change and fails
-  // the tests. The work around is to have hard coded value in `node_manipulation.ts` for now.
-
-  /**
-   * Marks a style as important.
-   */
-  RendererStyleFlags2[RendererStyleFlags2["Important"] = 1] = "Important";
-  /**
-   * Marks a style as using dash case naming (this-is-dash-case).
-   */
-
-  RendererStyleFlags2[RendererStyleFlags2["DashCase"] = 2] = "DashCase";
-})(RendererStyleFlags2 || (RendererStyleFlags2 = {}));
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-
-let _icuContainerIterate;
-/**
- * Iterator which provides ability to visit all of the `TIcuContainerNode` root `RNode`s.
- */
-
-
-function icuContainerIterate(tIcuContainerNode, lView) {
-  return _icuContainerIterate(tIcuContainerNode, lView);
-}
-/**
- * Ensures that `IcuContainerVisitor`'s implementation is present.
- *
- * This function is invoked when i18n instruction comes across an ICU. The purpose is to allow the
- * bundler to tree shake ICU logic and only load it if ICU instruction is executed.
- */
-
-
-function ensureIcuContainerVisitorLoaded(loader) {
-  if (_icuContainerIterate === undefined) {
-    // Do not inline this function. We want to keep `ensureIcuContainerVisitorLoaded` light, so it
-    // can be inlined into call-site.
-    _icuContainerIterate = loader();
-  }
-}
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-// Note: This hack is necessary so we don't erroneously get a circular dependency
-// failure based on types.
-
-
-const unusedValueExportToPlacateAjd$4 = 1;
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-// Note: This hack is necessary so we don't erroneously get a circular dependency
-// failure based on types.
-
-const unusedValueExportToPlacateAjd$3 = 1;
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * Gets the parent LView of the passed LView, if the PARENT is an LContainer, will get the parent of
- * that LContainer, which is an LView
- * @param lView the lView whose parent to get
- */
-
-function getLViewParent(lView) {
-  ngDevMode && assertLView(lView);
-  const parent = lView[PARENT];
-  return isLContainer(parent) ? parent[PARENT] : parent;
-}
-/**
- * Retrieve the root view from any component or `LView` by walking the parent `LView` until
- * reaching the root `LView`.
- *
- * @param componentOrLView any component or `LView`
- */
-
-
-function getRootView(componentOrLView) {
-  ngDevMode && assertDefined(componentOrLView, 'component');
-  let lView = isLView(componentOrLView) ? componentOrLView : readPatchedLView(componentOrLView);
-
-  while (lView && !(lView[FLAGS] & 256
-  /* LViewFlags.IsRoot */
-  )) {
-    lView = getLViewParent(lView);
-  }
-
-  ngDevMode && assertLView(lView);
-  return lView;
-}
-/**
- * Returns the `RootContext` instance that is associated with
- * the application where the target is situated. It does this by walking the parent views until it
- * gets to the root view, then getting the context off of that.
- *
- * @param viewOrComponent the `LView` or component to get the root context for.
- */
-
-
-function getRootContext(viewOrComponent) {
-  const rootView = getRootView(viewOrComponent);
-  ngDevMode && assertDefined(rootView[CONTEXT], 'RootView has no context. Perhaps it is disconnected?');
-  return rootView[CONTEXT];
-}
-/**
- * Gets the first `LContainer` in the LView or `null` if none exists.
- */
-
-
-function getFirstLContainer(lView) {
-  return getNearestLContainer(lView[CHILD_HEAD]);
-}
-/**
- * Gets the next `LContainer` that is a sibling of the given container.
- */
-
-
-function getNextLContainer(container) {
-  return getNearestLContainer(container[NEXT]);
-}
-
-function getNearestLContainer(viewOrContainer) {
-  while (viewOrContainer !== null && !isLContainer(viewOrContainer)) {
-    viewOrContainer = viewOrContainer[NEXT];
-  }
-
-  return viewOrContainer;
-}
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-
-const unusedValueToPlacateAjd$2 = unusedValueExportToPlacateAjd$7 + unusedValueExportToPlacateAjd$5 + unusedValueExportToPlacateAjd$4 + unusedValueExportToPlacateAjd$3 + unusedValueExportToPlacateAjd$8;
-/**
- * NOTE: for performance reasons, the possible actions are inlined within the function instead of
- * being passed as an argument.
- */
-
-function applyToElementOrContainer(action, renderer, parent, lNodeToHandle, beforeNode) {
-  // If this slot was allocated for a text node dynamically created by i18n, the text node itself
-  // won't be created until i18nApply() in the update block, so this node should be skipped.
-  // For more info, see "ICU expressions should work inside an ngTemplateOutlet inside an ngFor"
-  // in `i18n_spec.ts`.
-  if (lNodeToHandle != null) {
-    let lContainer;
-    let isComponent = false; // We are expecting an RNode, but in the case of a component or LContainer the `RNode` is
-    // wrapped in an array which needs to be unwrapped. We need to know if it is a component and if
-    // it has LContainer so that we can process all of those cases appropriately.
-
-    if (isLContainer(lNodeToHandle)) {
-      lContainer = lNodeToHandle;
-    } else if (isLView(lNodeToHandle)) {
-      isComponent = true;
-      ngDevMode && assertDefined(lNodeToHandle[HOST], 'HOST must be defined for a component LView');
-      lNodeToHandle = lNodeToHandle[HOST];
-    }
-
-    const rNode = unwrapRNode(lNodeToHandle);
-
-    if (action === 0
-    /* WalkTNodeTreeAction.Create */
-    && parent !== null) {
-      if (beforeNode == null) {
-        nativeAppendChild(renderer, parent, rNode);
-      } else {
-        nativeInsertBefore(renderer, parent, rNode, beforeNode || null, true);
-      }
-    } else if (action === 1
-    /* WalkTNodeTreeAction.Insert */
-    && parent !== null) {
-      nativeInsertBefore(renderer, parent, rNode, beforeNode || null, true);
-    } else if (action === 2
-    /* WalkTNodeTreeAction.Detach */
-    ) {
-      nativeRemoveNode(renderer, rNode, isComponent);
-    } else if (action === 3
-    /* WalkTNodeTreeAction.Destroy */
-    ) {
-      ngDevMode && ngDevMode.rendererDestroyNode++;
-      renderer.destroyNode(rNode);
-    }
-
-    if (lContainer != null) {
-      applyContainer(renderer, action, lContainer, parent, beforeNode);
-    }
-  }
-}
-
-function createTextNode(renderer, value) {
-  ngDevMode && ngDevMode.rendererCreateTextNode++;
-  ngDevMode && ngDevMode.rendererSetText++;
-  return renderer.createText(value);
-}
-
-function updateTextNode(renderer, rNode, value) {
-  ngDevMode && ngDevMode.rendererSetText++;
-  renderer.setValue(rNode, value);
-}
-
-function createCommentNode(renderer, value) {
-  ngDevMode && ngDevMode.rendererCreateComment++;
-  return renderer.createComment(escapeCommentText(value));
-}
-/**
- * Creates a native element from a tag name, using a renderer.
- * @param renderer A renderer to use
- * @param name the tag name
- * @param namespace Optional namespace for element.
- * @returns the element created
- */
-
-
-function createElementNode(renderer, name, namespace) {
-  ngDevMode && ngDevMode.rendererCreateElement++;
-  return renderer.createElement(name, namespace);
-}
-/**
- * Removes all DOM elements associated with a view.
- *
- * Because some root nodes of the view may be containers, we sometimes need
- * to propagate deeply into the nested containers to remove all elements in the
- * views beneath it.
- *
- * @param tView The `TView' of the `LView` from which elements should be added or removed
- * @param lView The view from which elements should be added or removed
- */
-
-
-function removeViewFromContainer(tView, lView) {
-  const renderer = lView[RENDERER];
-  applyView(tView, lView, renderer, 2
-  /* WalkTNodeTreeAction.Detach */
-  , null, null);
-  lView[HOST] = null;
-  lView[T_HOST] = null;
-}
-/**
- * Adds all DOM elements associated with a view.
- *
- * Because some root nodes of the view may be containers, we sometimes need
- * to propagate deeply into the nested containers to add all elements in the
- * views beneath it.
- *
- * @param tView The `TView' of the `LView` from which elements should be added or removed
- * @param parentTNode The `TNode` where the `LView` should be attached to.
- * @param renderer Current renderer to use for DOM manipulations.
- * @param lView The view from which elements should be added or removed
- * @param parentNativeNode The parent `RElement` where it should be inserted into.
- * @param beforeNode The node before which elements should be added, if insert mode
- */
-
-
-function addViewToContainer(tView, parentTNode, renderer, lView, parentNativeNode, beforeNode) {
-  lView[HOST] = parentNativeNode;
-  lView[T_HOST] = parentTNode;
-  applyView(tView, lView, renderer, 1
-  /* WalkTNodeTreeAction.Insert */
-  , parentNativeNode, beforeNode);
-}
-/**
- * Detach a `LView` from the DOM by detaching its nodes.
- *
- * @param tView The `TView' of the `LView` to be detached
- * @param lView the `LView` to be detached.
- */
-
-
-function renderDetachView(tView, lView) {
-  applyView(tView, lView, lView[RENDERER], 2
-  /* WalkTNodeTreeAction.Detach */
-  , null, null);
-}
-/**
- * Traverses down and up the tree of views and containers to remove listeners and
- * call onDestroy callbacks.
- *
- * Notes:
- *  - Because it's used for onDestroy calls, it needs to be bottom-up.
- *  - Must process containers instead of their views to avoid splicing
- *  when views are destroyed and re-added.
- *  - Using a while loop because it's faster than recursion
- *  - Destroy only called on movement to sibling or movement to parent (laterally or up)
- *
- *  @param rootView The view to destroy
- */
-
-
-function destroyViewTree(rootView) {
-  // If the view has no children, we can clean it up and return early.
-  let lViewOrLContainer = rootView[CHILD_HEAD];
-
-  if (!lViewOrLContainer) {
-    return cleanUpView(rootView[TVIEW], rootView);
-  }
-
-  while (lViewOrLContainer) {
-    let next = null;
-
-    if (isLView(lViewOrLContainer)) {
-      // If LView, traverse down to child.
-      next = lViewOrLContainer[CHILD_HEAD];
-    } else {
-      ngDevMode && assertLContainer(lViewOrLContainer); // If container, traverse down to its first LView.
-
-      const firstView = lViewOrLContainer[CONTAINER_HEADER_OFFSET];
-      if (firstView) next = firstView;
-    }
-
-    if (!next) {
-      // Only clean up view when moving to the side or up, as destroy hooks
-      // should be called in order from the bottom up.
-      while (lViewOrLContainer && !lViewOrLContainer[NEXT] && lViewOrLContainer !== rootView) {
-        if (isLView(lViewOrLContainer)) {
-          cleanUpView(lViewOrLContainer[TVIEW], lViewOrLContainer);
-        }
-
-        lViewOrLContainer = lViewOrLContainer[PARENT];
-      }
-
-      if (lViewOrLContainer === null) lViewOrLContainer = rootView;
-
-      if (isLView(lViewOrLContainer)) {
-        cleanUpView(lViewOrLContainer[TVIEW], lViewOrLContainer);
-      }
-
-      next = lViewOrLContainer && lViewOrLContainer[NEXT];
-    }
-
-    lViewOrLContainer = next;
-  }
-}
-/**
- * Inserts a view into a container.
- *
- * This adds the view to the container's array of active views in the correct
- * position. It also adds the view's elements to the DOM if the container isn't a
- * root node of another view (in that case, the view's elements will be added when
- * the container's parent view is added later).
- *
- * @param tView The `TView' of the `LView` to insert
- * @param lView The view to insert
- * @param lContainer The container into which the view should be inserted
- * @param index Which index in the container to insert the child view into
- */
-
-
-function insertView(tView, lView, lContainer, index) {
-  ngDevMode && assertLView(lView);
-  ngDevMode && assertLContainer(lContainer);
-  const indexInContainer = CONTAINER_HEADER_OFFSET + index;
-  const containerLength = lContainer.length;
-
-  if (index > 0) {
-    // This is a new view, we need to add it to the children.
-    lContainer[indexInContainer - 1][NEXT] = lView;
-  }
-
-  if (index < containerLength - CONTAINER_HEADER_OFFSET) {
-    lView[NEXT] = lContainer[indexInContainer];
-    addToArray(lContainer, CONTAINER_HEADER_OFFSET + index, lView);
-  } else {
-    lContainer.push(lView);
-    lView[NEXT] = null;
-  }
-
-  lView[PARENT] = lContainer; // track views where declaration and insertion points are different
-
-  const declarationLContainer = lView[DECLARATION_LCONTAINER];
-
-  if (declarationLContainer !== null && lContainer !== declarationLContainer) {
-    trackMovedView(declarationLContainer, lView);
-  } // notify query that a new view has been added
-
-
-  const lQueries = lView[QUERIES];
-
-  if (lQueries !== null) {
-    lQueries.insertView(tView);
-  } // Sets the attached flag
-
-
-  lView[FLAGS] |= 64
-  /* LViewFlags.Attached */
-  ;
-}
-/**
- * Track views created from the declaration container (TemplateRef) and inserted into a
- * different LContainer.
- */
-
-
-function trackMovedView(declarationContainer, lView) {
-  ngDevMode && assertDefined(lView, 'LView required');
-  ngDevMode && assertLContainer(declarationContainer);
-  const movedViews = declarationContainer[MOVED_VIEWS];
-  const insertedLContainer = lView[PARENT];
-  ngDevMode && assertLContainer(insertedLContainer);
-  const insertedComponentLView = insertedLContainer[PARENT][DECLARATION_COMPONENT_VIEW];
-  ngDevMode && assertDefined(insertedComponentLView, 'Missing insertedComponentLView');
-  const declaredComponentLView = lView[DECLARATION_COMPONENT_VIEW];
-  ngDevMode && assertDefined(declaredComponentLView, 'Missing declaredComponentLView');
-
-  if (declaredComponentLView !== insertedComponentLView) {
-    // At this point the declaration-component is not same as insertion-component; this means that
-    // this is a transplanted view. Mark the declared lView as having transplanted views so that
-    // those views can participate in CD.
-    declarationContainer[HAS_TRANSPLANTED_VIEWS] = true;
-  }
-
-  if (movedViews === null) {
-    declarationContainer[MOVED_VIEWS] = [lView];
-  } else {
-    movedViews.push(lView);
-  }
-}
-
-function detachMovedView(declarationContainer, lView) {
-  ngDevMode && assertLContainer(declarationContainer);
-  ngDevMode && assertDefined(declarationContainer[MOVED_VIEWS], 'A projected view should belong to a non-empty projected views collection');
-  const movedViews = declarationContainer[MOVED_VIEWS];
-  const declarationViewIndex = movedViews.indexOf(lView);
-  const insertionLContainer = lView[PARENT];
-  ngDevMode && assertLContainer(insertionLContainer); // If the view was marked for refresh but then detached before it was checked (where the flag
-  // would be cleared and the counter decremented), we need to decrement the view counter here
-  // instead.
-
-  if (lView[FLAGS] & 512
-  /* LViewFlags.RefreshTransplantedView */
-  ) {
-    lView[FLAGS] &= ~512
-    /* LViewFlags.RefreshTransplantedView */
-    ;
-    updateTransplantedViewCount(insertionLContainer, -1);
-  }
-
-  movedViews.splice(declarationViewIndex, 1);
-}
-/**
- * Detaches a view from a container.
- *
- * This method removes the view from the container's array of active views. It also
- * removes the view's elements from the DOM.
- *
- * @param lContainer The container from which to detach a view
- * @param removeIndex The index of the view to detach
- * @returns Detached LView instance.
- */
-
-
-function detachView(lContainer, removeIndex) {
-  if (lContainer.length <= CONTAINER_HEADER_OFFSET) return;
-  const indexInContainer = CONTAINER_HEADER_OFFSET + removeIndex;
-  const viewToDetach = lContainer[indexInContainer];
-
-  if (viewToDetach) {
-    const declarationLContainer = viewToDetach[DECLARATION_LCONTAINER];
-
-    if (declarationLContainer !== null && declarationLContainer !== lContainer) {
-      detachMovedView(declarationLContainer, viewToDetach);
-    }
-
-    if (removeIndex > 0) {
-      lContainer[indexInContainer - 1][NEXT] = viewToDetach[NEXT];
-    }
-
-    const removedLView = removeFromArray(lContainer, CONTAINER_HEADER_OFFSET + removeIndex);
-    removeViewFromContainer(viewToDetach[TVIEW], viewToDetach); // notify query that a view has been removed
-
-    const lQueries = removedLView[QUERIES];
-
-    if (lQueries !== null) {
-      lQueries.detachView(removedLView[TVIEW]);
-    }
-
-    viewToDetach[PARENT] = null;
-    viewToDetach[NEXT] = null; // Unsets the attached flag
-
-    viewToDetach[FLAGS] &= ~64
-    /* LViewFlags.Attached */
-    ;
-  }
-
-  return viewToDetach;
-}
-/**
- * A standalone function which destroys an LView,
- * conducting clean up (e.g. removing listeners, calling onDestroys).
- *
- * @param tView The `TView' of the `LView` to be destroyed
- * @param lView The view to be destroyed.
- */
-
-
-function destroyLView(tView, lView) {
-  if (!(lView[FLAGS] & 128
-  /* LViewFlags.Destroyed */
-  )) {
-    const renderer = lView[RENDERER];
-
-    if (renderer.destroyNode) {
-      applyView(tView, lView, renderer, 3
-      /* WalkTNodeTreeAction.Destroy */
-      , null, null);
-    }
-
-    destroyViewTree(lView);
-  }
-}
-/**
- * Calls onDestroys hooks for all directives and pipes in a given view and then removes all
- * listeners. Listeners are removed as the last step so events delivered in the onDestroys hooks
- * can be propagated to @Output listeners.
- *
- * @param tView `TView` for the `LView` to clean up.
- * @param lView The LView to clean up
- */
-
-
-function cleanUpView(tView, lView) {
-  if (!(lView[FLAGS] & 128
-  /* LViewFlags.Destroyed */
-  )) {
-    // Usually the Attached flag is removed when the view is detached from its parent, however
-    // if it's a root view, the flag won't be unset hence why we're also removing on destroy.
-    lView[FLAGS] &= ~64
-    /* LViewFlags.Attached */
-    ; // Mark the LView as destroyed *before* executing the onDestroy hooks. An onDestroy hook
-    // runs arbitrary user code, which could include its own `viewRef.destroy()` (or similar). If
-    // We don't flag the view as destroyed before the hooks, this could lead to an infinite loop.
-    // This also aligns with the ViewEngine behavior. It also means that the onDestroy hook is
-    // really more of an "afterDestroy" hook if you think about it.
-
-    lView[FLAGS] |= 128
-    /* LViewFlags.Destroyed */
-    ;
-    executeOnDestroys(tView, lView);
-    processCleanups(tView, lView); // For component views only, the local renderer is destroyed at clean up time.
-
-    if (lView[TVIEW].type === 1
-    /* TViewType.Component */
-    ) {
-      ngDevMode && ngDevMode.rendererDestroy++;
-      lView[RENDERER].destroy();
-    }
-
-    const declarationContainer = lView[DECLARATION_LCONTAINER]; // we are dealing with an embedded view that is still inserted into a container
-
-    if (declarationContainer !== null && isLContainer(lView[PARENT])) {
-      // and this is a projected view
-      if (declarationContainer !== lView[PARENT]) {
-        detachMovedView(declarationContainer, lView);
-      } // For embedded views still attached to a container: remove query result from this view.
-
-
-      const lQueries = lView[QUERIES];
-
-      if (lQueries !== null) {
-        lQueries.detachView(tView);
-      }
-    } // Unregister the view once everything else has been cleaned up.
-
-
-    unregisterLView(lView);
-  }
-}
-/** Removes listeners and unsubscribes from output subscriptions */
-
-
-function processCleanups(tView, lView) {
-  const tCleanup = tView.cleanup;
-  const lCleanup = lView[CLEANUP]; // `LCleanup` contains both share information with `TCleanup` as well as instance specific
-  // information appended at the end. We need to know where the end of the `TCleanup` information
-  // is, and we track this with `lastLCleanupIndex`.
-
-  let lastLCleanupIndex = -1;
-
-  if (tCleanup !== null) {
-    for (let i = 0; i < tCleanup.length - 1; i += 2) {
-      if (typeof tCleanup[i] === 'string') {
-        // This is a native DOM listener
-        const idxOrTargetGetter = tCleanup[i + 1];
-        const target = typeof idxOrTargetGetter === 'function' ? idxOrTargetGetter(lView) : unwrapRNode(lView[idxOrTargetGetter]);
-        const listener = lCleanup[lastLCleanupIndex = tCleanup[i + 2]];
-        const useCaptureOrSubIdx = tCleanup[i + 3];
-
-        if (typeof useCaptureOrSubIdx === 'boolean') {
-          // native DOM listener registered with Renderer3
-          target.removeEventListener(tCleanup[i], listener, useCaptureOrSubIdx);
-        } else {
-          if (useCaptureOrSubIdx >= 0) {
-            // unregister
-            lCleanup[lastLCleanupIndex = useCaptureOrSubIdx]();
-          } else {
-            // Subscription
-            lCleanup[lastLCleanupIndex = -useCaptureOrSubIdx].unsubscribe();
-          }
-        }
-
-        i += 2;
-      } else {
-        // This is a cleanup function that is grouped with the index of its context
-        const context = lCleanup[lastLCleanupIndex = tCleanup[i + 1]];
-        tCleanup[i].call(context);
-      }
-    }
-  }
-
-  if (lCleanup !== null) {
-    for (let i = lastLCleanupIndex + 1; i < lCleanup.length; i++) {
-      const instanceCleanupFn = lCleanup[i];
-      ngDevMode && assertFunction(instanceCleanupFn, 'Expecting instance cleanup function.');
-      instanceCleanupFn();
-    }
-
-    lView[CLEANUP] = null;
-  }
-}
-/** Calls onDestroy hooks for this view */
-
-
-function executeOnDestroys(tView, lView) {
-  let destroyHooks;
-
-  if (tView != null && (destroyHooks = tView.destroyHooks) != null) {
-    for (let i = 0; i < destroyHooks.length; i += 2) {
-      const context = lView[destroyHooks[i]]; // Only call the destroy hook if the context has been requested.
-
-      if (!(context instanceof NodeInjectorFactory)) {
-        const toCall = destroyHooks[i + 1];
-
-        if (Array.isArray(toCall)) {
-          for (let j = 0; j < toCall.length; j += 2) {
-            const callContext = context[toCall[j]];
-            const hook = toCall[j + 1];
-            profiler(4
-            /* ProfilerEvent.LifecycleHookStart */
-            , callContext, hook);
-
-            try {
-              hook.call(callContext);
-            } finally {
-              profiler(5
-              /* ProfilerEvent.LifecycleHookEnd */
-              , callContext, hook);
-            }
-          }
-        } else {
-          profiler(4
-          /* ProfilerEvent.LifecycleHookStart */
-          , context, toCall);
-
-          try {
-            toCall.call(context);
-          } finally {
-            profiler(5
-            /* ProfilerEvent.LifecycleHookEnd */
-            , context, toCall);
-          }
-        }
-      }
-    }
-  }
-}
-/**
- * Returns a native element if a node can be inserted into the given parent.
- *
- * There are two reasons why we may not be able to insert a element immediately.
- * - Projection: When creating a child content element of a component, we have to skip the
- *   insertion because the content of a component will be projected.
- *   `<component><content>delayed due to projection</content></component>`
- * - Parent container is disconnected: This can happen when we are inserting a view into
- *   parent container, which itself is disconnected. For example the parent container is part
- *   of a View which has not be inserted or is made for projection but has not been inserted
- *   into destination.
- *
- * @param tView: Current `TView`.
- * @param tNode: `TNode` for which we wish to retrieve render parent.
- * @param lView: Current `LView`.
- */
-
-
-function getParentRElement(tView, tNode, lView) {
-  return getClosestRElement(tView, tNode.parent, lView);
-}
-/**
- * Get closest `RElement` or `null` if it can't be found.
- *
- * If `TNode` is `TNodeType.Element` => return `RElement` at `LView[tNode.index]` location.
- * If `TNode` is `TNodeType.ElementContainer|IcuContain` => return the parent (recursively).
- * If `TNode` is `null` then return host `RElement`:
- *   - return `null` if projection
- *   - return `null` if parent container is disconnected (we have no parent.)
- *
- * @param tView: Current `TView`.
- * @param tNode: `TNode` for which we wish to retrieve `RElement` (or `null` if host element is
- *     needed).
- * @param lView: Current `LView`.
- * @returns `null` if the `RElement` can't be determined at this time (no parent / projection)
- */
-
-
-function getClosestRElement(tView, tNode, lView) {
-  let parentTNode = tNode; // Skip over element and ICU containers as those are represented by a comment node and
-  // can't be used as a render parent.
-
-  while (parentTNode !== null && parentTNode.type & (8
-  /* TNodeType.ElementContainer */
-  | 32
-  /* TNodeType.Icu */
-  )) {
-    tNode = parentTNode;
-    parentTNode = tNode.parent;
-  } // If the parent tNode is null, then we are inserting across views: either into an embedded view
-  // or a component view.
-
-
-  if (parentTNode === null) {
-    // We are inserting a root element of the component view into the component host element and
-    // it should always be eager.
-    return lView[HOST];
-  } else {
-    ngDevMode && assertTNodeType(parentTNode, 3
-    /* TNodeType.AnyRNode */
-    | 4
-    /* TNodeType.Container */
-    );
-
-    if (parentTNode.flags & 2
-    /* TNodeFlags.isComponentHost */
-    ) {
-      ngDevMode && assertTNodeForLView(parentTNode, lView);
-      const encapsulation = tView.data[parentTNode.directiveStart].encapsulation; // We've got a parent which is an element in the current view. We just need to verify if the
-      // parent element is not a component. Component's content nodes are not inserted immediately
-      // because they will be projected, and so doing insert at this point would be wasteful.
-      // Since the projection would then move it to its final destination. Note that we can't
-      // make this assumption when using the Shadow DOM, because the native projection placeholders
-      // (<content> or <slot>) have to be in place as elements are being inserted.
-
-      if (encapsulation === ViewEncapsulation$1.None || encapsulation === ViewEncapsulation$1.Emulated) {
-        return null;
-      }
-    }
-
-    return getNativeByTNode(parentTNode, lView);
-  }
-}
-/**
- * Inserts a native node before another native node for a given parent.
- * This is a utility function that can be used when native nodes were determined.
- */
-
-
-function nativeInsertBefore(renderer, parent, child, beforeNode, isMove) {
-  ngDevMode && ngDevMode.rendererInsertBefore++;
-  renderer.insertBefore(parent, child, beforeNode, isMove);
-}
-
-function nativeAppendChild(renderer, parent, child) {
-  ngDevMode && ngDevMode.rendererAppendChild++;
-  ngDevMode && assertDefined(parent, 'parent node must be defined');
-  renderer.appendChild(parent, child);
-}
-
-function nativeAppendOrInsertBefore(renderer, parent, child, beforeNode, isMove) {
-  if (beforeNode !== null) {
-    nativeInsertBefore(renderer, parent, child, beforeNode, isMove);
-  } else {
-    nativeAppendChild(renderer, parent, child);
-  }
-}
-/** Removes a node from the DOM given its native parent. */
-
-
-function nativeRemoveChild(renderer, parent, child, isHostElement) {
-  renderer.removeChild(parent, child, isHostElement);
-}
-/** Checks if an element is a `<template>` node. */
-
-
-function isTemplateNode(node) {
-  return node.tagName === 'TEMPLATE' && node.content !== undefined;
-}
-/**
- * Returns a native parent of a given native node.
- */
-
-
-function nativeParentNode(renderer, node) {
-  return renderer.parentNode(node);
-}
-/**
- * Returns a native sibling of a given native node.
- */
-
-
-function nativeNextSibling(renderer, node) {
-  return renderer.nextSibling(node);
-}
-/**
- * Find a node in front of which `currentTNode` should be inserted.
- *
- * This method determines the `RNode` in front of which we should insert the `currentRNode`. This
- * takes `TNode.insertBeforeIndex` into account if i18n code has been invoked.
- *
- * @param parentTNode parent `TNode`
- * @param currentTNode current `TNode` (The node which we would like to insert into the DOM)
- * @param lView current `LView`
- */
-
-
-function getInsertInFrontOfRNode(parentTNode, currentTNode, lView) {
-  return _getInsertInFrontOfRNodeWithI18n(parentTNode, currentTNode, lView);
-}
-/**
- * Find a node in front of which `currentTNode` should be inserted. (Does not take i18n into
- * account)
- *
- * This method determines the `RNode` in front of which we should insert the `currentRNode`. This
- * does not take `TNode.insertBeforeIndex` into account.
- *
- * @param parentTNode parent `TNode`
- * @param currentTNode current `TNode` (The node which we would like to insert into the DOM)
- * @param lView current `LView`
- */
-
-
-function getInsertInFrontOfRNodeWithNoI18n(parentTNode, currentTNode, lView) {
-  if (parentTNode.type & (8
-  /* TNodeType.ElementContainer */
-  | 32
-  /* TNodeType.Icu */
-  )) {
-    return getNativeByTNode(parentTNode, lView);
-  }
-
-  return null;
-}
-/**
- * Tree shakable boundary for `getInsertInFrontOfRNodeWithI18n` function.
- *
- * This function will only be set if i18n code runs.
- */
-
-
-let _getInsertInFrontOfRNodeWithI18n = getInsertInFrontOfRNodeWithNoI18n;
-/**
- * Tree shakable boundary for `processI18nInsertBefore` function.
- *
- * This function will only be set if i18n code runs.
- */
-
-let _processI18nInsertBefore;
-
-function setI18nHandling(getInsertInFrontOfRNodeWithI18n, processI18nInsertBefore) {
-  _getInsertInFrontOfRNodeWithI18n = getInsertInFrontOfRNodeWithI18n;
-  _processI18nInsertBefore = processI18nInsertBefore;
-}
-/**
- * Appends the `child` native node (or a collection of nodes) to the `parent`.
- *
- * @param tView The `TView' to be appended
- * @param lView The current LView
- * @param childRNode The native child (or children) that should be appended
- * @param childTNode The TNode of the child element
- */
-
-
-function appendChild(tView, lView, childRNode, childTNode) {
-  const parentRNode = getParentRElement(tView, childTNode, lView);
-  const renderer = lView[RENDERER];
-  const parentTNode = childTNode.parent || lView[T_HOST];
-  const anchorNode = getInsertInFrontOfRNode(parentTNode, childTNode, lView);
-
-  if (parentRNode != null) {
-    if (Array.isArray(childRNode)) {
-      for (let i = 0; i < childRNode.length; i++) {
-        nativeAppendOrInsertBefore(renderer, parentRNode, childRNode[i], anchorNode, false);
-      }
-    } else {
-      nativeAppendOrInsertBefore(renderer, parentRNode, childRNode, anchorNode, false);
-    }
-  }
-
-  _processI18nInsertBefore !== undefined && _processI18nInsertBefore(renderer, childTNode, lView, childRNode, parentRNode);
-}
-/**
- * Returns the first native node for a given LView, starting from the provided TNode.
- *
- * Native nodes are returned in the order in which those appear in the native tree (DOM).
- */
-
-
-function getFirstNativeNode(lView, tNode) {
-  if (tNode !== null) {
-    ngDevMode && assertTNodeType(tNode, 3
-    /* TNodeType.AnyRNode */
-    | 12
-    /* TNodeType.AnyContainer */
-    | 32
-    /* TNodeType.Icu */
-    | 16
-    /* TNodeType.Projection */
-    );
-    const tNodeType = tNode.type;
-
-    if (tNodeType & 3
-    /* TNodeType.AnyRNode */
-    ) {
-      return getNativeByTNode(tNode, lView);
-    } else if (tNodeType & 4
-    /* TNodeType.Container */
-    ) {
-      return getBeforeNodeForView(-1, lView[tNode.index]);
-    } else if (tNodeType & 8
-    /* TNodeType.ElementContainer */
-    ) {
-      const elIcuContainerChild = tNode.child;
-
-      if (elIcuContainerChild !== null) {
-        return getFirstNativeNode(lView, elIcuContainerChild);
-      } else {
-        const rNodeOrLContainer = lView[tNode.index];
-
-        if (isLContainer(rNodeOrLContainer)) {
-          return getBeforeNodeForView(-1, rNodeOrLContainer);
-        } else {
-          return unwrapRNode(rNodeOrLContainer);
-        }
-      }
-    } else if (tNodeType & 32
-    /* TNodeType.Icu */
-    ) {
-      let nextRNode = icuContainerIterate(tNode, lView);
-      let rNode = nextRNode(); // If the ICU container has no nodes, than we use the ICU anchor as the node.
-
-      return rNode || unwrapRNode(lView[tNode.index]);
-    } else {
-      const projectionNodes = getProjectionNodes(lView, tNode);
-
-      if (projectionNodes !== null) {
-        if (Array.isArray(projectionNodes)) {
-          return projectionNodes[0];
-        }
-
-        const parentView = getLViewParent(lView[DECLARATION_COMPONENT_VIEW]);
-        ngDevMode && assertParentView(parentView);
-        return getFirstNativeNode(parentView, projectionNodes);
-      } else {
-        return getFirstNativeNode(lView, tNode.next);
-      }
-    }
-  }
-
-  return null;
-}
-
-function getProjectionNodes(lView, tNode) {
-  if (tNode !== null) {
-    const componentView = lView[DECLARATION_COMPONENT_VIEW];
-    const componentHost = componentView[T_HOST];
-    const slotIdx = tNode.projection;
-    ngDevMode && assertProjectionSlots(lView);
-    return componentHost.projection[slotIdx];
-  }
-
-  return null;
-}
-
-function getBeforeNodeForView(viewIndexInContainer, lContainer) {
-  const nextViewIndex = CONTAINER_HEADER_OFFSET + viewIndexInContainer + 1;
-
-  if (nextViewIndex < lContainer.length) {
-    const lView = lContainer[nextViewIndex];
-    const firstTNodeOfView = lView[TVIEW].firstChild;
-
-    if (firstTNodeOfView !== null) {
-      return getFirstNativeNode(lView, firstTNodeOfView);
-    }
-  }
-
-  return lContainer[NATIVE];
-}
-/**
- * Removes a native node itself using a given renderer. To remove the node we are looking up its
- * parent from the native tree as not all platforms / browsers support the equivalent of
- * node.remove().
- *
- * @param renderer A renderer to be used
- * @param rNode The native node that should be removed
- * @param isHostElement A flag indicating if a node to be removed is a host of a component.
- */
-
-
-function nativeRemoveNode(renderer, rNode, isHostElement) {
-  ngDevMode && ngDevMode.rendererRemoveNode++;
-  const nativeParent = nativeParentNode(renderer, rNode);
-
-  if (nativeParent) {
-    nativeRemoveChild(renderer, nativeParent, rNode, isHostElement);
-  }
-}
-/**
- * Performs the operation of `action` on the node. Typically this involves inserting or removing
- * nodes on the LView or projection boundary.
- */
-
-
-function applyNodes(renderer, action, tNode, lView, parentRElement, beforeNode, isProjection) {
-  while (tNode != null) {
-    ngDevMode && assertTNodeForLView(tNode, lView);
-    ngDevMode && assertTNodeType(tNode, 3
-    /* TNodeType.AnyRNode */
-    | 12
-    /* TNodeType.AnyContainer */
-    | 16
-    /* TNodeType.Projection */
-    | 32
-    /* TNodeType.Icu */
-    );
-    const rawSlotValue = lView[tNode.index];
-    const tNodeType = tNode.type;
-
-    if (isProjection) {
-      if (action === 0
-      /* WalkTNodeTreeAction.Create */
-      ) {
-        rawSlotValue && attachPatchData(unwrapRNode(rawSlotValue), lView);
-        tNode.flags |= 4
-        /* TNodeFlags.isProjected */
-        ;
-      }
-    }
-
-    if ((tNode.flags & 64
-    /* TNodeFlags.isDetached */
-    ) !== 64
-    /* TNodeFlags.isDetached */
-    ) {
-      if (tNodeType & 8
-      /* TNodeType.ElementContainer */
-      ) {
-        applyNodes(renderer, action, tNode.child, lView, parentRElement, beforeNode, false);
-        applyToElementOrContainer(action, renderer, parentRElement, rawSlotValue, beforeNode);
-      } else if (tNodeType & 32
-      /* TNodeType.Icu */
-      ) {
-        const nextRNode = icuContainerIterate(tNode, lView);
-        let rNode;
-
-        while (rNode = nextRNode()) {
-          applyToElementOrContainer(action, renderer, parentRElement, rNode, beforeNode);
-        }
-
-        applyToElementOrContainer(action, renderer, parentRElement, rawSlotValue, beforeNode);
-      } else if (tNodeType & 16
-      /* TNodeType.Projection */
-      ) {
-        applyProjectionRecursive(renderer, action, lView, tNode, parentRElement, beforeNode);
-      } else {
-        ngDevMode && assertTNodeType(tNode, 3
-        /* TNodeType.AnyRNode */
-        | 4
-        /* TNodeType.Container */
-        );
-        applyToElementOrContainer(action, renderer, parentRElement, rawSlotValue, beforeNode);
-      }
-    }
-
-    tNode = isProjection ? tNode.projectionNext : tNode.next;
-  }
-}
-
-function applyView(tView, lView, renderer, action, parentRElement, beforeNode) {
-  applyNodes(renderer, action, tView.firstChild, lView, parentRElement, beforeNode, false);
-}
-/**
- * `applyProjection` performs operation on the projection.
- *
- * Inserting a projection requires us to locate the projected nodes from the parent component. The
- * complication is that those nodes themselves could be re-projected from their parent component.
- *
- * @param tView The `TView` of `LView` which needs to be inserted, detached, destroyed
- * @param lView The `LView` which needs to be inserted, detached, destroyed.
- * @param tProjectionNode node to project
- */
-
-
-function applyProjection(tView, lView, tProjectionNode) {
-  const renderer = lView[RENDERER];
-  const parentRNode = getParentRElement(tView, tProjectionNode, lView);
-  const parentTNode = tProjectionNode.parent || lView[T_HOST];
-  let beforeNode = getInsertInFrontOfRNode(parentTNode, tProjectionNode, lView);
-  applyProjectionRecursive(renderer, 0
-  /* WalkTNodeTreeAction.Create */
-  , lView, tProjectionNode, parentRNode, beforeNode);
-}
-/**
- * `applyProjectionRecursive` performs operation on the projection specified by `action` (insert,
- * detach, destroy)
- *
- * Inserting a projection requires us to locate the projected nodes from the parent component. The
- * complication is that those nodes themselves could be re-projected from their parent component.
- *
- * @param renderer Render to use
- * @param action action to perform (insert, detach, destroy)
- * @param lView The LView which needs to be inserted, detached, destroyed.
- * @param tProjectionNode node to project
- * @param parentRElement parent DOM element for insertion/removal.
- * @param beforeNode Before which node the insertions should happen.
- */
-
-
-function applyProjectionRecursive(renderer, action, lView, tProjectionNode, parentRElement, beforeNode) {
-  const componentLView = lView[DECLARATION_COMPONENT_VIEW];
-  const componentNode = componentLView[T_HOST];
-  ngDevMode && assertEqual(typeof tProjectionNode.projection, 'number', 'expecting projection index');
-  const nodeToProjectOrRNodes = componentNode.projection[tProjectionNode.projection];
-
-  if (Array.isArray(nodeToProjectOrRNodes)) {
-    // This should not exist, it is a bit of a hack. When we bootstrap a top level node and we
-    // need to support passing projectable nodes, so we cheat and put them in the TNode
-    // of the Host TView. (Yes we put instance info at the T Level). We can get away with it
-    // because we know that that TView is not shared and therefore it will not be a problem.
-    // This should be refactored and cleaned up.
-    for (let i = 0; i < nodeToProjectOrRNodes.length; i++) {
-      const rNode = nodeToProjectOrRNodes[i];
-      applyToElementOrContainer(action, renderer, parentRElement, rNode, beforeNode);
-    }
-  } else {
-    let nodeToProject = nodeToProjectOrRNodes;
-    const projectedComponentLView = componentLView[PARENT];
-    applyNodes(renderer, action, nodeToProject, projectedComponentLView, parentRElement, beforeNode, true);
-  }
-}
-/**
- * `applyContainer` performs an operation on the container and its views as specified by
- * `action` (insert, detach, destroy)
- *
- * Inserting a Container is complicated by the fact that the container may have Views which
- * themselves have containers or projections.
- *
- * @param renderer Renderer to use
- * @param action action to perform (insert, detach, destroy)
- * @param lContainer The LContainer which needs to be inserted, detached, destroyed.
- * @param parentRElement parent DOM element for insertion/removal.
- * @param beforeNode Before which node the insertions should happen.
- */
-
-
-function applyContainer(renderer, action, lContainer, parentRElement, beforeNode) {
-  ngDevMode && assertLContainer(lContainer);
-  const anchor = lContainer[NATIVE]; // LContainer has its own before node.
-
-  const native = unwrapRNode(lContainer); // An LContainer can be created dynamically on any node by injecting ViewContainerRef.
-  // Asking for a ViewContainerRef on an element will result in a creation of a separate anchor
-  // node (comment in the DOM) that will be different from the LContainer's host node. In this
-  // particular case we need to execute action on 2 nodes:
-  // - container's host node (this is done in the executeActionOnElementOrContainer)
-  // - container's host node (this is done here)
-
-  if (anchor !== native) {
-    // This is very strange to me (Misko). I would expect that the native is same as anchor. I
-    // don't see a reason why they should be different, but they are.
-    //
-    // If they are we need to process the second anchor as well.
-    applyToElementOrContainer(action, renderer, parentRElement, anchor, beforeNode);
-  }
-
-  for (let i = CONTAINER_HEADER_OFFSET; i < lContainer.length; i++) {
-    const lView = lContainer[i];
-    applyView(lView[TVIEW], lView, renderer, action, parentRElement, anchor);
-  }
-}
-/**
- * Writes class/style to element.
- *
- * @param renderer Renderer to use.
- * @param isClassBased `true` if it should be written to `class` (`false` to write to `style`)
- * @param rNode The Node to write to.
- * @param prop Property to write to. This would be the class/style name.
- * @param value Value to write. If `null`/`undefined`/`false` this is considered a remove (set/add
- *        otherwise).
- */
-
-
-function applyStyling(renderer, isClassBased, rNode, prop, value) {
-  if (isClassBased) {
-    // We actually want JS true/false here because any truthy value should add the class
-    if (!value) {
-      ngDevMode && ngDevMode.rendererRemoveClass++;
-      renderer.removeClass(rNode, prop);
-    } else {
-      ngDevMode && ngDevMode.rendererAddClass++;
-      renderer.addClass(rNode, prop);
-    }
-  } else {
-    let flags = prop.indexOf('-') === -1 ? undefined : RendererStyleFlags2.DashCase;
-
-    if (value == null
-    /** || value === undefined */
-    ) {
-      ngDevMode && ngDevMode.rendererRemoveStyle++;
-      renderer.removeStyle(rNode, prop, flags);
-    } else {
-      // A value is important if it ends with `!important`. The style
-      // parser strips any semicolons at the end of the value.
-      const isImportant = typeof value === 'string' ? value.endsWith('!important') : false;
-
-      if (isImportant) {
-        // !important has to be stripped from the value for it to be valid.
-        value = value.slice(0, -10);
-        flags |= RendererStyleFlags2.Important;
-      }
-
-      ngDevMode && ngDevMode.rendererSetStyle++;
-      renderer.setStyle(rNode, prop, value, flags);
-    }
-  }
-}
-/**
- * Write `cssText` to `RElement`.
- *
- * This function does direct write without any reconciliation. Used for writing initial values, so
- * that static styling values do not pull in the style parser.
- *
- * @param renderer Renderer to use
- * @param element The element which needs to be updated.
- * @param newValue The new class list to write.
- */
-
-
-function writeDirectStyle(renderer, element, newValue) {
-  ngDevMode && assertString(newValue, '\'newValue\' should be a string');
-  renderer.setAttribute(element, 'style', newValue);
-  ngDevMode && ngDevMode.rendererSetStyle++;
-}
-/**
- * Write `className` to `RElement`.
- *
- * This function does direct write without any reconciliation. Used for writing initial values, so
- * that static styling values do not pull in the style parser.
- *
- * @param renderer Renderer to use
- * @param element The element which needs to be updated.
- * @param newValue The new class list to write.
- */
-
-
-function writeDirectClass(renderer, element, newValue) {
-  ngDevMode && assertString(newValue, '\'newValue\' should be a string');
-
-  if (newValue === '') {
-    // There are tests in `google3` which expect `element.getAttribute('class')` to be `null`.
-    renderer.removeAttribute(element, 'class');
-  } else {
-    renderer.setAttribute(element, 'class', newValue);
-  }
-
-  ngDevMode && ngDevMode.rendererSetClassName++;
 }
 /**
  * @license
@@ -78576,31 +78979,6 @@ function refreshView(tView, lView, templateFn, context) {
   }
 }
 
-function renderComponentOrTemplate(tView, lView, templateFn, context) {
-  const rendererFactory = lView[RENDERER_FACTORY]; // Check no changes mode is a dev only mode used to verify that bindings have not changed
-  // since they were assigned. We do not want to invoke renderer factory functions in that mode
-  // to avoid any possible side-effects.
-
-  const checkNoChangesMode = !!ngDevMode && isInCheckNoChangesMode();
-  const creationModeIsActive = isCreationMode(lView);
-
-  try {
-    if (!checkNoChangesMode && !creationModeIsActive && rendererFactory.begin) {
-      rendererFactory.begin();
-    }
-
-    if (creationModeIsActive) {
-      renderView(tView, lView, context);
-    }
-
-    refreshView(tView, lView, templateFn, context);
-  } finally {
-    if (!checkNoChangesMode && !creationModeIsActive && rendererFactory.end) {
-      rendererFactory.end();
-    }
-  }
-}
-
 function executeTemplate(tView, lView, templateFn, rf, context) {
   const prevSelectedIndex = getSelectedIndex();
   const isUpdatePhase = rf & 2
@@ -78698,7 +79076,7 @@ function saveResolvedLocalsInData(viewData, tNode, localRefExtractor = getNative
  */
 
 
-function getOrCreateTComponentView(def) {
+function getOrCreateComponentTView(def) {
   const tView = def.tView; // Create a TView if there isn't one, or recreate it if the first create pass didn't
   // complete successfully since we can't know for sure whether it's in a usable shape.
 
@@ -79527,7 +79905,7 @@ function configureViewWithDirective(tView, tNode, lView, directiveIndex, def) {
 
 function addComponentLogic(lView, hostTNode, def) {
   const native = getNativeByTNode(hostTNode, lView);
-  const tView = getOrCreateTComponentView(def); // Only component views should be added to the view tree directly. Embedded views are
+  const tView = getOrCreateComponentTView(def); // Only component views should be added to the view tree directly. Embedded views are
   // accessed through their containers because they may be removed / re-added later.
 
   const rendererFactory = lView[RENDERER_FACTORY];
@@ -79908,67 +80286,32 @@ function markViewDirty(lView) {
   return null;
 }
 
-function tickRootContext(rootContext) {
-  for (let i = 0; i < rootContext.components.length; i++) {
-    const rootComponent = rootContext.components[i];
-    const lView = readPatchedLView(rootComponent); // We might not have an `LView` if the component was destroyed.
+function detectChangesInternal(tView, lView, context, notifyErrorHandler = true) {
+  const rendererFactory = lView[RENDERER_FACTORY]; // Check no changes mode is a dev only mode used to verify that bindings have not changed
+  // since they were assigned. We do not want to invoke renderer factory functions in that mode
+  // to avoid any possible side-effects.
 
-    if (lView !== null) {
-      const tView = lView[TVIEW];
-      renderComponentOrTemplate(tView, lView, tView.template, rootComponent);
-    }
-  }
-}
-
-function detectChangesInternal(tView, lView, context) {
-  const rendererFactory = lView[RENDERER_FACTORY];
-  if (rendererFactory.begin) rendererFactory.begin();
+  const checkNoChangesMode = !!ngDevMode && isInCheckNoChangesMode();
+  if (!checkNoChangesMode && rendererFactory.begin) rendererFactory.begin();
 
   try {
     refreshView(tView, lView, tView.template, context);
   } catch (error) {
-    handleError(lView, error);
+    if (notifyErrorHandler) {
+      handleError(lView, error);
+    }
+
     throw error;
   } finally {
-    if (rendererFactory.end) rendererFactory.end();
+    if (!checkNoChangesMode && rendererFactory.end) rendererFactory.end();
   }
 }
-/**
- * Synchronously perform change detection on a root view and its components.
- *
- * @param lView The view which the change detection should be performed on.
- */
 
-
-function detectChangesInRootView(lView) {
-  tickRootContext(lView[CONTEXT]);
-}
-
-function checkNoChangesInternal(tView, view, context) {
+function checkNoChangesInternal(tView, lView, context, notifyErrorHandler = true) {
   setIsInCheckNoChangesMode(true);
 
   try {
-    detectChangesInternal(tView, view, context);
-  } finally {
-    setIsInCheckNoChangesMode(false);
-  }
-}
-/**
- * Checks the change detector on a root view and its components, and throws if any changes are
- * detected.
- *
- * This is used in development mode to verify that running change detection doesn't
- * introduce other changes.
- *
- * @param lView The view which the change detection should be checked on.
- */
-
-
-function checkNoChangesInRootView(lView) {
-  setIsInCheckNoChangesMode(true);
-
-  try {
-    detectChangesInRootView(lView);
+    detectChangesInternal(tView, lView, context, notifyErrorHandler);
   } finally {
     setIsInCheckNoChangesMode(false);
   }
@@ -80541,12 +80884,18 @@ class RootViewRef extends ViewRef$1 {
   }
 
   detectChanges() {
-    detectChangesInRootView(this._view);
+    const lView = this._view;
+    const tView = lView[TVIEW];
+    const context = lView[CONTEXT];
+    detectChangesInternal(tView, lView, context, false);
   }
 
   checkNoChanges() {
     if (ngDevMode) {
-      checkNoChangesInRootView(this._view);
+      const lView = this._view;
+      const tView = lView[TVIEW];
+      const context = lView[CONTEXT];
+      checkNoChangesInternal(tView, lView, context, false);
     }
   }
 
@@ -80630,7 +80979,7 @@ class ChainedInjector {
 
 }
 /**
- * Render3 implementation of {@link viewEngine_ComponentFactory}.
+ * ComponentFactory interface implementation.
  */
 
 
@@ -80679,7 +81028,7 @@ class ComponentFactory extends ComponentFactory$1 {
     // dynamically. Default to 'div' if this component did not specify any tag name in its selector.
 
     const elementName = this.componentDef.selectors[0][0] || 'div';
-    const hostRNode = rootSelectorOrNode ? locateHostElement(hostRenderer, rootSelectorOrNode, this.componentDef.encapsulation) : createElementNode(rendererFactory.createRenderer(null, this.componentDef), elementName, getNamespace(elementName));
+    const hostRNode = rootSelectorOrNode ? locateHostElement(hostRenderer, rootSelectorOrNode, this.componentDef.encapsulation) : createElementNode(hostRenderer, elementName, getNamespace(elementName));
     const rootFlags = this.componentDef.onPush ? 32
     /* LViewFlags.Dirty */
     | 256
@@ -80688,13 +81037,12 @@ class ComponentFactory extends ComponentFactory$1 {
     /* LViewFlags.CheckAlways */
     | 256
     /* LViewFlags.IsRoot */
-    ;
-    const rootContext = createRootContext(); // Create the root view. Uses empty TView and ContentTemplate.
+    ; // Create the root view. Uses empty TView and ContentTemplate.
 
     const rootTView = createTView(0
     /* TViewType.Root */
     , null, null, 1, 0, null, null, null, null, null);
-    const rootLView = createLView(null, rootTView, rootContext, rootFlags, null, null, rendererFactory, hostRenderer, sanitizer, rootViewInjector, null); // rootView is the parent when bootstrapping
+    const rootLView = createLView(null, rootTView, null, rootFlags, null, null, rendererFactory, hostRenderer, sanitizer, rootViewInjector, null); // rootView is the parent when bootstrapping
     // TODO(misko): it looks like we are entering view here but we don't really need to as
     // `renderView` does that. However as the code is written it is needed because
     // `createRootComponentView` and `createRootComponent` both read global state. Fixing those
@@ -80748,7 +81096,7 @@ class ComponentFactory extends ComponentFactory$1 {
       // Angular 5 reference: https://stackblitz.com/edit/lifecycle-hooks-vcref
 
 
-      component = createRootComponent(componentView, this.componentDef, rootLView, rootContext, [LifecycleHooksFeature]);
+      component = createRootComponent(componentView, this.componentDef, rootLView, [LifecycleHooksFeature]);
       renderView(rootTView, rootLView, null);
     } finally {
       leaveView();
@@ -80873,7 +81221,7 @@ function createRootComponentView(rNode, def, rootView, rendererFactory, hostRend
   }
 
   const viewRenderer = rendererFactory.createRenderer(rNode, def);
-  const componentView = createLView(rootView, getOrCreateTComponentView(def), null, def.onPush ? 32
+  const componentView = createLView(rootView, getOrCreateComponentTView(def), null, def.onPush ? 32
   /* LViewFlags.Dirty */
   : 16
   /* LViewFlags.CheckAlways */
@@ -80895,12 +81243,13 @@ function createRootComponentView(rNode, def, rootView, rendererFactory, hostRend
  */
 
 
-function createRootComponent(componentView, componentDef, rootLView, rootContext, hostFeatures) {
+function createRootComponent(componentView, componentDef, rootLView, hostFeatures) {
   const tView = rootLView[TVIEW]; // Create directive instance with factory() and store at next index in viewData
 
-  const component = instantiateRootComponent(tView, rootLView, componentDef);
-  rootContext.components.push(component);
-  componentView[CONTEXT] = component;
+  const component = instantiateRootComponent(tView, rootLView, componentDef); // Root view only contains an instance of this component,
+  // so we use a reference to that component instance as a context.
+
+  componentView[CONTEXT] = rootLView[CONTEXT] = component;
 
   if (hostFeatures !== null) {
     for (const feature of hostFeatures) {
@@ -80929,12 +81278,6 @@ function createRootComponent(componentView, componentDef, rootLView, rootContext
   }
 
   return component;
-}
-
-function createRootContext() {
-  return {
-    components: []
-  };
 }
 /**
  * Used to enable lifecycle hooks on the root component.
@@ -88671,8 +89014,6 @@ function walkIcuTree(tView, tIcu, lView, sharedUpdateOpCodes, create, remove, up
               if (VALID_ATTRS.hasOwnProperty(lowerAttrName)) {
                 if (URI_ATTRS[lowerAttrName]) {
                   generateBindingUpdateOpCodes(update, attr.value, newIndex, attr.name, 0, _sanitizeUrl);
-                } else if (SRCSET_ATTRS[lowerAttrName]) {
-                  generateBindingUpdateOpCodes(update, attr.value, newIndex, attr.name, 0, sanitizeSrcset);
                 } else {
                   generateBindingUpdateOpCodes(update, attr.value, newIndex, attr.name, 0, null);
                 }
@@ -89777,7 +90118,7 @@ function getOwningComponent(elementOrDir) {
 
 function getRootComponents(elementOrDir) {
   const lView = readPatchedLView(elementOrDir);
-  return lView !== null ? [...getRootContext(lView).components] : [];
+  return lView !== null ? [getRootContext(lView)] : [];
 }
 /**
  * Retrieves an `Injector` associated with an element, component or directive instance.
@@ -92243,6 +92584,7 @@ const angularCoreEnv = (() => ({
   'ɵɵsanitizeUrlOrResourceUrl': ɵɵsanitizeUrlOrResourceUrl,
   'ɵɵtrustConstantHtml': ɵɵtrustConstantHtml,
   'ɵɵtrustConstantResourceUrl': ɵɵtrustConstantResourceUrl,
+  'ɵɵvalidateIframeAttribute': ɵɵvalidateIframeAttribute,
   'forwardRef': forwardRef,
   'resolveForwardRef': resolveForwardRef
 }))();
@@ -92496,7 +92838,7 @@ function generateStandaloneInDeclarationsError(type, location) {
 }
 
 function verifySemanticsOfNgModuleDef(moduleType, allowDuplicateDeclarationsInRoot, importingModule) {
-  if (verifiedNgModule.get(moduleType)) return; // skip verifications of standalone components, directives and pipes
+  if (verifiedNgModule.get(moduleType)) return; // skip verifications of standalone components, directives, and pipes
 
   if (isStandalone(moduleType)) return;
   verifiedNgModule.set(moduleType, true);
@@ -96429,7 +96771,7 @@ function enableProdMode() {
   // `global['ngDevMode'] = false;` is also dropped.
 
 
-  if (typeof ngDevMode === undefined || !!ngDevMode) {
+  if (typeof ngDevMode === 'undefined' || ngDevMode) {
     _global['ngDevMode'] = false;
   }
 
@@ -99185,7 +99527,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ 4350);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ 6942);
 /**
- * @license Angular v14.2.0
+ * @license Angular v14.2.12
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -101999,6 +102341,11 @@ class AbstractControl {
    *
    * Calling `setErrors` also updates the validity of the parent control.
    *
+   * @param opts Configuration options that determine how the control propagates
+   * changes and emits events after the control errors are set.
+   * * `emitEvent`: When true or not supplied (the default), the `statusChanges`
+   * observable emits an event after the errors are set.
+   *
    * @usageNotes
    *
    * ### Manually set the errors for a control
@@ -103148,7 +103495,7 @@ const formDirectiveProvider$1 = {
   useExisting: (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(() => NgForm)
 };
 
-const resolvedPromise$1 = (() => Promise.resolve(null))();
+const resolvedPromise$1 = (() => Promise.resolve())();
 /**
  * @description
  * Creates a top-level `FormGroup` instance and binds it to a form
@@ -103413,8 +103760,10 @@ class NgForm extends ControlContainer {
   onSubmit($event) {
     this.submitted = true;
     syncPendingControls(this.form, this._directives);
-    this.ngSubmit.emit($event);
-    return false;
+    this.ngSubmit.emit($event); // Forms with `method="dialog"` have some special behavior
+    // that won't reload the page and that shouldn't be prevented.
+
+    return $event?.target?.method === 'dialog';
   }
   /**
    * @description
@@ -103981,7 +104330,7 @@ const formControlBinding$1 = {
  * - this is a general problem when using `exportAs` for directives!
  */
 
-const resolvedPromise = (() => Promise.resolve(null))();
+const resolvedPromise = (() => Promise.resolve())();
 /**
  * @description
  * Creates a `FormControl` instance from a domain model and binds it
@@ -105154,8 +105503,6 @@ const formDirectiveProvider = {
 class FormGroupDirective extends ControlContainer {
   constructor(validators, asyncValidators) {
     super();
-    this.validators = validators;
-    this.asyncValidators = asyncValidators;
     /**
      * @description
      * Reports whether the form submission has been triggered.
@@ -105384,8 +105731,11 @@ class FormGroupDirective extends ControlContainer {
   onSubmit($event) {
     this.submitted = true;
     syncPendingControls(this.form, this.directives);
-    this.ngSubmit.emit($event);
-    return false;
+    this.ngSubmit.emit($event); // Forms with `method="dialog"` have some special behavior that won't reload the page and that
+    // shouldn't be prevented. Note that we need to null check the `event` and the `target`, because
+    // some internal apps call this method directly with the wrong arguments.
+
+    return $event?.target?.method === 'dialog';
   }
   /**
    * @description
@@ -108366,7 +108716,7 @@ class FormBuilder {
   }
   /**
    * @description
-   * Construct a new `FormRecord` instance. Accepts a single generic argument, which is an object
+   * Constructs a new `FormRecord` instance. Accepts a single generic argument, which is an object
    * containing all the keys and corresponding inner control types.
    *
    * @param controls A collection of child controls. The key for each child is the name
@@ -108389,7 +108739,7 @@ class FormBuilder {
   }
   /**
    * @description
-   * Construct a new `FormControl` with the given state, validators and options. Set
+   * Constructs a new `FormControl` with the given state, validators and options. Sets
    * `{nonNullable: true}` in the options to get a non-nullable control. Otherwise, the
    * control will be nullable. Accepts a single generic argument, which is the type  of the
    * control's value.
@@ -108601,7 +108951,7 @@ UntypedFormBuilder.ɵprov = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODUL
  */
 
 
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('14.2.0');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('14.2.12');
 /**
  * @license
  * Copyright Google LLC All Rights Reserved.
@@ -108655,7 +109005,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ 4666);
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/platform-browser */ 4497);
 /**
- * @license Angular v14.2.0
+ * @license Angular v14.2.12
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -108935,7 +109285,7 @@ class CachedResourceLoader extends _angular_compiler__WEBPACK_IMPORTED_MODULE_0_
  */
 
 
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('14.2.0');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('14.2.12');
 /**
  * @license
  * Copyright Google LLC All Rights Reserved.
@@ -109038,7 +109388,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common */ 4666);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 2560);
 /**
- * @license Angular v14.2.0
+ * @license Angular v14.2.12
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -111899,7 +112249,7 @@ DomSanitizerImpl.ɵprov = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_
  */
 
 
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('14.2.0');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('14.2.12');
 /**
  * @license
  * Copyright Google LLC All Rights Reserved.
@@ -112042,7 +112392,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! rxjs/operators */ 6675);
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @angular/platform-browser */ 4497);
 /**
- * @license Angular v14.2.0
+ * @license Angular v14.2.12
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -115413,7 +115763,7 @@ function validateNode(route, fullPath, requireStandaloneComponents) {
       , `Invalid configuration of route '${fullPath}': Array cannot be specified`);
     }
 
-    if (!route.component && !route.loadComponent && !route.children && !route.loadChildren && route.outlet && route.outlet !== PRIMARY_OUTLET) {
+    if (!route.redirectTo && !route.component && !route.loadComponent && !route.children && !route.loadChildren && route.outlet && route.outlet !== PRIMARY_OUTLET) {
       throw new _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵRuntimeError"](4014
       /* RuntimeErrorCode.INVALID_ROUTE_CONFIG */
       , `Invalid configuration of route '${fullPath}': a componentless route without children or loadChildren cannot have a named outlet set`);
@@ -117433,7 +117783,7 @@ class RouteReuseStrategy {}
  *
  * This base route reuse strategy only reuses routes when the matched router configs are
  * identical. This prevents components from being destroyed and recreated
- * when just the fragment or query parameters change
+ * when just the route parameters, query parameters or fragment change
  * (that is, the existing component is _reused_).
  *
  * This strategy does not store any routes for later reuse.
@@ -120265,8 +120615,11 @@ function getBootstrapListener() {
     injector.get(ROUTER_PRELOADER, null, _angular_core__WEBPACK_IMPORTED_MODULE_0__.InjectFlags.Optional)?.setUpPreloading();
     injector.get(ROUTER_SCROLLER, null, _angular_core__WEBPACK_IMPORTED_MODULE_0__.InjectFlags.Optional)?.init();
     router.resetRootComponentType(ref.componentTypes[0]);
-    bootstrapDone.next();
-    bootstrapDone.complete();
+
+    if (!bootstrapDone.closed) {
+      bootstrapDone.next();
+      bootstrapDone.unsubscribe();
+    }
   };
 }
 /**
@@ -120325,7 +120678,7 @@ function withEnabledBlockingInitialNavigation() {
     multi: true,
     deps: [_angular_core__WEBPACK_IMPORTED_MODULE_0__.Injector],
     useFactory: injector => {
-      const locationInitialized = injector.get(_angular_common__WEBPACK_IMPORTED_MODULE_33__.LOCATION_INITIALIZED, Promise.resolve(null));
+      const locationInitialized = injector.get(_angular_common__WEBPACK_IMPORTED_MODULE_33__.LOCATION_INITIALIZED, Promise.resolve());
       let initNavigation = false;
       /**
        * Performs the given action once the router finishes its next/current navigation.
@@ -120823,7 +121176,7 @@ function provideRouterInitializer() {
  */
 
 
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('14.2.0');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('14.2.12');
 /**
  * @license
  * Copyright Google LLC All Rights Reserved.

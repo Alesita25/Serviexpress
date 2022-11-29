@@ -90,7 +90,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "RecuperarPasswordPage": () => (/* binding */ RecuperarPasswordPage)
 /* harmony export */ });
-/* harmony import */ var C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
+/* harmony import */ var C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! tslib */ 4929);
 /* harmony import */ var _recuperar_password_page_html_ngResource__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./recuperar-password.page.html?ngResource */ 2240);
 /* harmony import */ var _recuperar_password_page_scss_ngResource__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./recuperar-password.page.scss?ngResource */ 5904);
@@ -124,7 +124,7 @@ let RecuperarPasswordPage = class RecuperarPasswordPage {
   presentAlert() {
     var _this = this;
 
-    return (0,C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const alert = yield _this.alertController.create({
         header: 'Recuperación exitosa',
         subHeader: 'Te hemos enviado email con las instrucciones',

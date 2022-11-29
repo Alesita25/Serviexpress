@@ -132,7 +132,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
   \**********************************************************/
 /***/ ((module) => {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-title>Pagina no encontrada</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content fullscreen>\n  <ion-card>\n    <img src=\"assets/img/404.jpg\" />\n    <ion-card-header>\n      <ion-card-title>Reintentalo más tarde</ion-card-title>\n      <ion-card-subtitle>Error 404</ion-card-subtitle>\n    </ion-card-header>\n    <ion-card-content>\n      <ion-button color=\"dark\" shape=\"round\" routerLink=\"/home\" expand=\"block\">Volver al home</ion-button>\n    </ion-card-content>\n  </ion-card>\n</ion-content>";
+module.exports = "<ion-header>\r\n  <ion-toolbar>\r\n    <ion-title>Pagina no encontrada</ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content fullscreen>\r\n  <ion-card>\r\n    <img src=\"assets/img/404.jpg\" />\r\n    <ion-card-header>\r\n      <ion-card-title>Reintentalo más tarde</ion-card-title>\r\n      <ion-card-subtitle>Error 404</ion-card-subtitle>\r\n    </ion-card-header>\r\n    <ion-card-content>\r\n      <ion-button color=\"dark\" shape=\"round\" routerLink=\"/home\" expand=\"block\">Volver al home</ion-button>\r\n    </ion-card-content>\r\n  </ion-card>\r\n</ion-content>";
 
 /***/ })
 

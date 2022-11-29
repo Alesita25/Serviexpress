@@ -15,7 +15,10 @@ import { HttpClientModule } from '@angular/common/http';
 
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, ReactiveFormsModule,HttpClientModule],
+  imports: [BrowserModule, IonicModule.forRoot({
+    rippleEffect: false,
+      mode: 'md'
+  }), AppRoutingModule, ReactiveFormsModule,HttpClientModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, SQLite,Camera],
   bootstrap: [AppComponent],
 })

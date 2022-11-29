@@ -264,9 +264,9 @@ FotosService = (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([
 
 /***/ }),
 
-/***/ 2483:
+/***/ 2943:
 /*!*********************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/button-active-4975dbd0.js ***!
+  !*** ./node_modules/@ionic/core/dist/esm/button-active-8251f533.js ***!
   \*********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -274,9 +274,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "c": () => (/* binding */ createButtonActiveGesture)
 /* harmony export */ });
-/* harmony import */ var _index_1a99aeb7_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index-1a99aeb7.js */ 4895);
-/* harmony import */ var _haptic_683b3b3c_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./haptic-683b3b3c.js */ 634);
-/* harmony import */ var _index_3f1a7d95_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./index-3f1a7d95.js */ 2172);
+/* harmony import */ var _index_8e692445_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index-8e692445.js */ 1559);
+/* harmony import */ var _haptic_029a46f6_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./haptic-029a46f6.js */ 2815);
+/* harmony import */ var _index_f8d8aa5a_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./index-f8d8aa5a.js */ 9286);
 /*!
  * (C) Ionic http://ionicframework.com - MIT License
  */
@@ -314,7 +314,7 @@ const createButtonActiveGesture = (el, isButton) => {
     }
 
     const buttonToModify = currentTouchedButton;
-    (0,_index_1a99aeb7_js__WEBPACK_IMPORTED_MODULE_0__.c)(() => buttonToModify.classList.add('ion-activated'));
+    (0,_index_8e692445_js__WEBPACK_IMPORTED_MODULE_0__.c)(() => buttonToModify.classList.add('ion-activated'));
     hapticFeedbackFn();
   };
 
@@ -324,7 +324,7 @@ const createButtonActiveGesture = (el, isButton) => {
     }
 
     const buttonToModify = currentTouchedButton;
-    (0,_index_1a99aeb7_js__WEBPACK_IMPORTED_MODULE_0__.c)(() => buttonToModify.classList.remove('ion-activated'));
+    (0,_index_8e692445_js__WEBPACK_IMPORTED_MODULE_0__.c)(() => buttonToModify.classList.remove('ion-activated'));
     /**
      * Clicking on one button, but releasing on another button
      * does not dispatch a click event in browsers, so we
@@ -341,15 +341,15 @@ const createButtonActiveGesture = (el, isButton) => {
     currentTouchedButton = undefined;
   };
 
-  return (0,_index_3f1a7d95_js__WEBPACK_IMPORTED_MODULE_2__.createGesture)({
+  return (0,_index_f8d8aa5a_js__WEBPACK_IMPORTED_MODULE_2__.createGesture)({
     el,
     gestureName: 'buttonActiveDrag',
     threshold: 0,
-    onStart: ev => activateButtonAtPoint(ev.currentX, ev.currentY, _haptic_683b3b3c_js__WEBPACK_IMPORTED_MODULE_1__.a),
-    onMove: ev => activateButtonAtPoint(ev.currentX, ev.currentY, _haptic_683b3b3c_js__WEBPACK_IMPORTED_MODULE_1__.b),
+    onStart: ev => activateButtonAtPoint(ev.currentX, ev.currentY, _haptic_029a46f6_js__WEBPACK_IMPORTED_MODULE_1__.a),
+    onMove: ev => activateButtonAtPoint(ev.currentX, ev.currentY, _haptic_029a46f6_js__WEBPACK_IMPORTED_MODULE_1__.b),
     onEnd: () => {
       clearActiveButton(true);
-      (0,_haptic_683b3b3c_js__WEBPACK_IMPORTED_MODULE_1__.h)();
+      (0,_haptic_029a46f6_js__WEBPACK_IMPORTED_MODULE_1__.h)();
       initialTouchedButton = undefined;
     }
   });
@@ -392,9 +392,9 @@ const isRTL = hostEl => {
 
 /***/ }),
 
-/***/ 9013:
+/***/ 5777:
 /*!*********************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/focus-visible-5ad6825d.js ***!
+  !*** ./node_modules/@ionic/core/dist/esm/focus-visible-096cf6fd.js ***!
   \*********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -435,7 +435,7 @@ const startFocusVisible = rootEl => {
   };
 
   const onFocusin = ev => {
-    if (keyboardMode && ev.composedPath) {
+    if (keyboardMode && ev.composedPath !== undefined) {
       const toFocus = ev.composedPath().filter(el => {
         if (el.classList) {
           return el.classList.contains(ION_FOCUSABLE);
@@ -477,9 +477,9 @@ const startFocusVisible = rootEl => {
 
 /***/ }),
 
-/***/ 2668:
+/***/ 5921:
 /*!**************************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/framework-delegate-ce4f806c.js ***!
+  !*** ./node_modules/@ionic/core/dist/esm/framework-delegate-073a0b65.js ***!
   \**************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -489,8 +489,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "a": () => (/* binding */ attachComponent),
 /* harmony export */   "d": () => (/* binding */ detachComponent)
 /* harmony export */ });
-/* harmony import */ var C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
-/* harmony import */ var _helpers_4d272360_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helpers-4d272360.js */ 9158);
+/* harmony import */ var C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
+/* harmony import */ var _helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helpers-3b390e48.js */ 9234);
 
 
 /*!
@@ -499,7 +499,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const attachComponent = /*#__PURE__*/function () {
-  var _ref = (0,C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (delegate, container, component, cssClasses, componentProps, inline) {
+  var _ref = (0,C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (delegate, container, component, cssClasses, componentProps, inline) {
     var _a;
 
     if (delegate) {
@@ -521,7 +521,7 @@ const attachComponent = /*#__PURE__*/function () {
     }
 
     container.appendChild(el);
-    yield new Promise(resolve => (0,_helpers_4d272360_js__WEBPACK_IMPORTED_MODULE_1__.c)(el, resolve));
+    yield new Promise(resolve => (0,_helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_1__.c)(el, resolve));
     return el;
   });
 
@@ -548,7 +548,7 @@ const CoreDelegate = () => {
   let Reference;
 
   const attachViewToDom = /*#__PURE__*/function () {
-    var _ref2 = (0,C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (parentElement, userComponent, userComponentProps = {}, cssClasses = []) {
+    var _ref2 = (0,C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (parentElement, userComponent, userComponentProps = {}, cssClasses = []) {
       var _a, _b;
 
       BaseComponent = parentElement;
@@ -582,16 +582,25 @@ const CoreDelegate = () => {
          */
 
         BaseComponent.appendChild(el);
-        yield new Promise(resolve => (0,_helpers_4d272360_js__WEBPACK_IMPORTED_MODULE_1__.c)(el, resolve));
+        yield new Promise(resolve => (0,_helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_1__.c)(el, resolve));
       } else if (BaseComponent.children.length > 0) {
-        // If there is no component, then we need to create a new parent
-        // element to apply the css classes to.
-        const el = (_b = BaseComponent.ownerDocument) === null || _b === void 0 ? void 0 : _b.createElement('div');
-        cssClasses.forEach(c => el.classList.add(c)); // Move each child from the original template to the new parent element.
+        const root = BaseComponent.children[0];
 
-        el.append(...BaseComponent.children); // Append the new parent element to the original parent element.
+        if (!root.classList.contains('ion-delegate-host')) {
+          /**
+           * If the root element is not a delegate host, it means
+           * that the overlay has not been presented yet and we need
+           * to create the containing element with the specified classes.
+           */
+          const el = (_b = BaseComponent.ownerDocument) === null || _b === void 0 ? void 0 : _b.createElement('div'); // Add a class to track if the root element was created by the delegate.
 
-        BaseComponent.appendChild(el);
+          el.classList.add('ion-delegate-host');
+          cssClasses.forEach(c => el.classList.add(c)); // Move each child from the original template to the new parent element.
+
+          el.append(...BaseComponent.children); // Append the new parent element to the original parent element.
+
+          BaseComponent.appendChild(el);
+        }
       }
       /**
        * Get the root of the app and
@@ -639,9 +648,9 @@ const CoreDelegate = () => {
 
 /***/ }),
 
-/***/ 634:
+/***/ 2815:
 /*!**************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/haptic-683b3b3c.js ***!
+  !*** ./node_modules/@ionic/core/dist/esm/haptic-029a46f6.js ***!
   \**************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -665,7 +674,30 @@ const HapticEngine = {
   },
 
   available() {
-    return !!this.getEngine();
+    var _a;
+
+    const win = window;
+    const engine = this.getEngine();
+
+    if (!engine) {
+      return false;
+    }
+    /**
+     * Developers can manually import the
+     * Haptics plugin in their app which will cause
+     * getEngine to return the Haptics engine. However,
+     * the Haptics engine will throw an error if
+     * used in a web browser that does not support
+     * the Vibrate API. This check avoids that error
+     * if the browser does not support the Vibrate API.
+     */
+
+
+    if (((_a = win.Capacitor) === null || _a === void 0 ? void 0 : _a.getPlatform()) === 'web') {
+      return typeof navigator !== 'undefined' && navigator.vibrate !== undefined;
+    }
+
+    return true;
   },
 
   isCordova() {
@@ -753,12 +785,21 @@ const HapticEngine = {
 
 };
 /**
+ * Check to see if the Haptic Plugin is available
+ * @return Returns `true` or false if the plugin is available
+ */
+
+const hapticAvailable = () => {
+  return HapticEngine.available();
+};
+/**
  * Trigger a selection changed haptic event. Good for one-time events
  * (not for gestures)
  */
 
+
 const hapticSelection = () => {
-  HapticEngine.selection();
+  hapticAvailable() && HapticEngine.selection();
 };
 /**
  * Tell the haptic engine that a gesture for a selection change is starting.
@@ -766,7 +807,7 @@ const hapticSelection = () => {
 
 
 const hapticSelectionStart = () => {
-  HapticEngine.selectionStart();
+  hapticAvailable() && HapticEngine.selectionStart();
 };
 /**
  * Tell the haptic engine that a selection changed during a gesture.
@@ -774,7 +815,7 @@ const hapticSelectionStart = () => {
 
 
 const hapticSelectionChanged = () => {
-  HapticEngine.selectionChanged();
+  hapticAvailable() && HapticEngine.selectionChanged();
 };
 /**
  * Tell the haptic engine we are done with a gesture. This needs to be
@@ -783,7 +824,7 @@ const hapticSelectionChanged = () => {
 
 
 const hapticSelectionEnd = () => {
-  HapticEngine.selectionEnd();
+  hapticAvailable() && HapticEngine.selectionEnd();
 };
 /**
  * Use this to indicate success/failure/warning to the user.
@@ -792,57 +833,16 @@ const hapticSelectionEnd = () => {
 
 
 const hapticImpact = options => {
-  HapticEngine.impact(options);
+  hapticAvailable() && HapticEngine.impact(options);
 };
 
 
 
 /***/ }),
 
-/***/ 2286:
+/***/ 3081:
 /*!*************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/index-33ffec25.js ***!
-  \*************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "w": () => (/* binding */ win)
-/* harmony export */ });
-/*!
- * (C) Ionic http://ionicframework.com - MIT License
- */
-
-/**
- * When accessing the window, it is important
- * to account for SSR applications where the
- * window is not available. Code that accesses
- * window when it is not available will crash.
- * Even checking if `window === undefined` will cause
- * apps to crash in SSR.
- *
- * Use win below to access an SSR-safe version
- * of the window.
- *
- * Example 1:
- * Before:
- * if (window.innerWidth > 768) { ... }
- *
- * After:
- * import { win } from 'path/to/this/file';
- * if (win?.innerWidth > 768) { ... }
- *
- * Note: Code inside of this if-block will
- * not run in an SSR environment.
- */
-const win = typeof window !== 'undefined' ? window : undefined;
-
-
-/***/ }),
-
-/***/ 7288:
-/*!*************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/index-3413f7be.js ***!
+  !*** ./node_modules/@ionic/core/dist/esm/index-5d0c8232.js ***!
   \*************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -860,8 +860,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "r": () => (/* binding */ resetContentScrollY),
 /* harmony export */   "s": () => (/* binding */ scrollToTop)
 /* harmony export */ });
-/* harmony import */ var C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
-/* harmony import */ var _helpers_4d272360_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helpers-4d272360.js */ 9158);
+/* harmony import */ var C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
+/* harmony import */ var _helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helpers-3b390e48.js */ 9234);
 /* harmony import */ var _index_c4b11676_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./index-c4b11676.js */ 9273);
 
 
@@ -883,7 +883,7 @@ const ION_CONTENT_CLASS_SELECTOR = '.ion-content-scroll-host';
 
 const ION_CONTENT_SELECTOR = `${ION_CONTENT_ELEMENT_SELECTOR}, ${ION_CONTENT_CLASS_SELECTOR}`;
 
-const isIonContent = el => el && el.tagName === ION_CONTENT_TAG_NAME;
+const isIonContent = el => el.tagName === ION_CONTENT_TAG_NAME;
 /**
  * Waits for the element host fully initialize before
  * returning the inner scroll element.
@@ -897,9 +897,9 @@ const isIonContent = el => el && el.tagName === ION_CONTENT_TAG_NAME;
 
 
 const getScrollElement = /*#__PURE__*/function () {
-  var _ref = (0,C_Users_Alesita_Documents_Sandbox_Ionic_Serviexpress_2_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (el) {
+  var _ref = (0,C_Users_Javi_Serviexpress_4_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (el) {
     if (isIonContent(el)) {
-      yield new Promise(resolve => (0,_helpers_4d272360_js__WEBPACK_IMPORTED_MODULE_1__.c)(el, resolve));
+      yield new Promise(resolve => (0,_helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_1__.c)(el, resolve));
       return el.getScrollElement();
     }
 
@@ -1022,9 +1022,9 @@ const resetContentScrollY = (contentEl, initialScrollY) => {
 
 /***/ }),
 
-/***/ 2312:
+/***/ 8953:
 /*!*************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/index-45ecc7ca.js ***!
+  !*** ./node_modules/@ionic/core/dist/esm/index-da396832.js ***!
   \*************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -1057,7 +1057,7 @@ __webpack_require__.r(__webpack_exports__);
  * (C) Ionic http://ionicframework.com - MIT License
  */
 
-/* Ionicons v6.0.2, ES Modules */
+/* Ionicons v6.0.4, ES Modules */
 const arrowBackSharp = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' class='ionicon' viewBox='0 0 512 512'><title>Arrow Back</title><path stroke-linecap='square' stroke-miterlimit='10' stroke-width='48' d='M244 400L100 256l144-144M120 256h292' class='ionicon-fill-none'/></svg>";
 const arrowDown = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' class='ionicon' viewBox='0 0 512 512'><title>Arrow Down</title><path stroke-linecap='round' stroke-linejoin='round' stroke-width='48' d='M112 268l144 144 144-144M256 392V100' class='ionicon-fill-none'/></svg>";
 const caretBackSharp = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' class='ionicon' viewBox='0 0 512 512'><title>Caret Back</title><path d='M368 64L144 256l224 192V64z'/></svg>";
@@ -1477,9 +1477,9 @@ const SPINNERS = spinners;
 
 /***/ }),
 
-/***/ 1812:
+/***/ 4293:
 /*!******************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/swipe-back-fa30a130.js ***!
+  !*** ./node_modules/@ionic/core/dist/esm/swipe-back-e1ef2243.js ***!
   \******************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -1487,10 +1487,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "createSwipeBackGesture": () => (/* binding */ createSwipeBackGesture)
 /* harmony export */ });
-/* harmony import */ var _helpers_4d272360_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helpers-4d272360.js */ 9158);
+/* harmony import */ var _helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helpers-3b390e48.js */ 9234);
 /* harmony import */ var _dir_e8b767a8_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dir-e8b767a8.js */ 7481);
-/* harmony import */ var _index_3f1a7d95_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./index-3f1a7d95.js */ 2172);
-/* harmony import */ var _gesture_controller_17e82006_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./gesture-controller-17e82006.js */ 607);
+/* harmony import */ var _index_f8d8aa5a_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./index-f8d8aa5a.js */ 9286);
+/* harmony import */ var _gesture_controller_17060b7c_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./gesture-controller-17060b7c.js */ 6379);
 /*!
  * (C) Ionic http://ionicframework.com - MIT License
  */
@@ -1556,17 +1556,11 @@ const createSwipeBackGesture = (el, canStartHandler, onStartHandler, onMoveHandl
       const dur = missingDistance / Math.abs(velocity);
       realDur = Math.min(dur, 540);
     }
-    /**
-     * TODO: stepValue can sometimes return negative values
-     * or values greater than 1 which should not be possible.
-     * Need to investigate more to find where the issue is.
-     */
 
-
-    onEndHandler(shouldComplete, stepValue <= 0 ? 0.01 : (0,_helpers_4d272360_js__WEBPACK_IMPORTED_MODULE_0__.l)(0, stepValue, 0.9999), realDur);
+    onEndHandler(shouldComplete, stepValue <= 0 ? 0.01 : (0,_helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_0__.l)(0, stepValue, 0.9999), realDur);
   };
 
-  return (0,_index_3f1a7d95_js__WEBPACK_IMPORTED_MODULE_2__.createGesture)({
+  return (0,_index_f8d8aa5a_js__WEBPACK_IMPORTED_MODULE_2__.createGesture)({
     el,
     gestureName: 'goback-swipe',
     gesturePriority: 40,
@@ -2012,7 +2006,7 @@ module.exports = "<ion-header>\r\n  <ion-toolbar >\r\n    <figure>\r\n      <img
   \******************************************************************************************/
 /***/ ((module) => {
 
-module.exports = "<ion-header>\n  <ion-toolbar >\n    <figure>\n      <img class=\"imgLogo\" src=\"../../assets/images/logo-ServiExpress.png\"> \n      \n    </figure>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <div class=\"ion-padding-vertical\">\n    <ion-card class=\"ion-text-center\">\n      <ion-card-title>\n        <ion-label>\n          <h1>Modificar Reserva</h1>\n        </ion-label>\n      </ion-card-title>\n\n      <ion-card-content>\n        <ion-item>\n          <ion-label position=\"floating\">Servicio</ion-label>\n          <ion-input type=\"text\" [(ngModel)]=\"servicioReserva\"></ion-input>\n        </ion-item>\n\n        <ion-item>\n          <ion-label position=\"floating\">Fecha visita</ion-label>\n          <ion-input type=\"text\" [(ngModel)]=\"fechaReserva\"></ion-input>\n        </ion-item>\n      </ion-card-content>\n      <ion-button shape=\"block\" (click)=\"editar()\">Guardar Cambios</ion-button>\n    </ion-card>\n\n  </div>\n</ion-content>\n";
+module.exports = "<ion-header>\r\n  <ion-toolbar >\r\n    <figure>\r\n      <img class=\"imgLogo\" src=\"../../assets/images/logo-ServiExpress.png\"> \r\n      \r\n    </figure>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n  <div class=\"ion-padding-vertical\">\r\n    <ion-card class=\"ion-text-center\">\r\n      <ion-card-title>\r\n        <ion-label>\r\n          <h1>Modificar Reserva</h1>\r\n        </ion-label>\r\n      </ion-card-title>\r\n\r\n      <ion-card-content>\r\n        <ion-item>\r\n          <ion-label position=\"floating\">Servicio</ion-label>\r\n          <ion-input type=\"text\" [(ngModel)]=\"servicioReserva\"></ion-input>\r\n        </ion-item>\r\n\r\n        <ion-item>\r\n          <ion-label position=\"floating\">Fecha visita</ion-label>\r\n          <ion-input type=\"text\" [(ngModel)]=\"fechaReserva\"></ion-input>\r\n        </ion-item>\r\n      </ion-card-content>\r\n      <ion-button shape=\"block\" (click)=\"editar()\">Guardar Cambios</ion-button>\r\n    </ion-card>\r\n\r\n  </div>\r\n</ion-content>\r\n";
 
 /***/ }),
 
