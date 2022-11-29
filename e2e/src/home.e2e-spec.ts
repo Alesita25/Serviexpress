@@ -5,6 +5,6 @@ describe('Prueba Home Cliente',()=>{
         browser.get("/cliente-home")
     });
     it("Titulo de Home cliente se muestra correctamente",()=>{
-        expect(element(by.css(".homecliente ion-title")).getText()).toContain("Home Cliente")
+        expect(element(by.css(".homecliente")).getText()).toContain("Hola")
     });
 });
