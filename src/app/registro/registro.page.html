@@ -9,11 +9,11 @@
 <ion-content slot="fixed">
   <form #form="ngForm" action="" [formGroup]="login"> 
       <ion-card lines="full" class="ion-no-margin">
-        <ion-img routerLink="/landing-home" src="assets/images/head.png"></ion-img>
+        <ion-img routerLink="/home" src="assets/images/head.png"></ion-img>
         <ion-card-content>
           <div class="login-express" slot="fixed">
             <ion-item lines="full">
-              <ion-label position="fixed">RUT</ion-label>
+              <ion-label position="fixed">Rut</ion-label>
               <ion-input type="text" name="rut" formControlName="rut"></ion-input>
             </ion-item>
             <ion-item lines="full">
@@ -45,14 +45,14 @@
                 <ng-container *ngIf="login.get('email').hasError(er.email) && (login.get('email').touched || login.get('email').dirty)">{{er.message}}</ng-container>
               </div>
             <ion-item lines="full">
-              <ion-label position="fixed">Contraseña</ion-label>
+              <ion-label position="fixed">Contraceña</ion-label>
               <ion-input type="password" name="password" formControlName="password"></ion-input>
             </ion-item>
               <div *ngFor="let er of errors">
                 <ng-container *ngIf="login.get('password').hasError(er.password) && (login.get('password').touched || login.get('password').dirty)">{{er.message}}</ng-container>
               </div>
             <ion-item lines="full">
-              <ion-label position="fixed">Dirección</ion-label>
+              <ion-label position="fixed">Direccion</ion-label>
               <ion-input type="text" name="direccion" formControlName="direccion"></ion-input>
             </ion-item>
               <div *ngFor="let er of errors">
@@ -67,8 +67,7 @@
               </div>
           </div>
           <div class="btn-express">
-            <ion-button (click)="presentAlert()" shape="round" [disabled]="form.invalid" type="submit" color="dark" expand="block" fill="solid">REGÍSTRATE</ion-button>
-            <ion-button routerLink="/login" shape="round" color="dark" expand="block" fill="solid">VOLVER</ion-button>
+            <ion-button (click)="presentAlert()" shape="round" [disabled]="form.invalid" type="submit" color="dark" expand="block" fill="solid">Registrate</ion-button>
           </div>
         </ion-card-content>
       </ion-card>

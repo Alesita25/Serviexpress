@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NgControlStatusGroup } from '@angular/forms';
 import { Router, NavigationExtras } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 
@@ -29,26 +28,25 @@ export class LoginClientePage implements OnInit {
         user: this.user
       }
     };
-    this.router.navigate(['cliente-home/cliente-misdatos'], NavigationExtras);
+    this.router.navigate(['/home'], NavigationExtras);
   }
   volver() {
-     let NavigationExtras: NavigationExtras = {
-       state: {
-       }
-     };
-     this.router.navigate(['/landing-home'], NavigationExtras);
-    
+    let NavigationExtras: NavigationExtras = {
+      state: {
+      }
+    };
+    this.router.navigate(['/home'], NavigationExtras);
 
   }
 
-   async showLoading() {
-     const loading = await this.loadingCtrl.create({
-       message: 'Loading...',
-       duration: 800,
-       spinner: 'circles',
+  async showLoading() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Loading...',
+      duration: 800,
+      spinner: 'circles',
     });
 
-     loading.present();
+    loading.present();
   }
 }  
 

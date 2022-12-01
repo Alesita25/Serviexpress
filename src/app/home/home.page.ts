@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
-import { NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -22,36 +21,5 @@ export class HomePage {
     });
   }
 
-  AgendaHora() {
-    let NavigationExtras: NavigationExtras = {
-      state: {
-      }
-    };
-    this.router.navigate(['/home'], NavigationExtras);
-
- }
-  Contacto() {
-    let NavigationExtras: NavigationExtras = {
-      state: {
-      }
-    };
-    this.router.navigate(['/home'], NavigationExtras);
-
-  }
-  Servicios() {
-    let NavigationExtras: NavigationExtras = {
-      state: {
-      }
-    };
-    this.router.navigate(['/home'], NavigationExtras);
-
-  }
-  Sucursales() {
-    let NavigationExtras: NavigationExtras = {
-      state: {
-      }
-    };
-    this.router.navigate(['/home'], NavigationExtras);
-
-  }
 }
+

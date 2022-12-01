@@ -12,17 +12,17 @@ export class RegistroPage  {
   // Alejandro Errores Registro empleado
   errors =[
     {nombre: 'required', message:'El campo no puede estar vacio'},
-    {nombre: 'maxlength', message:'El campo excede el máximo'},
-    {nombre: 'minlength', message:'El campo no cumple el mínimo'},
+    {nombre: 'maxlength', message:'El campo no puede ser tan largo'},
+    {nombre: 'minlength', message:'El campo no puede ser tan corto'},
     {nacimiento: 'required', message:'Ingrese su fecha de nacimiento'},
     {email: 'required', message:'Ingrese su email'},
-    {email: 'email', message:'Ingrese su email válido'},
-    {password: 'required', message:'Ingrese una contraseña'},
-    {password: 'maxlength', message:'La contraseña max 9 caracteres'},
-    {password: 'minlength', message:'La contraseña es muy corta'},
-    {celular: 'required', message:'El campo no puede estar vacío'},
-    {celular: 'max', message:'El campo excede el máximo'},
-    {celular: 'min', message:'El campo no cumple el mínimo'}
+    {email: 'email', message:'Ingrese su email valido'},
+    {password: 'required', message:'Ingrese una contraceña'},
+    {password: 'maxlength', message:'La contraceña max 9 caracteres'},
+    {password: 'minlength', message:'La contraceña es muy corta'},
+    {celular: 'required', message:'El campo no puede estar vacio'},
+    {celular: 'max', message:'El campo no puede ser tan largo'},
+    {celular: 'min', message:'El campo no puede ser tan corto'}
   ]
   // Alejandro Form Objetos validaciones formulario
   login = new FormGroup({ 
@@ -36,18 +36,17 @@ export class RegistroPage  {
     celular: new FormControl('',[Validators.required, Validators.maxLength(9),Validators.minLength(8)])
   })
   // Alejandro Alerta 
-  constructor(private alertController: AlertController, 
-              private router: Router) {}
+  constructor(private alertController: AlertController, private router: Router) {}
   async presentAlert() {
     const alert = await this.alertController.create({
       header: 'Felicidades',
       subHeader: 'Registro exitoso',
-      message: 'Seras redigido al Login',
+      message: 'Seras redigido al home',
       buttons: ['OK'],
       
     });
     await alert.present();
-    this.router.navigate(["/login"])
+    this.router.navigate(["/home"])
   }
 
 }

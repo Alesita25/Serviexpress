@@ -8,7 +8,7 @@
   <ion-card>
     <ion-card-content>
       <ion-item lines="full">
-        <ion-label position="floating">Email
+        <ion-label position="floating">Usuario
           <ion-icon ios="ios-information-circle" md="md-information-circle"></ion-icon>
         </ion-label>
         <ion-input maxlength="100" type="email" name="email" [(ngModel)]="user.usuario" required></ion-input>
@@ -25,9 +25,6 @@
           <ion-col>
             <ion-button size="medium" type ="submit" (click)="showLoading();volver()">Volver</ion-button>
             <ion-button size="medium" type ="submit"(click)="showLoading();ingresar()">Ingresar</ion-button>
-            <div class="registro">
-              <ion-button routerLink="/registro-cliente" fill="clear" class="ion-no-padding"> ¡Regístrate aquí!</ion-button>
-            </div>
 
           </ion-col>
         </ion-row>  
