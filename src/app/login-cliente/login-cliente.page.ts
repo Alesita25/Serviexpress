@@ -11,6 +11,8 @@ import { LoadingController } from '@ionic/angular';
 })
 export class LoginClientePage implements OnInit {
 
+  token = "login";
+
   user={
     usuario:"",
     password:""
@@ -22,6 +24,8 @@ export class LoginClientePage implements OnInit {
   }
 
   ingresar() { 
+
+    localStorage.setItem("token",this.token)
 
     let NavigationExtras: NavigationExtras = {
       state: {

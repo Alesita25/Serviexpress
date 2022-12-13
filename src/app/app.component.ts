@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 
 export class AppComponent {
   navigate : any;
-  user = 'Seba';
+  user = 'Alejandra';
   //librería para enrutar páginas
   constructor(private route: Router) { }
 
