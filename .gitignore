@@ -12,8 +12,7 @@
 Thumbs.db
 UserInterfaceState.xcuserstate
 $RECYCLE.BIN/
-package-lock.json*
-package.json*
+
 
 *.log
 log.txt
@@ -31,4 +30,3 @@ npm-debug.log*
 /node_modules
 /platforms
 /plugins
-/www
